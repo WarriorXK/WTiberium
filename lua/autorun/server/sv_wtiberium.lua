@@ -59,16 +59,20 @@ end
 
 function WTib.AddResources()
 	if file.Exists(WTib.Config.ResourceFile) then
-		print("WTib - Adding resource files :\n***************************")
+		print("\nWTib - Adding resource files...")
+		WTib.DebugPrint("***************************")
 		for _,v in pairs(string.Explode("\n",file.Read(WTib.Config.ResourceFile))) do
 			if string.find(v,"//") == 1 then
-				print("\n"..v)
-			elseif v != "" then
+				WTib.DebugPrint(v)
+			elseif v == "" then
+				WTib.DebugPrint("\n")
+			else
 				resource.AddFile(v)
-				print(v)
+				WTib.DebugPrint(v)
 			end
 		end
-		print("***************************\nDone")
+		WTib.DebugPrint("***************************")
+		print("Done\n")
 	else
 		print("WTib - \""..WTib.Config.ResourceFile.."\" does not exists, not adding resources.")
 	end
