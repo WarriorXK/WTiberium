@@ -2,6 +2,7 @@
 WTib = WTib or {}
 WTib.InfectedEntities			= {}
 WTib.Config						= {}
+WTib.Config.ResourceFile		= "WTib/resources.txt"
 WTib.Config.MaximumFieldSize	= 70
 
 /*
@@ -54,6 +55,23 @@ function WTib.GetAllTiberium(tFilter)
 		end
 	end
 	return tData
+end
+
+function WTib.AddResources()
+	if file.Exists(WTib.Config.ResourceFile) then
+		print("WTib - Adding resource files :\n***************************")
+		for _,v in pairs(string.Explode("\n",file.Read(WTib.Config.ResourceFile))) do
+			if string.find(v,"//") == 1 then
+				print("\n"..v)
+			elseif v != "" then
+				resource.AddFile(v)
+				print(v)
+			end
+		end
+		print("***************************\nDone")
+	else
+		print("WTib - \""..WTib.Config.ResourceFile.."\" does not exists, not adding resources.")
+	end
 end
 
 function WTib.CreateTiberium(creator,class,t,ply)
@@ -251,3 +269,5 @@ if Tags == nil then
 elseif !string.find(Tags,"WTiberium") then
 	RunConsoleCommand("sv_tags","WTiberium,"..Tags)
 end
+
+WTib.AddResources()
