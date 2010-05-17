@@ -6,7 +6,6 @@ function EFFECT:Init(d)
 	self.StartPos = d:GetStart()
 	self.EndPos = d:GetOrigin()
 	self.Normal = d:GetNormal()
-	self.Dir = self.EndPos-self.StartPos
 	self.fDelta = 3
 	self.Entity:SetRenderBoundsWS(self.StartPos,self.EndPos)
 	self.DieTime = CurTime()+d:GetMagnitude()

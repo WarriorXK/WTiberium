@@ -10,7 +10,7 @@ function EFFECT:Init(data)
 end
 
 function EFFECT:Think()
-	if !ValidEntity(self.OEnt) or !ValidEntity(self.TEnt) or !table.HasValue(ents.FindInCone(self.OEnt:GetPos(),self.OEnt:GetUp(),self.MaxLeng,10),self.TEnt) then
+	if !ValidEntity(self.OEnt) or !ValidEntity(self.TEnt) or !self.TEnt.dt.Online or !table.HasValue(ents.FindInCone(self.OEnt:GetPos(),self.OEnt:GetUp(),self.MaxLeng,10),self.TEnt) then
 		if self.Emitter then
 			self.Emitter:Finish()
 		end
@@ -21,23 +21,25 @@ function EFFECT:Think()
 end
 
 function EFFECT:Render()
-	local part
-	local StartPos = self.TEnt:LocalToWorld(Vector(math.Rand(-10,10),math.Rand(-10,10),math.Rand(-10,10)))
-	if self.Emitter then
-		part = self.Emitter:Add("particle/Particle_Glow_03.vtf",StartPos)
-	end
-	if part then
-		part:SetColor(0,150,0,100)
-		part:SetAirResistance(5)
-		part:SetDieTime(1.5)
-		part:SetGravity(Vect)
-		part:SetVelocity((self.OEnt:GetPos()-StartPos))
-		part:SetLifeTime(0)
-		part:SetRoll(self.OEnt:GetAngles())
-		part:SetRollDelta(0)
-		part:SetStartSize(7)
-		part:SetEndSize(0)
-		part:SetStartAlpha(100)
-		part:SetEndAlpha(0)
+	if ValidEntity(self.TEnt) and ValidEntity(self.OEnt) then
+		local part
+		local StartPos = self.TEnt:LocalToWorld(Vector(math.Rand(-10,10),math.Rand(-10,10),math.Rand(-10,10)))
+		if self.Emitter then
+			part = self.Emitter:Add("particle/Particle_Glow_03.vtf",StartPos)
+		end
+		if part then
+			part:SetColor(0,150,0,100)
+			part:SetAirResistance(5)
+			part:SetDieTime(1.5)
+			part:SetGravity(Vect)
+			part:SetVelocity((self.OEnt:GetPos()-StartPos))
+			part:SetLifeTime(0)
+			part:SetRoll(self.OEnt:GetAngles())
+			part:SetRollDelta(0)
+			part:SetStartSize(7)
+			part:SetEndSize(0)
+			part:SetStartAlpha(100)
+			part:SetEndAlpha(0)
+		end
 	end
 end

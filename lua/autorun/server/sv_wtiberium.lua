@@ -211,10 +211,12 @@ function WTib.SelectMostDistant(num)
 	local Ent
 	local Dis = 0
 	for _,v in pairs(WTib.Fields[num].Entities) do
-		local a = v:GetPos():Distance(WTib.GetFieldMaster(num):GetPos())
-		if a > Dis then
-			Ent = v
-			Dis = a
+		if ValidEntity(v) then
+			local a = v:GetPos():Distance(WTib.GetFieldMaster(num):GetPos())
+			if a > Dis then
+				Ent = v
+				Dis = a
+			end
 		end
 	end
 	WTib.Fields[num].MostDistant = Ent
@@ -230,7 +232,7 @@ end
 
 function WTib.GetFieldMaster(num)
 	if !ValidEntity(WTib.Fields[num].Master) then
-		WTib.SelectNewFieldMaster(num)
+		return WTib.SelectNewFieldMaster(num)
 	end
 	return WTib.Fields[num].Master
 end
@@ -254,7 +256,9 @@ function WTib.SelectNewFieldMaster(num)
 	WTib.Fields[num].Master = Ent
 	if !ValidEntity(Ent) then
 		WTib.KillField(num)
+		return
 	end
+	return Ent
 end
 
 timer.Create("WTib.FieldTimer",5,0,function()
