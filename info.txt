@@ -2,10 +2,10 @@
 {
 	"name"			"WTiberium"
 	"version"		"SVN"
-	"up_date"		""
-	"author_name"	"Warrior xXx - kevkev | Models by Lynix"
+	"up_date"		"Always"
+	"author_name"	"Warrior xXx aka. kevkev"
 	"author_email"	"kevkevm@gmail.com"
-	"author_url"	""
-	"info"			"A tiberium addon that adds tiberium and harvesting tools."
+	"author_url"	"http://www.facepunch.com/showthread.php?t=923587"
+	"info"			"An addon that adds Tiberium crystals, the tools to harvest it and entities to use the resources."
 	"override"		"0"
 }
