@@ -33,6 +33,31 @@ function WTib.Factory.GetObjectByID(id)
 end
 
 /*
+	Dispenser functions
+*/
+
+WTib.Dispenser = {}
+WTib.Dispenser.Objects = {}
+
+function WTib.Dispenser.AddObject(tab)
+	local id = table.Count(WTib.Dispenser.Objects)+1
+	WTib.Dispenser.Objects[id] = tab
+	return id
+end
+
+function WTib.Dispenser.RemoveObject(id)
+	WTib.Dispenser.Objects[id] = nil
+end
+
+function WTib.Dispenser.GetObjects()
+	return WTib.Dispenser.Objects
+end
+
+function WTib.Dispenser.GetObjectByID(id)
+	return WTib.Dispenser.Objects[id]
+end
+
+/*
 	Debug things
 */
 
@@ -102,5 +127,5 @@ function WTib.Trace(...) // Make it stargate compatible later on maybe.
 end
 
 function WTib.GetClass(ent)
-	return string.Replace(ent.Folder,"entities/","")
+	return string.Replace(string.Replace(ent.Folder,"entities/",""),"weapons/","")
 end

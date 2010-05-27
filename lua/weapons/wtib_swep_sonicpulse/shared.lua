@@ -1,5 +1,6 @@
 
 SWEP.Base					= "wtib_swep_base"
+SWEP.PrintName				= "WTib Sonic Pulse"
 SWEP.Spawnable				= true
 SWEP.AdminSpawnable			= true
 
@@ -10,7 +11,7 @@ SWEP.Weight					= 5
 SWEP.AutoSwitchTo			= false
 SWEP.AutoSwitchFrom			= false
 
-SWEP.Primary.Sound			= Sound( "Weapon_Glock.Single" )
+SWEP.Primary.Sound			= Sound("")
 SWEP.Primary.Recoil			= 1.8
 SWEP.Primary.Damage			= 16
 SWEP.Primary.NumShots		= 1
@@ -26,14 +27,15 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
-SWEP.LastCharge				= 0
-SWEP.ChargeSound			= Sound("")
-SWEP.ShootSound				= Sound("")
+SWEP.NextFire				= 0
+
+SWEP.ShootingSound			= Sound("")
+SWEP.EndSound				= Sound("")
 
 function SWEP:SetupDataTables()
 	self:DTVar("Bool",0,"Ironsights")
 	self:DTVar("Float",0,"LastShootTime")
-	self:DTVar("Float",1,"Charge")
+	self:DTVar("Float",1,"Heat")
 end
 
 function SWEP:Reload() end
@@ -43,37 +45,60 @@ function SWEP:SecondaryAttack() end
 function SWEP:Think()
 	if !IsValid(self.Owner) then return end
 	if self.Owner:KeyPressed(IN_ATTACK) then
-		self:EmitSound(self.ChargeSound)
-		self.dt.Charge = 1
+		if CLIENT then
+			self:EmitSound(self.ShootingSound)
+		end
 	elseif self.Owner:KeyDown(IN_ATTACK) then
-		if self.LastCharge+0.1 <= CurTime() then
-			self.dt.Charge = math.Clamp(self.dt.Charge+1,1,100)
-			self.LastCharge = CurTime()
+		if SERVER then
+			if self.NextFire <= CurTime() then
+				local Origin = self.Owner:GetShootPos()
+				local Target = self.Owner:GetAimVector()
+				//print("\n")
+				for i=1,5 do
+					timer.Simple(i/6,function()
+						local Dist = 25*i
+						for _,v in pairs(ents.FindInCone(Origin,Target,Dist,10)) do
+							if v.IsTiberium then
+								local Dam = Dist-Origin:Distance(v:GetPos())
+								if Dam < 0 then Dam = -Dam end
+								//print(Dam)
+								v:TakeSonicDamage(Dam)
+							end
+						end
+					end)
+				end
+				self.NextFire = CurTime()+0.2
+			end
+			self.dt.Heat = self.dt.Heat+0.2
 		end
 	elseif self.Owner:KeyReleased(IN_ATTACK) then
-		self:FireWeapon()
+		if CLIENT then
+			self:StopSound(self.ShootingSound)
+			self:EmitSound(self.EndSound)
+		end
+	else
+		if self.dt.Heat > 0 then
+			self.dt.Heat = self.dt.Heat-0.1
+		end
 	end
 end
 
-function SWEP:FireWeapon()
-	self:StopSound(self.ChargeSound)
-	self:EmitSound(self.ShootSound)
-	if SERVER then
-		local Origin = self.Owner:GetShootPos()
-		local Target = self.Owner:GetAimVector()
-		local Charge = self.dt.Charge
-		for i=1,5 do
-			timer.Simple(i/6,function()
-				local Dist = 25*i
-				for _,v in pairs(ents.FindInCone(Origin,Target,Dist,10)) do
-					if v.IsTiberium then
-						local Dam = (Dist-Origin:Distance(v:GetPos()))*(Charge/10)
-						if Dam < 0 then Dam = -Dam end
-						v:TakeSonicDamage(Dam)
-					end
-				end
-			end)
-		end
+WTib.Dispenser.AddObject({
+	Name = SWEP.PrintName,
+	Class = WTib.GetClass(SWEP),
+	Model = SWEP.WorldModel,
+	PercentDelay = 0.02,
+	Information =	{
+						SWEP.PrintName,
+						"\nSonic weapon that destroys Tiberium, don't overheat it!"
+					},
+	CreateEnt = function(dispenser,angles,pos,id)
+		local ent = ents.Create(WTib.Dispenser.GetObjectByID(id).Class)
+		ent:SetPos(pos)
+		ent:SetAngles(angles)
+		ent:Spawn()
+		ent:Activate()
+		ent:SetModel(WTib.Dispenser.GetObjectByID(id).Model)
+		return ent
 	end
-	self.dt.Charge = 0
-end
+})
