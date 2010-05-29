@@ -1,5 +1,6 @@
 ENT.Type			= "anim"
-ENT.PrintName		= "Medium Powerplant"
+ENT.Base			= "wtib_reftibstorage_medium"
+ENT.PrintName		= "Large Refined Tiberium Storage"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= ""
@@ -9,19 +10,17 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:DTVar("Int",0,"Boosting")
-	self:DTVar("Int",1,"Chemicals")
-	self:DTVar("Bool",0,"Online")
+	self:DTVar("Int",0,"RefinedTiberium")
 end
 
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/medium_tiberium_reactor.mdl",
-	PercentDelay = 0.70,
+	Model = "models/Tiberium/large_tiberium_storage.mdl",
+	PercentDelay = 0.07,
 	Information =	{
 						ENT.PrintName,
-						"\nUses Tiberium chemicals to generate Energy. Can be fueled with Liquid Tiberium for an increased output."
+						"\nStores up to 9000 units of refined Tiberium."
 					},
 	CreateEnt = function(factory,angles,pos,id)
 		local ent = ents.Create(WTib.Factory.GetObjectByID(id).Class)

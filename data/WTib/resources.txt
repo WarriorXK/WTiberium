@@ -44,6 +44,7 @@ model/Tiberium/medium_energy_cell.mdl
 model/Tiberium/medium_growth_accelerator.mdl
 model/Tiberium/medium_harvester.mdl
 model/Tiberium/medium_tiberium_radar.mdl
+model/Tiberium/medium_tiberium_reactor.mdl
 model/Tiberium/medium_tiberium_storage.mdl
 model/Tiberium/medium_trip.mdl
 model/Tiberium/small_chemical_storage.mdl

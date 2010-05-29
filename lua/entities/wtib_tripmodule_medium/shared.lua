@@ -1,5 +1,5 @@
 ENT.Type			= "anim"
-ENT.PrintName		= "TRIP Module Medium"
+ENT.PrintName		= "Medium TRIP Module"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= ""
@@ -20,7 +20,7 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.08,
 	Information =	{
 						ENT.PrintName,
-						"\nThis factory converts refined Tiberium into Tiberium chemicals."
+						"\nUses Tiberium radiation to generate energy."
 					},
 	CreateEnt = function(factory,angles,pos,id)
 		local ent = ents.Create(WTib.Factory.GetObjectByID(id).Class)

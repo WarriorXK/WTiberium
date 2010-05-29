@@ -7,10 +7,13 @@ WTib.ApplyDupeFunctions(ENT)
 util.PrecacheSound("apc_engine_start")
 util.PrecacheSound("apc_engine_stop")
 
+ENT.ChemRequired = 50
+ENT.EnergySupply = 300
+
 ENT.NextSupply = 0
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/large_tiberium_reactor.mdl")
+	self:SetModel("models/Tiberium/medium_tiberium_reactor.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
@@ -34,11 +37,11 @@ end
 function ENT:Think()
 	self.dt.Chemicals = WTib.GetResourceAmount(self,"ChemicalTiberium")
 	if self.dt.Online and self.NextSupply <= CurTime() then
-		if self.dt.Chemicals >= 50 then
-			WTib.ConsumeResource(self,"ChemicalTiberium",50)
-			WTib.SupplyResource(self,"energy",300)
+		if self.dt.Chemicals >= self.ChemRequired then
+			WTib.ConsumeResource(self,"ChemicalTiberium",self.ChemRequired)
+			WTib.SupplyResource(self,"energy",self.EnergySupply)
 			if self.dt.Boosting and WTib.GetResourceAmount(self,"LiquidTiberium") >= 10 then
-				WTib.SupplyResource(self,"energy",500)
+				WTib.SupplyResource(self,"energy",self.EnergySupply*1.4)
 				WTib.ConsumeResource(self,"LiquidTiberium",10)
 			end
 		else

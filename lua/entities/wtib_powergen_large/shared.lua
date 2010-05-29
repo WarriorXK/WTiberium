@@ -1,5 +1,6 @@
 ENT.Type			= "anim"
-ENT.PrintName		= "Medium Powerplant"
+ENT.Base			= "wtib_powergen_medium"
+ENT.PrintName		= "Large Powerplant"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= ""
@@ -17,7 +18,7 @@ end
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/medium_tiberium_reactor.mdl",
+	Model = "models/Tiberium/large_tiberium_reactor.mdl",
 	PercentDelay = 0.70,
 	Information =	{
 						ENT.PrintName,
