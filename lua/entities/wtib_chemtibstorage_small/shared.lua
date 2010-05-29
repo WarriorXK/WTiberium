@@ -1,5 +1,6 @@
 ENT.Type			= "anim"
-ENT.PrintName		= "Medium Tiberium Radar"
+ENT.Base			= "wtib_chemtibstorage_medium"
+ENT.PrintName		= "Small Chemical Storage "
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= ""
@@ -9,19 +10,17 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:DTVar("Bool",0,"Online")
-	self:DTVar("Bool",1,"HasTarget")
-	self:DTVar("Int",0,"Energy")
+	self:DTVar("Int",0,"ChemicalTiberium")
 end
 
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/medium_tiberium_radar.mdl",
-	PercentDelay = 0.03,
+	Model = "models/Tiberium/small_chemical_storage.mdl",
+	PercentDelay = 0.04,
 	Information =	{
 						ENT.PrintName,
-						"\nMedium Radar."
+						"\nStores up to 1000 units of Tiberium chemicals."
 					},
 	CreateEnt = function(factory,angles,pos,id)
 		local ent = ents.Create(WTib.Factory.GetObjectByID(id).Class)

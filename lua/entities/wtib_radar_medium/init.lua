@@ -4,7 +4,7 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
-ENT.Range = 5000
+ENT.Range = 10000
 
 function ENT:Initialize()
 	self:SetModel("models/Tiberium/medium_tiberium_radar.mdl")

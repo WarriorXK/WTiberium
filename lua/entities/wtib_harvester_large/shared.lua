@@ -1,5 +1,6 @@
 ENT.Type			= "anim"
-ENT.PrintName		= "Medium Tiberium Radar"
+ENT.Base			= "wtib_harvester_medium"
+ENT.PrintName		= "Large Harvester"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= ""
@@ -9,19 +10,19 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:DTVar("Bool",0,"Online")
-	self:DTVar("Bool",1,"HasTarget")
 	self:DTVar("Int",0,"Energy")
+	self:DTVar("Int",1,"RawTiberium")
+	self:DTVar("Bool",0,"Online")
 end
 
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/medium_tiberium_radar.mdl",
-	PercentDelay = 0.03,
+	Model = "models/Tiberium/large_harvester.mdl",
+	PercentDelay = 0.05,
 	Information =	{
 						ENT.PrintName,
-						"\nMedium Radar."
+						"\nUsed to harvest raw Tiberium from Tiberium crystals."
 					},
 	CreateEnt = function(factory,angles,pos,id)
 		local ent = ents.Create(WTib.Factory.GetObjectByID(id).Class)

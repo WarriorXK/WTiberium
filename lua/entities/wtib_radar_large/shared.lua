@@ -1,5 +1,6 @@
 ENT.Type			= "anim"
-ENT.PrintName		= "Medium Tiberium Radar"
+ENT.Base			= "wtib_radar_medium"
+ENT.PrintName		= "Large Tiberium Radar"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= ""
@@ -17,11 +18,11 @@ end
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/medium_tiberium_radar.mdl",
+	Model = "models/Tiberium/large_tiberium_radar.mdl",
 	PercentDelay = 0.03,
 	Information =	{
 						ENT.PrintName,
-						"\nMedium Radar."
+						"\nLarge Radar."
 					},
 	CreateEnt = function(factory,angles,pos,id)
 		local ent = ents.Create(WTib.Factory.GetObjectByID(id).Class)
