@@ -24,3 +24,7 @@ function ENT:Initialize()
 	WTib.AddResource(self,"energy",0)
 	WTib.RegisterEnt(self,"Generator")
 end
+
+function ENT:SpawnFunction(p,t)
+	return WTib.SpawnFunction(p,t,143,self)
+end
