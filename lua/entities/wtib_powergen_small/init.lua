@@ -8,7 +8,7 @@ ENT.ChemRequired = 25
 ENT.EnergySupply = 150
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/large_tiberium_reactor.mdl")
+	self:SetModel("models/Tiberium/small_tiberium_reactor.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
