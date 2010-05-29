@@ -31,6 +31,7 @@ function ENT:Think()
 			if self.dt.PercentageComplete >= 100 then
 				local ent = WTib.Dispenser.GetObjectByID(self.dt.BuildingID).CreateEnt(self,self.dt.CurObject:GetAngles(),self.dt.CurObject:GetPos(),self.dt.BuildingID)
 				ent.WDSO = self.dt.CurObject.WDSO
+				constraint.Weld(self,ent,0,0,4000)
 				self.dt.CurObject:Remove()
 				self.dt.CurObject = nil
 				self.dt.IsBuilding = false
@@ -84,7 +85,7 @@ function ENT:BuildObject(id,ply)
 		self.dt.CurObject:Spawn()
 		self.dt.CurObject:Activate()
 		//self.dt.CurObject:SetPos(WorldToLocal(Attach.Pos,self:GetAngles(),self.dt.CurObject:OBBCenter(),self:GetAngles()))
-		self.dt.CurObject:SetPos(self:LocalToWorld(Vector(7,14,22)))
+		self.dt.CurObject:SetPos(self:LocalToWorld(Vector(7,14,23)))
 		self.dt.CurObject:SetParent(self)
 		self.dt.CurObject.dt.Dispenser = self
 		self.dt.CurObject.WDSO = ply or self
