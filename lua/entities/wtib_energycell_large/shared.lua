@@ -17,7 +17,7 @@ WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
 	Model = "models/Tiberium/large_energy_cell.mdl",
-	PercentDelay = 0.03,
+	PercentDelay = 0.23,
 	Information =	{
 						ENT.PrintName,
 						"\nStores up to 9000 units of Energy."

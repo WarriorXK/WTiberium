@@ -19,7 +19,7 @@ WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
 	Model = "models/Tiberium/small_tiberium_reactor.mdl",
-	PercentDelay = 0.70,
+	PercentDelay = 0.1,
 	Information =	{
 						ENT.PrintName,
 						"\nUses Tiberium chemicals to generate Energy. Can be fueled with Liquid Tiberium for an increased output."

@@ -19,7 +19,7 @@ WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
 	Model = "models/Tiberium/large_harvester.mdl",
-	PercentDelay = 0.05,
+	PercentDelay = 0.09,
 	Information =	{
 						ENT.PrintName,
 						"\nUsed to harvest raw Tiberium from Tiberium crystals."

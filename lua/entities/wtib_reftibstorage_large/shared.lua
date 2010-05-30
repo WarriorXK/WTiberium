@@ -17,7 +17,7 @@ WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
 	Model = "models/Tiberium/large_tiberium_storage.mdl",
-	PercentDelay = 0.07,
+	PercentDelay = 0.1,
 	Information =	{
 						ENT.PrintName,
 						"\nStores up to 9000 units of refined Tiberium."
