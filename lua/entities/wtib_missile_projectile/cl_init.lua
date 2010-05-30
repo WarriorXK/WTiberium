@@ -14,3 +14,4 @@ function ENT:Think()
 	return true
 end
 language.Add(WTib.GetClass(ENT),ENT.PrintName)
+killicon.Add("wtib_missile_projectile","killicons/wtib_missile_killicon",Color( 255, 80, 0, 255 ))

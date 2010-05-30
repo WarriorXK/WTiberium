@@ -1,32 +1,53 @@
 // Killicons :
+materials/killicons/wtib_missile_killicon.vtf
 materials/killicons/wtib_missile_killicon.vmt
 
 // Model Textures :
 materials/models/metal_normal.vtf
 materials/models/metal1.vtf
+materials/models/metal1.vmt
 materials/models/metal2.vtf
+materials/models/metal2.vmt
 materials/models/metal3.vtf
+materials/models/metal3.vmt
 materials/models/metal3_gdi.vtf
+materials/models/metal3_gdi.vmt
 materials/models/metal3_nod.vtf
+materials/models/metal3_nod.vmt
 materials/models/metal4.vtf
+materials/models/metal4.vmt
 materials/models/metal4_gdi.vtf
+materials/models/metal4_gdi.vmt
 materials/models/metal4_nod.vtf
+materials/models/metal4_nod.vmt
 materials/models/screen.vtf
+materials/models/screen.vmt
 materials/models/tib_shard.vtf
+materials/models/tib_shard.vmt
 materials/models/tiberium_b.vtf
+materials/models/tiberium_b.vmt
 materials/models/tiberium_g.vtf
+materials/models/tiberium_g.vmt
 materials/models/tiberium_goo.vtf
+materials/models/tiberium_goo.vmt
 materials/models/tiberium_normal.vtf
+materials/models/tiberium_normal.vmt
 materials/models/tiberium_r.vtf
+materials/models/tiberium_r.vmt
 materials/models/white.vtf
+materials/models/white.vmt
 
 // Spawn icons :
 materials/vgui/entities/wtib_tiberium_blue.vtf
+materials/vgui/entities/wtib_tiberium_blue.vmt
 materials/vgui/entities/wtib_tiberium_green.vtf
+materials/vgui/entities/wtib_tiberium_green.vmt
 
 // Misc textures :
 materials/wtiberium/tiberiumlaser/bluelight.vtf
+materials/wtiberium/tiberiumlaser/bluelight.vmt
 materials/wtiberium/tiberiumlaser/redlight.vtf
+materials/wtiberium/tiberiumlaser/redlight.vmt
 
 // Models :
 models/Tiberium/chemical_plant.mdl
