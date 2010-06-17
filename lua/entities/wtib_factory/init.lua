@@ -48,7 +48,7 @@ function ENT:Think()
 			end
 			self.LastBuild = CurTime()
 		end
-		if self.NextEffect <= CurTime() then
+		if self.NextEffect <= CurTime() and ValidEntity(self.dt.CurObject) then
 			local Mins = self.dt.CurObject:OBBMins()
 			local Maxs = self.dt.CurObject:OBBMaxs()
 			local z = Mins.z+(((Maxs.z-Mins.z)/100)*self.dt.PercentageComplete)

@@ -223,6 +223,7 @@ function WTib.SelectMostDistant(num)
 end
 
 function WTib.GetFieldCount(num)
+	if !WTib.IsValidField(num) then return 0 end
 	return table.Count(WTib.Fields[num].Entities)
 end
 
@@ -231,6 +232,7 @@ function WTib.IsFieldFull(num)
 end
 
 function WTib.GetFieldMaster(num)
+	if !WTib.IsValidField(num) then return end
 	if !ValidEntity(WTib.Fields[num].Master) then
 		return WTib.SelectNewFieldMaster(num)
 	end
@@ -238,6 +240,7 @@ function WTib.GetFieldMaster(num)
 end
 
 function WTib.GetFieldMax(num)
+	if !WTib.IsValidField(num) then return 0 end
 	return WTib.Fields[num].MaximumEntities or WTib.Config.MaximumFieldSize
 end
 
