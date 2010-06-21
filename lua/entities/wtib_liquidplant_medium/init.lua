@@ -49,7 +49,7 @@ function ENT:Think()
 	WTib.TriggerOutput(self,"LiquidTiberium",WTib.GetResourceAmount(self,"LiquidTiberium"))
 	WTib.TriggerOutput(self,"RawTiberium",RawTiberium)
 	self.dt.Energy = Energy
-	self.dt.Raw = RawTiberium
+	self.dt.RawTiberium = RawTiberium
 end
 
 function ENT:OnRestore()

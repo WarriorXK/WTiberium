@@ -86,7 +86,7 @@ function WTib.CreateTiberium(creator,class,t,ply)
 	local ang = t.HitNormal:Angle()+Angle(90,0,0)
 	ang:RotateAroundAxis(ang:Up(),math.random(0,360))
 	e:SetAngles(ang)
-	e:SetPos(t.HitPos)
+	e:SetPos(t.HitPos+ang:Up()*5)
 	if creator and creator.IsValid and creator:IsValid() then
 		e:SetField(creator:GetField())
 	end

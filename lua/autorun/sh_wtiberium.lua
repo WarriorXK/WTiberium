@@ -85,12 +85,19 @@ end
 	Hooks
 */
 
-function WTib.PhysPickup(ply,ent)
+function WTib.PhysgunPickup(ply,ent)
 	if ent.IsTiberium or ent.NoPhysicsPickup then
 		return false
 	end
 end
-hook.Add("PhysgunPickup","WTib.PhysPickup",WTib.PhysPickup)
+hook.Add("PhysgunPickup","WTib.PhysgunPickup",WTib.PhysgunPickup)
+
+function WTib.ShouldCollide(ent1,ent2)
+	if ent1.IsTiberium or ent2.IsTiberium then
+		return false
+	end
+end
+hook.Add("ShouldCollide","WTib.ShouldCollide",WTib.ShouldCollide)
 
 /*
 	RD and Wire functions
