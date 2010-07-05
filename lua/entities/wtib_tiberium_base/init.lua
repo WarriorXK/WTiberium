@@ -50,8 +50,8 @@ function ENT:Think()
 	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then
 		self:AttemptReproduce()
 	end
-	local MDist = WTib.GetFieldMaster(self:GetField()):GetPos()
-	local GDist = WTib.GetFurthestCrystalFromField(self:GetField()):GetPos():Distance(MDist)
+	local MDist = (WTib.GetFieldMaster(self:GetField()) or self):GetPos()
+	local GDist = (WTib.GetFurthestCrystalFromField(self:GetField()) or self):GetPos():Distance(MDist)
 	self.dt.CrystalSize = ((self:GetTiberiumAmount()/MaxTiberium)*(1-(self:GetPos():Distance(MDist)/GDist)))+0.5
 	self:CheckColor()
 	self:DamageTouchingEntities()
