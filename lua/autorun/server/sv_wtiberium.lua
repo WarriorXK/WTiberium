@@ -10,7 +10,7 @@ WTib.Config.MaximumFieldSize	= 70
 */
 
 concommand.Add("WTib_RemoveAllTiberium",function(ply,com,args)
-	if ply == NULL ply:IsAdmin() then
+	if ply == NULL or ply:IsAdmin() then
 		for _,v in pairs(WTib.GetAllTiberium()) do
 			v:Remove()
 		end
