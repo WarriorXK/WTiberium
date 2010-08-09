@@ -25,6 +25,7 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:InitTiberium()
+	self:SetAcceleration(1)
 	self.NextReproduce = 0
 	self.Produces = {}
 	self.NextGrow = 0
@@ -44,7 +45,7 @@ end
 function ENT:Think()
 	local MaxTiberium = self:GetMaxTiberiumAmount()
 	if self.NextGrow <= CurTime() then
-		self:SetTiberiumAmount(self:GetTiberiumAmount()+self.Growth_Addition)
+		self:SetTiberiumAmount(self:GetTiberiumAmount()+(self.Growth_Addition*self:GetAcceleration()))
 		self.NextGrow = CurTime()+self.Growth_Delay
 	end
 	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then
@@ -138,7 +139,6 @@ function ENT:AttemptReproduce()
 	end
 	for i=1,5 do
 		local pos = self:LocalToWorld(self:OBBCenter())
-		math.randomseed(CurTime())
 		local t = WTib.Trace(pos,VectorRand()*math.random(-500,500),Filter)
 		local ed = EffectData()
 			ed:SetOrigin(pos)
@@ -181,6 +181,10 @@ end
 
 function ENT:SetField(num)
 	self.dt.TiberiumField = num
+end
+
+function ENT:SetAcceleration(int)
+	self.dt.Acceleration = int
 end
 
 function ENT:SetTiberiumAmount(am)

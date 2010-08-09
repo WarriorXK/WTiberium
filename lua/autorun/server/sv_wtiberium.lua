@@ -27,7 +27,7 @@ concommand.Add("WTib_RemoveAllTiberium",function(ply,com,args)
 end)
 
 concommand.Add("WTib_DefaultMaxFieldSize",function(ply,com,args)
-	if ply:IsAdmin() then
+	if ply == NULL or ply:IsAdmin() then
 		local val = math.Clamp(tonumber(args[1]),10,300)
 		WTib.Config.MaximumFieldSize = val
 		for _,v in pairs(player.GetAll()) do
@@ -87,7 +87,7 @@ function WTib.CreateTiberium(creator,class,t,ply)
 	ang:RotateAroundAxis(ang:Up(),math.random(0,360))
 	e:SetAngles(ang)
 	e:SetPos(t.HitPos+ang:Up()*5)
-	if creator and creator.IsValid and creator:IsValid() then
+	if ValidEntity(creator) and (creator:GetField() or 0) > 0 then
 		e:SetField(creator:GetField())
 	end
 	e.WDSO = p
@@ -252,7 +252,7 @@ function WTib.SelectNewFieldMaster(num)
 	local Ent
 	local LIndex = 10000
 	for _,e in pairs(WTib.Fields[num].Entities) do
-		if e:EntIndex() <= LIndex then
+		if e:EntIndex() <= LIndex and ValidEntity(e) then
 			Ent = e
 		end
 	end
@@ -274,11 +274,12 @@ timer.Create("WTib.FieldTimer",5,0,function()
 	end
 end)
 
-local Tags = GetConVarString("sv_tags") //Thanks PHX!
-if Tags == nil then
-	RunConsoleCommand("sv_tags","WTiberium")
-elseif !string.find(Tags,"WTiberium") then
-	RunConsoleCommand("sv_tags","WTiberium,"..Tags)
+function WTib.AddTag()
+	local Tags = string.Explode(",",GetConVarString("sv_tags") or "")
+	table.insert(Tags,"WTiberium")
+	table.sort(Tags)
+	RunConsoleCommand("sv_tags",table.concat(Tags,","))
 end
+WTib.AddTag()
 
 WTib.AddResources()

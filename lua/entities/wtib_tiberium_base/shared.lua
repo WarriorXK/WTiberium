@@ -17,7 +17,7 @@ ENT.Reproduce_Delay = 30
 ENT.TiberiumStartAmount = 400
 ENT.MaxTiberiumAmount = 2000
 ENT.TiberiumColor = Color(0,0,0,0)
-ENT.Class = "wtib_tiberium_base"
+ENT.Class = WTib.GetClass(ENT)
 
 ENT.Damage_Explode_RequiredDamage = 0
 ENT.Damage_ExplosionDelay = 0
@@ -37,6 +37,7 @@ function ENT:SetupDataTables()
 	self:DTVar("Int",2,"ColorDevider")
 	self:DTVar("Int",3,"TiberiumField")
 	self:DTVar("Float",0,"CrystalSize")
+	self:DTVar("Float",1,"Acceleration")
 end
 
 function ENT:GetTiberiumAmount()
@@ -61,4 +62,8 @@ end
 
 function ENT:GetField()
 	return self.dt.TiberiumField
+end
+
+function ENT:GetAcceleration()
+	return self.dt.Acceleration >= 1 and self.dt.Acceleration or 1
 end
