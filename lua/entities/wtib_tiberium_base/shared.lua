@@ -17,7 +17,7 @@ ENT.Reproduce_Delay = 30
 ENT.TiberiumStartAmount = 400
 ENT.MaxTiberiumAmount = 2000
 ENT.TiberiumColor = Color(0,0,0,0)
-ENT.Class = WTib.GetClass(ENT)
+ENT.Class = "wtib_tiberium_base"
 
 ENT.Damage_Explode_RequiredDamage = 0
 ENT.Damage_ExplosionDelay = 0

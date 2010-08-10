@@ -18,6 +18,7 @@ ENT.Reproduce_Delay = 30
 ENT.TiberiumStartAmount = 400
 ENT.MaxTiberiumAmount = 5000
 ENT.TiberiumColor = Color(255,0,0,0)
+ENT.Class = "wtib_tiberium_red"
 
 ENT.Damage_Explode_RequiredDamage = 30
 ENT.Damage_ExplosionDelay = 0.7
