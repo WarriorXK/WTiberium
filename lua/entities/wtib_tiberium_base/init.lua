@@ -68,7 +68,7 @@ function ENT:OnTakeDamage(dmginfo)
 end
 
 function ENT:Explode(dmginfo)
-	if ValidEntity(self) then
+	if WTib.IsValid(self) then
 		util.BlastDamage(self,self,self:LocalToWorld(self:OBBCenter()),self.Damage_Explode_Size,self.Damage_Explode_Damage)
 		local ed = EffectData()
 			ed:SetOrigin(self:LocalToWorld(self:OBBCenter()))
@@ -114,7 +114,7 @@ end
 function ENT:AttemptReproduce()
 	local Amount = 0
 	for k,v in pairs(self.Produces) do
-		if v and v:IsValid() then
+		if WTib.IsValid(v) then
 			Amount = Amount+1
 		else
 			self.Produces[k] = nil
@@ -158,7 +158,7 @@ function ENT:AttemptReproduce()
 			WTib.DebugEffect("WTib_DebugTrace",ed)
 		end
 		local ent = WTib.CreateTiberium(self,self.Class,t,self.WDSO)
-		if ValidEntity(ent) then
+		if WTib.IsValid(ent) then
 			table.insert(self.Produces,ent)
 			WTib.DebugPrint("New Tiberium grown from old")
 			self.NextReproduce = CurTime()+self.Reproduce_Delay

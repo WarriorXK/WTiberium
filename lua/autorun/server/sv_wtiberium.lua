@@ -87,14 +87,14 @@ function WTib.CreateTiberium(creator,class,t,ply)
 	ang:RotateAroundAxis(ang:Up(),math.random(0,360))
 	e:SetAngles(ang)
 	e:SetPos(t.HitPos+ang:Up()*5)
-	if ValidEntity(creator) and (creator:GetField() or 0) > 0 then
+	if WTib.IsValid(creator) and (creator:GetField() or 0) > 0 then
 		e:SetField(creator:GetField())
 	end
 	e.WDSO = p
 	e:Spawn()
 	e:Activate()
 	util.Decal(e.Decal,t.HitPos-(t.HitNormal*(e.DecalSize or 1)),t.HitPos+(t.HitNormal*(e.DecalSize or 1)))
-	if ValidEntity(t.Entity) and !t.Entity:IsWorld() then
+	if WTib.IsValid(t.Entity) and !t.Entity:IsWorld() then
 		e:SetMoveType(MOVETYPE_VPHYSICS)
 		e:SetParent(t.Entity)
 	end
@@ -139,7 +139,7 @@ timer.Create("WTib.InfectedTimer",1,0,function()
 	local dmginfo = DamageInfo()
 	dmginfo:SetDamageType(DMG_ACID)
 	for _,v in pairs(WTib.InfectedEntities) do
-		if ValidEntity(v) and (v:IsPlayer() and v:Alive() or true) then
+		if WTib.IsValid(v) and (v:IsPlayer() and v:Alive() or true) then
 			dmginfo:SetAttacker(v)
 			dmginfo:SetInflictor(v)
 			dmginfo:SetDamage(math.random(1,3))
@@ -194,7 +194,7 @@ function WTib.KillField(num)
 end
 
 function WTib.GetFurthestCrystalFromField(num)
-	if !ValidEntity(WTib.Fields[num].MostDistant) then
+	if !WTib.IsValid(WTib.Fields[num].MostDistant) then
 		WTib.SelectMostDistant(num)
 	end
 	return WTib.Fields[num].MostDistant
@@ -211,7 +211,7 @@ function WTib.SelectMostDistant(num)
 	local Ent
 	local Dis = 0
 	for _,v in pairs(WTib.Fields[num].Entities) do
-		if ValidEntity(v) then
+		if WTib.IsValid(v) then
 			local a = v:GetPos():Distance(WTib.GetFieldMaster(num):GetPos())
 			if a > Dis then
 				Ent = v
@@ -233,7 +233,7 @@ end
 
 function WTib.GetFieldMaster(num)
 	if !WTib.IsValidField(num) then return end
-	if !ValidEntity(WTib.Fields[num].Master) then
+	if !WTib.IsValid(WTib.Fields[num].Master) then
 		return WTib.SelectNewFieldMaster(num)
 	end
 	return WTib.Fields[num].Master
@@ -252,12 +252,12 @@ function WTib.SelectNewFieldMaster(num)
 	local Ent
 	local LIndex = 10000
 	for _,e in pairs(WTib.Fields[num].Entities) do
-		if e:EntIndex() <= LIndex and ValidEntity(e) then
+		if e:EntIndex() <= LIndex and WTib.IsValid(e) then
 			Ent = e
 		end
 	end
 	WTib.Fields[num].Master = Ent
-	if !ValidEntity(Ent) then
+	if !WTib.IsValid(Ent) then
 		WTib.KillField(num)
 		return
 	end
@@ -267,7 +267,7 @@ end
 timer.Create("WTib.FieldTimer",5,0,function()
 	for num,field in pairs(WTib.Fields) do
 		for k,v in pairs(field.Entities) do
-			if !ValidEntity(v) then
+			if !WTib.IsValid(v) then
 				WTib.Fields[num].Entities[k] = nil
 			end
 		end

@@ -28,7 +28,7 @@ function ENT:Think()
 end
 
 function ENT:Use(ply)
-	if !ply or !ply:IsValid() or !ply:IsPlayer() then return end
+	if WTib.IsValid(ply) then return end
 	self:LaunchMissile()
 end
 

@@ -136,3 +136,7 @@ end
 function WTib.GetClass(ent)
 	return string.Replace(string.Replace(ent.Folder,"entities/",""),"weapons/","")
 end
+
+function WTib.IsValid(e)
+	return e and e.IsValid and e:IsValid()
+end
