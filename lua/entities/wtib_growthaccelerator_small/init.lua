@@ -9,7 +9,7 @@ ENT.MaxRange			= 170
 ENT.MinRange			= 10
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/medium_growth_accelerator.mdl")
+	self:SetModel("models/Tiberium/small_growth_accelerator.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

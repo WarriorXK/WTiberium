@@ -36,24 +36,24 @@ end
 function ENT:Think()
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	if self.NextCheck <= CurTime() and self.dt.Online then
-		local ents = {}
+		local Ents = {}
 		for _,v in pairs(ents.FindInSphere(self:GetPos(),self:GetRange())) do
 			if ValidEntity(v) and v.IsTiberium then
-				table.insert(ents,v)
+				table.insert(Ents,v)
 			end
 		end
 		for _,v in pairs(self.AcceleratedEnts) do
-			if !table.HasValue(ents,v) then
+			if !table.HasValue(Ents,v) then
 				if ValidEntity(v) then
 					v:SetAcceleration(1)
 				end
 				self.AcceleratedEnts[k] = nil
 			end
 		end
-		self.AcceleratedEnts = ents
-		local Drain = table.Count(ents)*(self:GetRange()/(20+self.AccelerationLevel))
+		self.AcceleratedEnts = Ents
+		local Drain = table.Count(Ents)*(self:GetRange()/(20+self.AccelerationLevel))
 		if Energy >= Drain then
-			for _,v in pairs(ents) do
+			for _,v in pairs(Ents) do
 				v:SetAcceleration(self.AccelerationLevel)
 			end
 			WTib.ConsumeResource(self,"energy",Drain)
