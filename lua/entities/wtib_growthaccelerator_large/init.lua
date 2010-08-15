@@ -5,7 +5,7 @@ include('shared.lua')
 WTib.ApplyDupeFunctions(ENT)
 
 ENT.AccelerationLevel	= 2
-ENT.MaxRange			= 330
+ENT.MaxRange			= 450
 ENT.MinRange			= 10
 
 function ENT:Initialize()
@@ -22,7 +22,7 @@ function ENT:Initialize()
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Range","MaxRange","Energy"})
 	WTib.AddResource(self,"energy",0)
 	WTib.RegisterEnt(self,"Generator")
-	self:SetRange(self.MinRange)
+	self:SetRange(self.MaxRange)
 	WTib.TriggerOutput(self,"MaxRange",self.MaxRange)
 end
 

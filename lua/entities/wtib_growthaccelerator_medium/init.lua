@@ -5,7 +5,7 @@ include('shared.lua')
 WTib.ApplyDupeFunctions(ENT)
 
 ENT.AccelerationLevel	= 1.75
-ENT.MaxRange			= 250
+ENT.MaxRange			= 350
 ENT.MinRange			= 10
 
 ENT.AcceleratedEnts = {}
@@ -25,7 +25,7 @@ function ENT:Initialize()
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Range","MaxRange","Energy"})
 	WTib.AddResource(self,"energy",0)
 	WTib.RegisterEnt(self,"Generator")
-	self:SetRange(self.MinRange)
+	self:SetRange(self.MaxRange)
 	WTib.TriggerOutput(self,"MaxRange",self.MaxRange)
 end
 
@@ -42,7 +42,7 @@ function ENT:Think()
 				table.insert(Ents,v)
 			end
 		end
-		for _,v in pairs(self.AcceleratedEnts) do
+		for k,v in pairs(self.AcceleratedEnts) do
 			if !table.HasValue(Ents,v) then
 				if ValidEntity(v) then
 					v:SetAcceleration(1)
@@ -51,7 +51,7 @@ function ENT:Think()
 			end
 		end
 		self.AcceleratedEnts = Ents
-		local Drain = table.Count(Ents)*(self:GetRange()/(20+self.AccelerationLevel))
+		local Drain = (table.Count(Ents)*(self:GetRange()/(20+self.AccelerationLevel)))*2
 		if Energy >= Drain then
 			for _,v in pairs(Ents) do
 				v:SetAcceleration(self.AccelerationLevel)
