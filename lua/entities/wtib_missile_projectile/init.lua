@@ -48,7 +48,7 @@ function ENT:Launch(ply)
 end
 
 function ENT:CanBeMounted()
-	return !ValidEntity(self.Launcher) and !self.Launched
+	return !WTib.IsValid(self.Launcher) and !self.Launched
 end
 
 function ENT:LoadToLauncher(ent)

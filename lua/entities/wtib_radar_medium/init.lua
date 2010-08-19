@@ -32,7 +32,7 @@ function ENT:Think()
 		local Amount = math.ceil(self.Range/50)
 		if self.dt.Energy >= Amount then
 			WTib.ConsumeResource("energy",Amount)
-			if !ValidEntity(self.Target) then
+			if !WTib.IsValid(self.Target) then
 				local Range = math.huge
 				for _,v in pairs(ents.FindInSphere(self:GetPos(),self.Range)) do
 					if v.IsTiberium then
@@ -59,11 +59,11 @@ function ENT:Think()
 		end
 	end
 	self:TriggerOutputs(Target)
-	self.dt.HasTarget = self.dt.Online and ValidEntity(self.Target)
+	self.dt.HasTarget = self.dt.Online and WTib.IsValid(self.Target)
 end
 
 function ENT:TriggerOutputs(ent)
-	if ValidEntity(ent) then
+	if WTib.IsValid(ent) then
 		local GPos = ent:GetPos()
 		WTib.TriggerOutput(self,"GlobalX",GPos.x)
 		WTib.TriggerOutput(self,"GlobalY",GPos.y)

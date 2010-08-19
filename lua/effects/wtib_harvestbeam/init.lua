@@ -10,7 +10,7 @@ function EFFECT:Init(data)
 end
 
 function EFFECT:Think()
-	if !ValidEntity(self.OEnt) or !ValidEntity(self.TEnt) or !self.TEnt.dt.Online or !table.HasValue(ents.FindInCone(self.OEnt:GetPos(),self.OEnt:GetUp(),self.MaxLeng,10),self.TEnt) then
+	if !WTib.IsValid(self.OEnt) or !WTib.IsValid(self.TEnt) or !self.TEnt.dt.Online or !table.HasValue(ents.FindInCone(self.OEnt:GetPos(),self.OEnt:GetUp(),self.MaxLeng,10),self.TEnt) then
 		if self.Emitter then
 			self.Emitter:Finish()
 		end
@@ -21,7 +21,7 @@ function EFFECT:Think()
 end
 
 function EFFECT:Render()
-	if ValidEntity(self.TEnt) and ValidEntity(self.OEnt) then
+	if WTib.IsValid(self.TEnt) and WTib.IsValid(self.OEnt) then
 		local part
 		local StartPos = self.TEnt:LocalToWorld(Vector(math.Rand(-10,10),math.Rand(-10,10),math.Rand(-10,10)))
 		if self.Emitter then

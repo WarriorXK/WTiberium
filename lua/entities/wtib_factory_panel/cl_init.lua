@@ -15,7 +15,7 @@ function ENT:Draw3D2D()
 	// The percentage completed
 	local Text = "Idle"
 	local Percent = 0
-	if ValidEntity(self.dt.Factory) then
+	if WTib.IsValid(self.dt.Factory) then
 		Percent = self.dt.Factory.dt.PercentageComplete
 		if self.dt.Factory.dt.IsBuilding then
 			Text = "Working..."

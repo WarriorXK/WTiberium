@@ -55,7 +55,7 @@ function ENT:Think()
 		*/
 	end
 	WTib.TriggerOutput(self,"PercentageComplete",tonumber(self.dt.PercentageComplete))
-	if !ValidEntity(self.PlayerUsingMe) then
+	if !WTib.IsValid(self.PlayerUsingMe) then
 		self.BeingUsed = false
 		self.PlayerUsingMe = nil
 	end
@@ -105,7 +105,7 @@ end
 
 concommand.Add("wtib_dispenser_closemenu",function(ply,com,args)
 	local ent = ents.GetByIndex(args[1])
-	if ValidEntity(ent) then
+	if WTib.IsValid(ent) then
 		ent.BeingUsed = false
 		ent.PlayerUsingMe = nil
 	end
@@ -113,7 +113,7 @@ end)
 
 concommand.Add("wtib_dispenser_buildobject",function(ply,com,args)
 	local ent = ents.GetByIndex(args[1])
-	if ValidEntity(ent) then
+	if WTib.IsValid(ent) then
 		ent:BuildObject(math.Round(args[2]),ply)
 	end
 end)

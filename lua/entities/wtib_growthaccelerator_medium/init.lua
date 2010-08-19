@@ -38,13 +38,13 @@ function ENT:Think()
 	if self.NextCheck <= CurTime() and self.dt.Online then
 		local Ents = {}
 		for _,v in pairs(ents.FindInSphere(self:GetPos(),self:GetRange())) do
-			if ValidEntity(v) and v.IsTiberium then
+			if WTib.IsValid(v) and v.IsTiberium then
 				table.insert(Ents,v)
 			end
 		end
 		for k,v in pairs(self.AcceleratedEnts) do
 			if !table.HasValue(Ents,v) then
-				if ValidEntity(v) then
+				if WTib.IsValid(v) then
 					v:SetAcceleration(1)
 				end
 				self.AcceleratedEnts[k] = nil

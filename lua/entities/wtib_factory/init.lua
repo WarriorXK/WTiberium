@@ -48,7 +48,7 @@ function ENT:Think()
 			end
 			self.LastBuild = CurTime()
 		end
-		if self.NextEffect <= CurTime() and ValidEntity(self.dt.CurObject) then
+		if self.NextEffect <= CurTime() and WTib.IsValid(self.dt.CurObject) then
 			local Mins = self.dt.CurObject:OBBMins()
 			local Maxs = self.dt.CurObject:OBBMaxs()
 			local z = Mins.z+(((Maxs.z-Mins.z)/100)*self.dt.PercentageComplete)
@@ -66,7 +66,7 @@ function ENT:Think()
 		end
 	end
 	WTib.TriggerOutput(self,"PercentageComplete",tonumber(self.dt.PercentageComplete))
-	if !ValidEntity(self.PlayerUsingMe) then
+	if !WTib.IsValid(self.PlayerUsingMe) then
 		self.BeingUsed = false
 		self.PlayerUsingMe = nil
 	end
@@ -114,7 +114,7 @@ end
 
 concommand.Add("wtib_factory_closemenu",function(ply,com,args)
 	local ent = ents.GetByIndex(args[1])
-	if ValidEntity(ent) then
+	if WTib.IsValid(ent) then
 		ent.BeingUsed = false
 		ent.PlayerUsingMe = nil
 	end
@@ -122,7 +122,7 @@ end)
 
 concommand.Add("wtib_factory_buildobject",function(ply,com,args)
 	local ent = ents.GetByIndex(args[1])
-	if ValidEntity(ent) then
+	if WTib.IsValid(ent) then
 		ent:BuildObject(math.Round(args[2]),ply)
 	end
 end)
