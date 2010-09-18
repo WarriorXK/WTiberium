@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$basetexture"		"wtiberium/crystal_g"
+	//"$bumpmap"		"wtiberium/crystal_n"
+	"$surfaceprop"		"glass"
+	"$translucent"		"1"
+	"$envmap"		"models/props_trainstation/trainstation_clock_glass001_mask"
+	"$envmapsaturation"	".90"
+	"$envmapcontrast"		"1"
+	"$envmaptint"		"[-1 2 -1]"
+}
