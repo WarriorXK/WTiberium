@@ -137,7 +137,7 @@ function ENT:AttemptReproduce()
 			table.insert(Filter,v)
 		end
 	end
-	for i=1,5 do
+	for i=1,10 do
 		local pos = self:LocalToWorld(self:OBBCenter())
 		local t = WTib.Trace(pos,VectorRand()*math.random(-500,500),Filter)
 		local ed = EffectData()
@@ -166,7 +166,7 @@ function ENT:AttemptReproduce()
 			WTib.AddFieldMember(self:GetField(),ent)
 			break
 		else
-			self.NextReproduce = CurTime()+2
+			self.NextReproduce = CurTime()+60
 		end
 	end
 end
