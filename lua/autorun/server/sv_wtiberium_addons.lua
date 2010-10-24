@@ -31,6 +31,7 @@ function WTib.GetResourceAmount(a,b,c)
 	elseif WTib.HasRD2() then
 		return RD_GetResourceAmount(a,b,c)
 	end
+	return 0
 end
 
 function WTib.RemoveRDEnt(a)
@@ -47,6 +48,7 @@ function WTib.GetNetworkCapacity(a,b)
 	elseif WTib.HasRD2() then
 		return RD_GetNetworkCapacity(a,b)
 	end
+	return 0
 end
 
 function WTib.BuildDupeInfo(a)

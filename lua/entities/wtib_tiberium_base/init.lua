@@ -7,7 +7,7 @@ ENT.Produces = {}
 ENT.NextGrow = 0
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/tiberium_crystal1.mdl")
+	self:SetRandomModel()
 	self:PhysicsInit(SOLID_BBOX)
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetSolid(SOLID_BBOX)
@@ -18,6 +18,11 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	self:InitTiberium()
+end
+
+function ENT:SetRandomModel()
+	local Modl = table.Random(self.Models)
+	self:SetModel(util.IsValidModel(Modl) and Modl or "models/Tiberium/tiberium_crystal1.mdl")
 end
 
 function ENT:SpawnFunction(p,t)

@@ -17,6 +17,10 @@ ENT.Reproduce_Delay = 30
 ENT.TiberiumStartAmount = 400
 ENT.MaxTiberiumAmount = 2000
 ENT.TiberiumColor = Color(0,0,0,0)
+ENT.Models =	{
+					"models/Tiberium/tiberium_crystal1.mdl",
+					"models/Tiberium/tiberium_crystal3.mdl"
+				}
 ENT.Class = "wtib_tiberium_base"
 
 ENT.Damage_Explode_RequiredDamage = 0
