@@ -1,7 +1,7 @@
 include('shared.lua')
 
 ENT.GrowingSinceSpawn = true
-ENT.RenderGroup = RENDERGROUP_BOTH
+ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 ENT.LightSize = 0
 ENT.LastSize = 0
 
