@@ -274,12 +274,14 @@ timer.Create("WTib.FieldTimer",5,0,function()
 	end
 end)
 
-function WTib.AddTag()
-	local Tags = string.Explode(",",GetConVarString("sv_tags") or "")
-	table.insert(Tags,"WTiberium")
-	table.sort(Tags)
-	RunConsoleCommand("sv_tags",table.concat(Tags,","))
-end
-WTib.AddTag()
+// Shamelessly stolen from Wiremod
+local cvar = GetConVar("sv_tags")
+timer.Create("WTib_Tags",1,0,function()
+	local tags = cvar:GetString()
+	if (!tags:find( "WTiberium" )) then
+		local tag = "WTiberium"
+		RunConsoleCommand( "sv_tags", tags .. "," .. tag )
+	end	
+end)
 
 WTib.AddResources()
