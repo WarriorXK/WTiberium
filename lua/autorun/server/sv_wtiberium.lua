@@ -3,6 +3,7 @@ WTib = WTib or {}
 WTib.InfectedEntities			= {}
 WTib.Config						= {}
 WTib.Config.ResourceFile		= "WTib/resources.txt"
+WTib.Config.ForceResources		= false
 WTib.Config.MaximumFieldSize	= 70
 
 /*
@@ -58,7 +59,7 @@ function WTib.GetAllTiberium(tFilter)
 end
 
 function WTib.AddResources()
-	if file.Exists(WTib.Config.ResourceFile) then
+	if WTib.Config.ForceResources and file.Exists(WTib.Config.ResourceFile) then
 		print("\nWTib - Adding resource files...")
 		WTib.DebugPrint("***************************")
 		for _,v in pairs(string.Explode("\n",file.Read(WTib.Config.ResourceFile))) do
