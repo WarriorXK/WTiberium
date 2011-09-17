@@ -27,13 +27,16 @@ SWEP.Secondary.DefaultClip	= -1
 SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
+SWEP.LastWarning			= 0
+SWEP.NextDamage				= 0
 SWEP.NextFire				= 0
 
 SWEP.ShootingSound			= Sound("")
+SWEP.WarningSound			= Sound("")
 SWEP.EndSound				= Sound("")
 
 function SWEP:SetupDataTables()
-	self:DTVar("Bool",0,"Ironsights")
+	self:DTVar("Bool",0,"Shooting")
 	self:DTVar("Float",0,"LastShootTime")
 	self:DTVar("Float",1,"Heat")
 end
@@ -45,6 +48,10 @@ function SWEP:SecondaryAttack() end
 function SWEP:Think()
 	if !IsValid(self.Owner) then return end
 	if self.Owner:KeyPressed(IN_ATTACK) then
+		self.dt.Shooting = true
+		local ed = EffectData()
+			ed:SetEntity(self)
+		util.Effect("wtib_swep_sonicpulse")
 		if CLIENT then
 			self:EmitSound(self.ShootingSound)
 		end
@@ -72,6 +79,7 @@ function SWEP:Think()
 			self.dt.Heat = self.dt.Heat+0.2
 		end
 	elseif self.Owner:KeyReleased(IN_ATTACK) then
+		self.dt.Shooting = false
 		if CLIENT then
 			self:StopSound(self.ShootingSound)
 			self:EmitSound(self.EndSound)
@@ -80,6 +88,19 @@ function SWEP:Think()
 		if self.dt.Heat > 0 then
 			self.dt.Heat = self.dt.Heat-0.1
 		end
+	end
+	if self.dt.Heat >= 50 and self.LastWarning <= CurTime() then
+		self:EmitSound(self.WarningSound)
+		self.LastWarning = CurTime()+4
+	end
+	if SERVER and self.dt.Heat >= 75 and self.NextDamage <= CurTime() then
+		local DmgInfo = DamageInfo()
+		DmgInfo:SetDamageType(DMG_BURN)
+		DmgInfo:SetInflictor(self)
+		DmgInfo:SetAttacker(self.Owner)
+		DmgInfo:SetDamage((self.dt.Heat-50)/4)
+		self.Owner:TakeDamageInfo(DmgInfo)
+		self.NextDamage = CurTime()+0.5
 	end
 end
 
