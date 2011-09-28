@@ -51,7 +51,7 @@ function SWEP:Think()
 		self.dt.Shooting = true
 		local ed = EffectData()
 			ed:SetEntity(self)
-		util.Effect("wtib_swep_sonicpulse")
+		util.Effect("wtib_swep_sonicpulse",ed)
 		if CLIENT then
 			self:EmitSound(self.ShootingSound)
 		end
