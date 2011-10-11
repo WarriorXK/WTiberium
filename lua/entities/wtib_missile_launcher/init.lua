@@ -23,8 +23,10 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
-	self.dt.Loaded = WTib.IsValid(self.Missile)
-	WTib.TriggerOutput(self,"Can Fire",tonumber(self.dt.Loaded))
+	self.dt.Loaded = ValidEntity(self.Missile)
+	local num = 0
+	if self.dt.Loaded then num = 1 end
+	WTib.TriggerOutput(self,"Can Fire",num)
 end
 
 function ENT:Use(ply)

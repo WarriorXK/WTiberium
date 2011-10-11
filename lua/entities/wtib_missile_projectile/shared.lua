@@ -26,7 +26,7 @@ ENT.Warheads[1] =	{
 						Name = "Basic",
 						Explode = function(self,data)
 							data = data or {}
-							util.BlastDamage(self,self.WDSO,self:GetPos(),math.Rand(200,300),math.Rand(300,400))
+							util.BlastDamage(self,ValidEntity(self.WDSO) and self.WDSO or self,self:GetPos(),math.Rand(200,300),math.Rand(300,400))
 							local ed = EffectData()
 							ed:SetOrigin(data.HitPos or self:GetPos())
 							ed:SetStart(data.HitPos or self:GetPos())
