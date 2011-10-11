@@ -21,13 +21,23 @@ WTib.Factory.AddObject({
 						ENT.PrintName,
 						"\nLaunches missiles lolol."
 					},
-	CreateEnt = function(factory,angles,pos,id)
-		local ent = ents.Create(WTib.Factory.GetObjectByID(id).Class)
+	CreateEnt = function( factory, angles, pos, id, ply )
+		local Obj = WTib.Factory.GetObjectByID(id)
+		local ent = ents.Create(Obj.Class)
 		ent:SetPos(pos)
 		ent:SetAngles(angles)
 		ent:Spawn()
 		ent:Activate()
-		ent:SetModel(WTib.Factory.GetObjectByID(id).Model)
+		ent:SetModel(Obj.Model)
+		
+		if ply then
+			ent.WDSO = ply
+			undo.Create(Obj.Name)
+				undo.AddEntity(ent)
+				undo.SetPlayer(ply)
+			undo.Finish()
+		end
+		
 		return ent
 	end
 })

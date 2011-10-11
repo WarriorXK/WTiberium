@@ -15,14 +15,17 @@ function ENT:Draw3D2D()
 	// The percentage completed
 	local Text = "Idle"
 	local Percent = 0
+	local CurProj = "None"
 	if WTib.IsValid(self.dt.Factory) then
 		Percent = self.dt.Factory.dt.PercentageComplete
 		if self.dt.Factory.dt.IsBuilding then
-			Text = "Working..."
+			Text = "Working, "..Percent.."%"
+			CurProj = WTib.Factory.GetObjectByID(self.dt.Factory.dt.BuildingID).Name
 		end
 	end
 	draw.DrawText(Text,"Trebuchet18",1,4,Color(255,255,255,255),ALIGN_LEFT)
-	draw.DrawText("Completed : "..Percent.."%","Trebuchet18",1,20,Color(255,255,255,255),ALIGN_LEFT)
+	draw.DrawText("Current project : ","Trebuchet18",1,36,Color(255,255,255,255),ALIGN_LEFT)
+	draw.DrawText(CurProj,"Trebuchet18",1,52,Color(255,255,255,255),ALIGN_LEFT)
 end
 
 function ENT:Think()

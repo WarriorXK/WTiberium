@@ -4,7 +4,6 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
-ENT.NextEffect = 0
 ENT.LastBuild = 0
 
 function ENT:Initialize()
@@ -39,7 +38,9 @@ function ENT:Think()
 		if self.LastBuild+WTib.Factory.GetObjectByID(self.dt.BuildingID).PercentDelay <= CurTime() then
 			self.dt.PercentageComplete = self.dt.PercentageComplete+1
 			if self.dt.PercentageComplete >= 100 then
-				local ent = WTib.Factory.GetObjectByID(self.dt.BuildingID).CreateEnt(self,self.dt.CurObject:GetAngles(),self.dt.CurObject:GetPos(),self.dt.BuildingID)
+				local ply
+				if ValidEntity(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
+				local ent = WTib.Factory.GetObjectByID(self.dt.BuildingID).CreateEnt(self, self.dt.CurObject:GetAngles(), self.dt.CurObject:GetPos(), self.dt.BuildingID, ply)
 				ent.WDSO = self.dt.CurObject.WDSO
 				self.dt.CurObject:Remove()
 				self.dt.CurObject = nil
@@ -47,22 +48,6 @@ function ENT:Think()
 				WTib.TriggerOutput(self,"IsBuilding",0)
 			end
 			self.LastBuild = CurTime()
-		end
-		if self.NextEffect <= CurTime() and WTib.IsValid(self.dt.CurObject) then
-			local Mins = self.dt.CurObject:OBBMins()
-			local Maxs = self.dt.CurObject:OBBMaxs()
-			local z = Mins.z+(((Maxs.z-Mins.z)/100)*self.dt.PercentageComplete)
-
-			for i=1,4 do
-				local Attach = self:GetAttachment(self:LookupAttachment("las"..tostring(i)))
-				local ed = EffectData()
-					ed:SetStart(Attach.Pos)
-					ed:SetOrigin(self.dt.CurObject:LocalToWorld(Vector(math.random(Mins.z,Maxs.x),math.random(Mins.y,Maxs.y),z)))
-					ed:SetMagnitude(0.1)
-					ed:SetNormal(self:GetUp())
-				util.Effect("wtib_factorylaser",ed)
-			end
-			self.NextEffect = CurTime()+0.1
 		end
 	end
 	WTib.TriggerOutput(self,"PercentageComplete",tonumber(self.dt.PercentageComplete))
