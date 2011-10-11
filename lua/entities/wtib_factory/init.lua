@@ -20,7 +20,7 @@ function ENT:Initialize()
 end
 
 function ENT:SpawnFunction(p,t)
-	local ent = WTib.SpawnFunction(p,t,13,self)
+	local ent = WTib.SpawnFunction(p,t,self)
 	local Panel = ents.Create("wtib_factory_panel")
 	Panel:Spawn()
 	Panel:Activate()

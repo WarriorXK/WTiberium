@@ -91,10 +91,10 @@ function WTib.CreateTiberium(creator,class,t,ply)
 	if WTib.IsValid(creator) and (creator:GetField() or 0) > 0 then
 		e:SetField(creator:GetField())
 	end
-	e.WDSO = p
+	e.WDSO = ply
 	e:Spawn()
 	e:Activate()
-	util.Decal(e.Decal,t.HitPos-(t.HitNormal*(e.DecalSize or 1)),t.HitPos+(t.HitNormal*(e.DecalSize or 1)))
+	if e.Decal and e.DecalSize then util.Decal(e.Decal,t.HitPos-(t.HitNormal*(e.DecalSize or 1)),t.HitPos+(t.HitNormal*(e.DecalSize or 1))) end
 	if WTib.IsValid(t.Entity) and !t.Entity:IsWorld() then
 		e:SetMoveType(MOVETYPE_VPHYSICS)
 		e:SetParent(t.Entity)
@@ -102,14 +102,17 @@ function WTib.CreateTiberium(creator,class,t,ply)
 	return e
 end
 
-function WTib.SpawnFunction(p,t,offset,ent)
+function WTib.SpawnFunction(p,t,ent,offset)
 	if !t.Hit then return end
-	offset = offset or 1
 	local e = ents.Create(WTib.GetClass(ent))
-	e:SetPos(t.HitPos+t.HitNormal*offset)
 	e.WDSO = p
 	e:Spawn()
 	e:Activate()
+	if offset then
+		e:SetPos(t.HitPos+t.HitNormal*offset)
+	else
+		e:SetPos(t.HitPos+t.HitNormal*-e:OBBMins().z)
+	end
 	return e
 end
 

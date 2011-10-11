@@ -24,7 +24,7 @@ function ENT:Initialize()
 end
 
 function ENT:SpawnFunction(p,t)
-	return WTib.SpawnFunction(p,t,16,self)
+	return WTib.SpawnFunction(p,t,self)
 end
 
 function ENT:Think()
@@ -36,8 +36,10 @@ function ENT:Think()
 		end
 	end
 	self.dt.Online = Count >= 1
+	local On = 0
+	if self.dt.Online then On = 1 end
 	self.dt.Energy = WTib.GetResourceAmount(self,"energy")
-	WTib.TriggerOutput(self,"Online",tonumber(self.dt.Online))
+	WTib.TriggerOutput(self,"Online",On)
 	WTib.TriggerOutput(self,"Energy",self.dt.Energy)
 	WTib.SupplyResource(self,"energy",Count*math.Rand(self.MinMul,self.MaxMul))
 	self:NextThink(CurTime()+1)

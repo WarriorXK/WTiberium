@@ -21,7 +21,7 @@ function ENT:Initialize()
 end
 
 function ENT:SpawnFunction(p,t)
-	return WTib.SpawnFunction(p,t,50,self)
+	return WTib.SpawnFunction(p,t,self)
 end
 
 function ENT:Think()
@@ -31,7 +31,7 @@ function ENT:Think()
 			if self.dt.PercentageComplete >= 100 then
 				local ent = WTib.Dispenser.GetObjectByID(self.dt.BuildingID).CreateEnt(self,self.dt.CurObject:GetAngles(),self.dt.CurObject:GetPos(),self.dt.BuildingID)
 				ent.WDSO = self.dt.CurObject.WDSO
-				constraint.Weld(self,ent,0,0,4000)
+				constraint.Weld(self,ent,0,0,4000,true)
 				self.dt.CurObject:Remove()
 				self.dt.CurObject = nil
 				self.dt.IsBuilding = false

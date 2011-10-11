@@ -25,7 +25,7 @@ function ENT:Initialize()
 end
 
 function ENT:SpawnFunction(p,t)
-	return WTib.SpawnFunction(p,t,23,self)
+	return WTib.SpawnFunction(p,t,self)
 end
 
 function ENT:Think()
