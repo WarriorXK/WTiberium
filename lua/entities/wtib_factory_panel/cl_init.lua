@@ -1,8 +1,11 @@
 include('shared.lua')
 
+local ScreenVect = Vector(-8,-17,73.6)
+local ScreenAng = Angle(0,90,90)
+
 function ENT:Draw()
 	self:DrawModel()
-	cam.Start3D2D(self:LocalToWorld(Vector(-8,-17,73.6)),self:LocalToWorldAngles(Angle(0,90,90)),0.25)
+	cam.Start3D2D(self:LocalToWorld(ScreenVect),self:LocalToWorldAngles(ScreenAng),0.25)
 		self:Draw3D2D()
 	cam.End3D2D()
 end
