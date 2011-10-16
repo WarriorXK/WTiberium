@@ -14,7 +14,7 @@ WTib.Dispenser.AddObject({
 	Model = "models/Tiberium/tib_antidote.mdl",
 	PercentDelay = 0.02,
 	Information =	{
-						SWEP.PrintName,
+						ENT.PrintName,
 						"\nA vial that contains the antidote for tiberium infection."
 					},
 	CreateEnt = function(dispenser,angles,pos,id)
