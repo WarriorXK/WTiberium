@@ -63,7 +63,6 @@ function ENT:Think()
 		self.NextCheck = CurTime()+2
 	end
 	Energy = WTib.GetResourceAmount(self,"energy")
-	RefinedTiberium = WTib.GetResourceAmount(self,"RefinedTiberium")
 	WTib.TriggerOutput(self,"Range",self:GetRange())
 	WTib.TriggerOutput(self,"Energy",Energy)
 	self.dt.Energy = Energy
