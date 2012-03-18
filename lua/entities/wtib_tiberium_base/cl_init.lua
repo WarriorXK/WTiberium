@@ -35,11 +35,11 @@ function ENT:CreateDLight()
 	local dlight = DynamicLight(self:EntIndex())
 	if dlight then
 		self.LightSize = math.Approach(self.LightSize,math.Clamp((((self:GetTiberiumAmount()/self:GetColorDevider()) or 100)+5)*WTib.DynamicLightSize:GetInt(),0,300),2)
-		local r,g,b,a = self:GetColor()
+		local Col = self:GetColor()
 		dlight.Pos = self:LocalToWorld(self:OBBCenter())
-		dlight.r = r
-		dlight.g = g
-		dlight.b = b
+		dlight.r = Col.r
+		dlight.g = Col.g
+		dlight.b = Col.b
 		dlight.Brightness = 1
 		dlight.Size = self.LightSize
 		dlight.Decay = self.LightSize*5
