@@ -1,8 +1,7 @@
 include('shared.lua')
 
 ENT.GrowingSinceSpawn = true
-ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
-ENT.LightSize = 0
+ENT.LastLightSize = 0
 ENT.LastSize = 0
 
 function ENT:Draw()
@@ -11,12 +10,14 @@ function ENT:Draw()
 end
 
 function ENT:ThinkSize()
-	local Target = 0.5+(self:GetCrystalSize()/2)
-	if Target == self.LastSize then self.GrowingSinceSpawn = false end
+	local Target = 0.5 + (self:GetCrystalSize() / 1.7)
+	
 	local Speed = 0.0001
-	if self.GrowingSinceSpawn then Speed = 0.0004 end
+	if Target == self.LastSize then self.GrowingSinceSpawn = false end
+	if self.GrowingSinceSpawn then Speed = 0.0004 end // Speed it up a bit if it has just been spawned
+	
 	self.Size = math.Approach(self.LastSize,Target,Speed)
-	if self.Size < self.LastSize then
+	if self.Size < self.LastSize then // No shrinking
 		self.Size = self.LastSize
 	else
 		self.LastSize = self.Size
@@ -34,15 +35,18 @@ function ENT:CreateDLight()
 	if (WTib.DynamicLight and !WTib.DynamicLight:GetBool()) or false then return end
 	local dlight = DynamicLight(self:EntIndex())
 	if dlight then
-		self.LightSize = math.Approach(self.LightSize,math.Clamp((((self:GetTiberiumAmount()/self:GetColorDevider()) or 100)+5)*WTib.DynamicLightSize:GetInt(),0,300),2)
+		local LightScale = WTib.DynamicLightSize:GetInt()
 		local Col = self:GetColor()
+		local Scl = 1.1
+		local LightSize = math.Clamp(50 + (self.Size * 120),0,255)
 		dlight.Pos = self:LocalToWorld(self:OBBCenter())
 		dlight.r = Col.r
 		dlight.g = Col.g
 		dlight.b = Col.b
+		dlight.Style = 1
 		dlight.Brightness = 1
-		dlight.Size = self.LightSize
-		dlight.Decay = self.LightSize*5
+		dlight.Size = (LightSize*1.1)*LightScale
+		dlight.Decay = (LightSize*5.5)*LightScale
 		dlight.DieTime = CurTime()+1
 	end
 end
