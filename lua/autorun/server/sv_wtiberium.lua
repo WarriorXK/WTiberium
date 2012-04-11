@@ -94,7 +94,11 @@ function WTib.CreateTiberium(creator,class,t,ply)
 	e.WDSO = ply
 	e:Spawn()
 	e:Activate()
-	if e.Decal and e.DecalSize then util.Decal(e.Decal,t.HitPos-(t.HitNormal*(e.DecalSize or 1)),t.HitPos+(t.HitNormal*(e.DecalSize or 1))) end
+	if e.Decal and e.Decal != "" then
+		local Col = e.TiberiumColor
+		Col.a = 255
+		util.DecalEx(e.Decal, t.HitEntity, t.HitPos, t.HitNormal, Col, e.DecalSize or 1, e.DecalSize or 1)
+	end
 	if WTib.IsValid(t.Entity) and !t.Entity:IsWorld() then
 		e:SetMoveType(MOVETYPE_VPHYSICS)
 		e:SetParent(t.Entity)

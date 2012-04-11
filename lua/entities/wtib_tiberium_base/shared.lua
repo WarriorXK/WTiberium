@@ -32,8 +32,8 @@ ENT.Damage_Explosive = false
 ENT.Growth_Addition = 30
 ENT.Growth_Delay = 10
 
-ENT.Decal = "WTib.TiberiumDecal"
 ENT.DecalSize = 1
+ENT.Decal = ""
 
 function ENT:SetupDataTables()
 	self:DTVar("Int",0,"TiberiumAmount")

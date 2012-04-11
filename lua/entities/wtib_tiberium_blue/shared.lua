@@ -29,5 +29,5 @@ ENT.Damage_Explosive = true
 ENT.Growth_Addition = 27.5
 ENT.Growth_Delay = 10
 
-ENT.Decal = "WTib.TiberiumDecal"
 ENT.DecalSize = 1
+ENT.Decal = ""
