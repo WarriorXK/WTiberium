@@ -31,7 +31,7 @@ function ENT:Think()
 	if self.dt.Online then
 		local Amount = math.ceil(self.Range/50)
 		if self.dt.Energy >= Amount then
-			WTib.ConsumeResource("energy",Amount)
+			WTib.ConsumeResource(self, "energy",Amount)
 			if !WTib.IsValid(self.Target) then
 				local Range = math.huge
 				for _,v in pairs(ents.FindInSphere(self:GetPos(),self.Range)) do
