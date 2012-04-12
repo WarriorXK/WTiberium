@@ -26,17 +26,15 @@ function ENT:Think()
 		for i=1,4 do
 			local Attach = self:GetAttachment(self:LookupAttachment("las"..tostring(i)))
 			local ed = EffectData()
-				ed:SetStart(Attach.Pos)
+				ed:SetStart(self:WorldToLocal(Attach.Pos))
 				ed:SetOrigin(Vector(math.random(Mins.z,Maxs.x),math.random(Mins.y,Maxs.y),z))
 				ed:SetEntity(self)
 				ed:SetMagnitude(EffectDelay)
-				ed:SetNormal(self:GetUp())
 			util.Effect("wtib_factorylaser",ed)
 		end
+		
 		self.NextEffect = CurTime() + EffectDelay
 	end
-	self:NextThink(CurTime()+0.1)
-	return true
 end
 language.Add(WTib.GetClass(ENT),ENT.PrintName)
 

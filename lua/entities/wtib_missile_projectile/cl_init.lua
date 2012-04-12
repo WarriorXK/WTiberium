@@ -6,7 +6,7 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	return self.PrintName.."\nWarhead : "..tostring(self:GetWarheadTable().Name)
+	return self.PrintName
 end
 
 function ENT:Think()

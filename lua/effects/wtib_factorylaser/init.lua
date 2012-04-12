@@ -1,15 +1,16 @@
 
-EFFECT.BeamMat = Material("cable/redlaser")
 EFFECT.NextSpark = 0
+EFFECT.GlowSize = 10
+EFFECT.GlowMat = Material("models/roller/rollermine_glow")
+EFFECT.BeamMat = Material("cable/redlaser")
 
 function EFFECT:Init(d)
 	self.StartPos = d:GetStart()
-	self.EndPos = d:GetOrigin()
 	self.Factory = d:GetEntity()
-	self.Normal = d:GetNormal()
-	self.fDelta = 3
-	self.Entity:SetRenderBoundsWS(self.StartPos,self.EndPos)
+	self.EndPos = d:GetOrigin()
 	self.DieTime = CurTime()+d:GetMagnitude()
+	
+	self:SetRenderBoundsWS(self.Factory:OBBMaxs(),self.Factory:OBBMins())
 end
 
 function EFFECT:Think()
@@ -22,20 +23,27 @@ end
 
 function EFFECT:Render()
 	if self:ValidEnts() then
-		render.SetMaterial(self.BeamMat)
-		local Start = self.StartPos
+		local Start = self.Factory:LocalToWorld(self.StartPos)
 		local End = self.Factory.dt.CurObject:LocalToWorld(self.EndPos)
-		render.DrawBeam(Start,End,10,0,0,Color(255,0,0,255))
+		local Col = Color(255,0,0,255)
+		
+		render.SetMaterial(self.GlowMat)
+		render.DrawSprite(Start, self.GlowSize, self.GlowSize, Col)
+		
+		render.SetMaterial(self.BeamMat)
+		render.DrawBeam(Start, End, 10, 0, 0, Col)
+		
 		if self.NextSpark <= CurTime() then
 			local ed = EffectData()
 			ed:SetOrigin(End)
-			ed:SetNormal(self.Normal)
+			ed:SetNormal(self.Factory:GetUp():Normalize())
 			ed:SetMagnitude(0.5)
 			ed:SetScale(1)
 			ed:SetRadius(1)
 			util.Effect("Sparks",ed)
 			self.NextSpark = CurTime()+0.3
 		end
-		self.Entity:SetRenderBoundsWS(Start,End)
+		
+		self:SetRenderBoundsWS(self.Factory:OBBMaxs(),self.Factory:OBBMins())
 	end
 end

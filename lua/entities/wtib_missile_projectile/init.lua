@@ -22,13 +22,12 @@ function ENT:SpawnFunction(p,t)
 	return WTib.SpawnFunction(p,t,self)
 end
 
-function ENT:Think()
-	self:GetWarheadTable().Think(self)
-end
+function ENT:Think() self:NextThink(CurTime()+1) return true end
 
-function ENT:SetWarhead(int)
-	self:GetWarheadTable(int).OnApply(self)
-	self.dt.Warhead = int
+function ENT:Touch(ent)
+	if ValidEntity(ent) and ent:GetClass() == "wtib_missile_warhead" then
+		
+	end
 end
 
 function ENT:Launch(ply)
@@ -44,7 +43,13 @@ function ENT:Launch(ply)
 		phys:Wake()
 	end
 	self.Launched = true
-	self:GetWarheadTable().Launch(self)
+	local e = ents.Create("env_fire_trail")
+	e:SetAngles(self:GetAngles())
+	e:SetPos(self:LocalToWorld(Vector(-70,0,7)))
+	e:SetParent(self)
+	e:Spawn()
+	e:Activate()
+	self:DeleteOnRemove(e)
 end
 
 function ENT:CanBeMounted()
@@ -87,5 +92,12 @@ function ENT:PhysicsUpdate(phys)
 end
 
 function ENT:Explode(data)
-	self:GetWarheadTable().Explode(self,data)
+	data = data or {}
+	util.BlastDamage(self,ValidEntity(self.WDSO) and self.WDSO or self,self:GetPos(),math.Rand(200,300),math.Rand(300,400))
+	local ed = EffectData()
+	ed:SetOrigin(data.HitPos or self:GetPos())
+	ed:SetStart(data.HitPos or self:GetPos())
+	ed:SetScale(3)
+	util.Effect("Explosion",ed)
+	self:Remove()
 end
