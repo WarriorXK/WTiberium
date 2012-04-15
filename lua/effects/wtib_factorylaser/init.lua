@@ -1,7 +1,7 @@
 
 EFFECT.NextSpark = 0
 EFFECT.GlowSize = 10
-EFFECT.GlowMat = Material("models/roller/rollermine_glow")
+EFFECT.GlowMat = Material("models/factory_effect")
 EFFECT.BeamMat = Material("cable/redlaser")
 
 function EFFECT:Init(d)

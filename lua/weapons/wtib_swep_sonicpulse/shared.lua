@@ -108,18 +108,29 @@ WTib.Dispenser.AddObject({
 	Name = SWEP.PrintName,
 	Class = WTib.GetClass(SWEP),
 	Model = SWEP.WorldModel,
+	Angle = Angle(90,0,0),
 	PercentDelay = 0.02,
 	Information =	{
 						SWEP.PrintName,
 						"\nSonic weapon that destroys Tiberium, don't overheat it!"
 					},
-	CreateEnt = function(dispenser,angles,pos,id)
-		local ent = ents.Create(WTib.Dispenser.GetObjectByID(id).Class)
+	CreateEnt = function(dispenser,angles,pos,id,ply)
+		local Obj = WTib.Dispenser.GetObjectByID(id)
+		local ent = ents.Create(Obj.Class)
 		ent:SetPos(pos)
 		ent:SetAngles(angles)
 		ent:Spawn()
 		ent:Activate()
 		ent:SetModel(WTib.Dispenser.GetObjectByID(id).Model)
+		
+		if ply then
+			ent.WDSO = ply
+			undo.Create(Obj.Class)
+				undo.AddEntity(ent)
+				undo.SetPlayer(ply)
+			undo.Finish()
+		end
+		
 		return ent
 	end
 })

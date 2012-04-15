@@ -12,8 +12,10 @@ function ENT:SetupDataTables()
 	self:DTVar("Entity",0,"Factory")
 end
 
-hook.Add("PhysgunPickup","WTib_Factory_CanPickupEnt_Panel",function(ply,ent)
+local function Pickup(ply,ent)
 	if ent:GetClass() == "wtib_factory_panel" then
 		return false
 	end
-end)
+end
+hook.Add("PhysgunPickup","WTib_Factory_CanPickupEnt_Panel",Pickup)
+hook.Add("GravGunPickupAllowed","WTib_Factory_CanPickupEnt_Panel",Pickup)

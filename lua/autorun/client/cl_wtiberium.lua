@@ -26,3 +26,10 @@ function WTib.ToolTipDraw()
 	end
 end
 hook.Add("HUDPaint","WTib.ToolTipDraw",WTib.ToolTipDraw)
+
+function WTib.RemovePanelControls(panel)
+	// Bleg, don't like it
+	panel.btnClose:SetVisible(false)
+	panel.btnMaxim:SetVisible(false)
+	panel.btnMinim:SetVisible(false)
+end

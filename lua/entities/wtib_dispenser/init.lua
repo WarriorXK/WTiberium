@@ -29,7 +29,9 @@ function ENT:Think()
 		if self.LastBuild+WTib.Dispenser.GetObjectByID(self.dt.BuildingID).PercentDelay <= CurTime() then
 			self.dt.PercentageComplete = self.dt.PercentageComplete+1
 			if self.dt.PercentageComplete >= 100 then
-				local ent = WTib.Dispenser.GetObjectByID(self.dt.BuildingID).CreateEnt(self,self.dt.CurObject:GetAngles(),self.dt.CurObject:GetPos(),self.dt.BuildingID)
+				local ply
+				if ValidEntity(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
+				local ent = WTib.Dispenser.GetObjectByID(self.dt.BuildingID).CreateEnt(self,self.dt.CurObject:GetAngles(),self.dt.CurObject:GetPos(),self.dt.BuildingID,ply)
 				ent.WDSO = self.dt.CurObject.WDSO
 				constraint.Weld(self,ent,0,0,4000,true)
 				self.dt.CurObject:Remove()
@@ -80,7 +82,7 @@ function ENT:BuildObject(id,ply)
 		self.dt.PercentageComplete = 0
 		self.dt.IsBuilding = true
 		self.dt.CurObject = ents.Create("wtib_dispenser_object")
-		self.dt.CurObject:SetAngles(self:LocalToWorldAngles(Angle(90,0,0)))
+		self.dt.CurObject:SetAngles(self:LocalToWorldAngles(WTib.Dispenser.GetObjectByID(id).Angle or Angle(0,0,0)))
 		self.dt.CurObject:SetModel(WTib.Dispenser.GetObjectByID(id).Model)
 		self.dt.CurObject:Spawn()
 		self.dt.CurObject:Activate()
@@ -103,17 +105,18 @@ function ENT:TriggerInput(name,val)
 	end
 end
 
-concommand.Add("wtib_dispenser_closemenu",function(ply,com,args)
-	local ent = ents.GetByIndex(args[1])
+net.Receive( "wtib_dispenser_closemenu", function( len )
+	local ent = ents.GetByIndex(net.ReadLong())
 	if WTib.IsValid(ent) then
 		ent.BeingUsed = false
 		ent.PlayerUsingMe = nil
 	end
 end)
 
-concommand.Add("wtib_dispenser_buildobject",function(ply,com,args)
-	local ent = ents.GetByIndex(args[1])
+net.Receive( "wtib_dispenser_buildobject", function( len )
+	local ent = ents.GetByIndex(net.ReadLong())
+	local ply = net.ReadEntity()
 	if WTib.IsValid(ent) then
-		ent:BuildObject(math.Round(args[2]),ply)
+		ent:BuildObject(math.Round(net.ReadFloat()),ply)
 	end
 end)

@@ -17,6 +17,7 @@ WTib.Factory.Objects = {}
 function WTib.Factory.AddObject(tab)
 	local id = table.Count(WTib.Factory.Objects)+1
 	WTib.Factory.Objects[id] = tab
+	table.sort(WTib.Factory.Objects, function(a,b) return a.Name < b.Name end)
 	return id
 end
 
@@ -42,6 +43,7 @@ WTib.Dispenser.Objects = {}
 function WTib.Dispenser.AddObject(tab)
 	local id = table.Count(WTib.Dispenser.Objects)+1
 	WTib.Dispenser.Objects[id] = tab
+	table.sort(WTib.Dispenser.Objects, function(a,b) return a.Name < b.Name end)
 	return id
 end
 

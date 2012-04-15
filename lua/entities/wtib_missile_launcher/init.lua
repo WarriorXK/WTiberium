@@ -4,6 +4,12 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
+ENT.LockDelay = 0.2
+ENT.Locked = false
+ENT.CoX = 0
+ENT.CoY = 0
+ENT.CoZ = 0
+
 function ENT:Initialize()
 	self:SetModel("models/Tiberium/tiberium_missile_launcher.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
@@ -30,7 +36,7 @@ function ENT:Think()
 end
 
 function ENT:Use(ply)
-	if WTib.IsValid(ply) then return end
+	if !WTib.IsValid(ply) then return end
 	self:LaunchMissile()
 end
 
@@ -42,7 +48,7 @@ function ENT:TriggerInput(name,val)
 	elseif name == "Lock" then
 		self.Locked = tobool(val)
 	elseif name == "LockDelay" then
-		self.LockDelay = val
+		self.LockDelay = math.max(tonumber(val),0.2)
 	elseif name == "X" then
 		self.CoX = val
 	elseif name == "Y" then

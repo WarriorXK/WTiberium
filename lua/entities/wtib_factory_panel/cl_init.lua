@@ -1,5 +1,6 @@
 include('shared.lua')
 
+local Color_White = Color(255,255,255,255)
 local ScreenVect = Vector(-8,-17,73.6)
 local ScreenAng = Angle(0,90,90)
 
@@ -26,9 +27,9 @@ function ENT:Draw3D2D()
 			CurProj = WTib.Factory.GetObjectByID(self.dt.Factory.dt.BuildingID).Name
 		end
 	end
-	draw.DrawText(Text,"Trebuchet18",1,4,Color(255,255,255,255),ALIGN_LEFT)
-	draw.DrawText("Current project : ","Trebuchet18",1,36,Color(255,255,255,255),ALIGN_LEFT)
-	draw.DrawText(CurProj,"Trebuchet18",1,52,Color(255,255,255,255),ALIGN_LEFT)
+	draw.DrawText(Text,"Trebuchet18",1,4,Color_White,ALIGN_LEFT)
+	draw.DrawText("Current project : ","Trebuchet18",1,36,Color_White,ALIGN_LEFT)
+	draw.DrawText(CurProj,"Trebuchet18",1,52,Color_White,ALIGN_LEFT)
 end
 
 function ENT:Think()

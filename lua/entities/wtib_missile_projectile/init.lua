@@ -4,6 +4,8 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
+ENT.LockDelay = 0
+ENT.TargetPos = Vector(0,0,0)
 ENT.Launched = false
 
 function ENT:Initialize()
@@ -15,6 +17,7 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	self:StartMotionController()
 	self.dt.Warhead = 1
 end
 
@@ -42,6 +45,7 @@ function ENT:Launch(ply)
 		phys:SetMass(30)
 		phys:Wake()
 	end
+	self.LockDelay = CurTime()+self.Launcher.LockDelay
 	self.Launched = true
 	local e = ents.Create("env_fire_trail")
 	e:SetAngles(self:GetAngles())
@@ -71,24 +75,22 @@ function ENT:PhysicsCollide(data,phys)
 	end
 end
 
-function ENT:PhysicsUpdate(phys)
+function ENT:PhysicsSimulate(phys,deltatime)
 	if !self.Launched then return end
-	phys:ApplyForceCenter(self:GetForward()*20000)
-	if self.Target and self.Target != Vector(0,0,0) and (self.LockDelay or 0) <= CurTime() then
-		local Dist = math.min((self.Target-self:GetPos()):Length(),5000)
-		local Mod = math.Clamp(math.abs(Dist-5000)/3000,0.5,70)
-		local TAng = (self.Target-self:GetPos()):Angle()
-		local ang = self:GetAngles()
-		ang.p = math.ApproachAngle(ang.p,TAng.p,Mod)
-		ang.r = math.ApproachAngle(ang.r,TAng.r,Mod)
-		ang.y = math.ApproachAngle(ang.y,TAng.y,Mod)
-		if self:GetAngles() != ang then
-			self:SetAngles(ang)
-		end
-		if Dist < 5 then
-			self:Explode()
-		end
-	end
+	phys:Wake()
+	self.TAngle = (ValidEntity(self.Launcher) and self.Launcher.Locked and self.LockDelay < CurTime()) and (Vector(self.Launcher.CoX,self.Launcher.CoY,self.Launcher.CoZ)-self:GetPos()):Angle() or self:GetAngles()
+	local pr = {}
+	pr.secondstoarrive	= 0.5
+	pr.pos				= self:GetPos()+self:GetForward()*80
+	pr.maxangular		= 5000
+	pr.maxangulardamp	= 10000
+	pr.maxspeed			= 1000000
+	pr.maxspeeddamp		= 10000
+	pr.dampfactor		= 0.1
+	pr.teleportdistance	= 0
+	pr.deltatime		= deltatime
+	pr.angle			= self.TAngle
+	phys:ComputeShadowControl(pr)
 end
 
 function ENT:Explode(data)
