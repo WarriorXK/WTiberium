@@ -1,4 +1,10 @@
-"LightmappedGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "wtiberium/factory_circle"
+	"$basetexture" 		"wtiberium/factory_circle"
+	"$bumpmap"		"wtiberium/factory_circle_n"
+	"$surfaceprop"		"metal"
+//	"$envmap"		"models/props_trainstation/trainstation_clock_glass001_mask"
+	"$envmapsaturation"	".90"
+	"$envmapcontrast"		"1"
+	"$envmaptint"		"[-1 2 -1]"
 }

@@ -1,3 +1,13 @@
 Console command for showing collision models ingame:
 
 vcollide_wireframe 1
+
+
+
+Glowing white texture:
+
+	"$translucent"		"1"
+	"$envmap"		"models/props_trainstation/trainstation_clock_glass001_mask"
+	"$envmapsaturation"	".90"
+	"$envmapcontrast"		"1"
+	"$envmaptint"		"[-1 2 -1]"
