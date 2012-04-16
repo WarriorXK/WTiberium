@@ -18,7 +18,8 @@ $attachment "las1" "polymsh" -145.00 390.00 0.00 rotate -0 0 0
 $attachment "las2" "polymsh" 0.00 390.00 -145.00 rotate -0 0 0
 $attachment "las3" "polymsh" 145.00 390.00 0.00 rotate -0 0 0
 $attachment "las4" "polymsh" 0.00 390.00 145.00 rotate -0 0 0
-$attachment "panel" "polymsh" 200.00 0.00 200.00 rotate 45 0 0
+$attachment "panel" "polymsh" 200.00 0.00 200.00 rotate 0 45 0
+$attachment "spawn" "polymsh" 0.00 0.00 48.00 rotate 0 0 0
 $sequence idle "factory2_r" fps 1.00
 $collisionmodel "factory2_p.smd" {
 

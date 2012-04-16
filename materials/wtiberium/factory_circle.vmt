@@ -3,10 +3,11 @@
 	"$basetexture" 		"wtiberium/factory_circle"
 	"$bumpmap"		"wtiberium/factory_circle_n"
 	"$surfaceprop"		"metal"	
-	"$envmap" 		"Models\Combine_Helicopter\helicopter_bomb01_mask.vtf"
+//	"$envmap" 		"models\Combine_Helicopter\helicopter_bomb01_mask.vtf"
+	"$normalmapalphaenvmapmask" "models\Combine_Helicopter\helicopter_bomb01_mask.vtf"
 	"$phong"			"1"
 	"$envmapsaturation"	"1"
 	"$envmapcontrast"		"1"
-	"$envmaptint"		"[.1 .1 2]"
+	"$envmaptint"		"[1 1 1]"
 
 }
