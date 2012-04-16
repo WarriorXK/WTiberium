@@ -3,8 +3,9 @@
 	"$basetexture" 		"wtiberium/factory_base"
 	"$bumpmap"		"wtiberium/factory_base_n"
 	"$surfaceprop"		"metal"
-//	"$envmap"		"models/props_trainstation/trainstation_clock_glass001_mask"
+	"$envmap" 		"Models\Combine_Helicopter\helicopter_bomb01_mask.vtf"
+	"$phong"			"1"
 	"$envmapsaturation"	".90"
 	"$envmapcontrast"		"1"
-	"$envmaptint"		"[-1 2 -1]"
+	"$envmaptint"		"[1 1 1]"
 }

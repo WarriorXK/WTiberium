@@ -2,9 +2,11 @@
 {
 	"$basetexture" 		"wtiberium/factory_circle"
 	"$bumpmap"		"wtiberium/factory_circle_n"
-	"$surfaceprop"		"metal"
-//	"$envmap"		"models/props_trainstation/trainstation_clock_glass001_mask"
-	"$envmapsaturation"	".90"
+	"$surfaceprop"		"metal"	
+	"$envmap" 		"Models\Combine_Helicopter\helicopter_bomb01_mask.vtf"
+	"$phong"			"1"
+	"$envmapsaturation"	"1"
 	"$envmapcontrast"		"1"
-	"$envmaptint"		"[-1 2 -1]"
+	"$envmaptint"		"[.1 .1 2]"
+
 }
