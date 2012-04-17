@@ -11,6 +11,7 @@ ENT.Category		= "Tiberium"
 function ENT:SetupDataTables()
 	self:DTVar("Int",0,"BuildingID")
 	self:DTVar("Int",1,"PercentageComplete")
+	self:DTVar("Float",0,"TimeBuildStarted")
 	self:DTVar("Bool",0,"IsBuilding")
 	self:DTVar("Entity",0,"CurObject")
 	self:DTVar("Entity",1,"Panel")

@@ -24,7 +24,13 @@ function ENT:Draw3D2D()
 		Percent = self.dt.Factory.dt.PercentageComplete
 		if self.dt.Factory.dt.IsBuilding then
 			Text = "Working, "..Percent.."%"
-			CurProj = WTib.Factory.GetObjectByID(self.dt.Factory.dt.BuildingID).Name
+			
+			CurProj = ""
+			for k,v in pairs(string.Explode("",WTib.Factory.GetObjectByID(self.dt.Factory.dt.BuildingID).Name)) do
+				CurProj = CurProj .. v
+				if (k % 22) == 0 then CurProj = CurProj .. "\n" end
+			end
+			
 		end
 	end
 	draw.DrawText(Text,"Trebuchet18",1,4,Color_White,ALIGN_LEFT)

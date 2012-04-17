@@ -17,3 +17,7 @@ end
 function ENT:Use(...)
 	self.dt.Factory:PanelUse(...)
 end
+
+function ENT:OnRemove()
+	if ValidEntity(self.dt.Factory) then self.dt.Factory:Remove() end
+end

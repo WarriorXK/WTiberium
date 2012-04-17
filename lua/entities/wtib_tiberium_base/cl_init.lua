@@ -12,9 +12,9 @@ end
 function ENT:ThinkSize()
 	local Target = 0.5 + (self:GetCrystalSize() / 1.7)
 	
-	local Speed = 0.0001
+	local Speed = 0.00003
 	if Target == self.LastSize then self.GrowingSinceSpawn = false end
-	if self.GrowingSinceSpawn then Speed = 0.0004 end // Speed it up a bit if it has just been spawned
+	if self.GrowingSinceSpawn then Speed = 0.0003 end // Speed it up a bit if it has just been spawned
 	
 	self.Size = math.Approach(self.LastSize,Target,Speed)
 	if self.Size < self.LastSize then // No shrinking

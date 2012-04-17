@@ -13,7 +13,7 @@ function ENT:SetupDataTables()
 end
 
 local function Pickup(ply,ent)
-	if ent:GetClass() == "wtib_factory_panel" then
+	if ValidEntity(ent) and ent:GetClass() == "wtib_factory_panel" then
 		return false
 	end
 end
