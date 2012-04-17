@@ -1,6 +1,6 @@
 
 EFFECT.NextSpark = 0
-EFFECT.GlowSize = 10
+EFFECT.GlowSize = 15
 EFFECT.GlowMat = Material("models/factory_effect")
 EFFECT.BeamMat = Material("cable/redlaser")
 
@@ -25,7 +25,7 @@ function EFFECT:Render()
 	if self:ValidEnts() then
 		local Start = self.Factory:LocalToWorld(self.StartPos)
 		local End = self.Factory.dt.CurObject:LocalToWorld(self.EndPos)
-		local Col = Color(255,0,0,255)
+		local Col = Color(200,50,50,255)
 		
 		render.SetMaterial(self.GlowMat)
 		render.DrawSprite(Start, self.GlowSize, self.GlowSize, Col)
