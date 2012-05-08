@@ -19,7 +19,7 @@ WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
 	Model = "models/Tiberium/small_growth_accelerator.mdl",
-	PercentDelay = 0.15,
+	PercentDelay = 0.05,
 	Information =	{
 						ENT.PrintName,
 						"\nAccelerates nearby Tiberium crystal growth."
@@ -32,6 +32,7 @@ WTib.Factory.AddObject({
 		ent:Spawn()
 		ent:Activate()
 		ent:SetModel(Obj.Model)
+		ent:DropToFloor()
 		
 		if ply then
 			ent.WDSO = ply

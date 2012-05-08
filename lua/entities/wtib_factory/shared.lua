@@ -1,4 +1,5 @@
 ENT.Type			= "anim"
+ENT.Base			= "base_entity"
 ENT.PrintName		= "Factory"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""

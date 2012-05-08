@@ -45,6 +45,7 @@ function ENT:Launch(ply)
 		phys:SetMass(30)
 		phys:Wake()
 	end
+	self:SetPhysicsAttacker(ply)
 	self.LockDelay = CurTime()+self.Launcher.LockDelay
 	self.Launched = true
 	local e = ents.Create("env_fire_trail")

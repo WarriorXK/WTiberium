@@ -1,4 +1,5 @@
 ENT.Type			= "anim"
+ENT.Base			= "base_entity"
 ENT.PrintName		= "Missile"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
@@ -34,6 +35,7 @@ WTib.Factory.AddObject({
 		ent:Spawn()
 		ent:Activate()
 		ent:SetModel(Obj.Model)
+		ent:DropToFloor()
 		
 		if ply then
 			ent.WDSO = ply

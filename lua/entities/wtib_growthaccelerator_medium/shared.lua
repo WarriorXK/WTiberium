@@ -1,4 +1,5 @@
 ENT.Type			= "anim"
+ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Growth Accelerator"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
@@ -22,7 +23,7 @@ WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
 	Model = "models/Tiberium/medium_growth_accelerator.mdl",
-	PercentDelay = 0.15,
+	PercentDelay = 0.10,
 	Information =	{
 						ENT.PrintName,
 						"\nAccelerates nearby Tiberium crystal growth."
@@ -35,6 +36,7 @@ WTib.Factory.AddObject({
 		ent:Spawn()
 		ent:Activate()
 		ent:SetModel(Obj.Model)
+		ent:DropToFloor()
 		
 		if ply then
 			ent.WDSO = ply

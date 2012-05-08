@@ -32,6 +32,7 @@ WTib.Factory.AddObject({
 		ent:Spawn()
 		ent:Activate()
 		ent:SetModel(Obj.Model)
+		ent:DropToFloor()
 		
 		if ply then
 			ent.WDSO = ply
