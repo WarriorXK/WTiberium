@@ -1,4 +1,0 @@
-"WTib.TiberiumDecal"
-{
-	"decals/wtib/tiberium"    "1"
-}
