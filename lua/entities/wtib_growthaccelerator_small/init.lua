@@ -4,9 +4,14 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
-ENT.AccelerationLevel	= 1.5
-ENT.MaxRange			= 250
-ENT.MinRange			= 10
+ENT.MinAccelerationAmount	= 20
+ENT.MaxAccelerationAmount	= 30
+ENT.AccelerationDelay		= 5
+ENT.MaxRange				= 256
+ENT.MinRange				= 10
+
+ENT.EffectOrigin = Vector(0,0,13)
+ENT.Scale = 2
 
 function ENT:Initialize()
 	self:SetModel("models/Tiberium/small_growth_accelerator.mdl")

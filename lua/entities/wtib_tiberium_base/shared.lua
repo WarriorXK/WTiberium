@@ -41,7 +41,6 @@ function ENT:SetupDataTables()
 	self:DTVar("Int",2,"ColorDevider")
 	self:DTVar("Int",3,"TiberiumField")
 	self:DTVar("Float",0,"CrystalSize")
-	self:DTVar("Float",1,"Acceleration")
 end
 
 function ENT:GetTiberiumAmount()
@@ -66,8 +65,4 @@ end
 
 function ENT:GetField()
 	return self.dt.TiberiumField
-end
-
-function ENT:GetAcceleration()
-	return self.dt.Acceleration >= 1 and self.dt.Acceleration or 1
 end

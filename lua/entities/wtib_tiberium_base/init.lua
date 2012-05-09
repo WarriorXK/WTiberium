@@ -30,7 +30,6 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:InitTiberium()
-	self:SetAcceleration(1)
 	self.NextReproduce = 0
 	self.Produces = {}
 	self.NextGrow = 0
@@ -53,7 +52,7 @@ end
 
 function ENT:Think()
 	if self.NextGrow <= CurTime() then // Check if we should get more resources
-		self:SetTiberiumAmount(self:GetTiberiumAmount()+(self.Growth_Addition*self:GetAcceleration()))
+		self:AddTiberiumAmount(self.Growth_Addition)
 		self.NextGrow = CurTime()+self.Growth_Delay
 	end
 	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
@@ -127,6 +126,11 @@ function ENT:DamageTouchingEntities()
 end
 
 function ENT:AttemptReproduce()
+	if WTib.IsFieldFull(self:GetField()) then
+		self.NextReproduce = CurTime()+self.Reproduce_Delay
+		WTib.DebugPrint(tostring(self) .. " - Field is full")
+		return
+	end
 	local Amount = 0
 	for k,v in pairs(self.Produces) do
 		if WTib.IsValid(v) then
@@ -137,12 +141,7 @@ function ENT:AttemptReproduce()
 	end
 	if Amount >= self.Reproduce_MaxProduces then
 		self.NextReproduce = CurTime()+self.Reproduce_Delay
-		WTib.DebugPrint("To much!")
-		return
-	end
-	if WTib.IsFieldFull(self:GetField()) then
-		self.NextReproduce = CurTime()+self.Reproduce_Delay
-		WTib.DebugPrint("Field is full")
+		WTib.DebugPrint(tostring(self) .. " - To much!")
 		return
 	end
 	local AllEntities = ents.GetAll()
@@ -177,7 +176,7 @@ function ENT:AttemptReproduce()
 			table.insert(self.Produces,ent)
 			WTib.DebugPrint("New Tiberium grown from old")
 			self.NextReproduce = CurTime()+self.Reproduce_Delay
-			self:SetTiberiumAmount(self:GetTiberiumAmount()-self.Reproduce_TiberiumDrained)
+			self:DrainTiberiumAmount(self.Reproduce_TiberiumDrained)
 			WTib.AddFieldMember(self:GetField(),ent)
 			break
 		else
@@ -187,7 +186,7 @@ function ENT:AttemptReproduce()
 end
 
 function ENT:TakeSonicDamage(am) // Do something fancy?
-	self:SetTiberiumAmount(self:GetTiberiumAmount()-am)
+	self:DrainTiberiumAmount(am)
 end
 
 function ENT:Die() // Do something fancy?
@@ -198,14 +197,18 @@ function ENT:SetField(num)
 	self.dt.TiberiumField = num
 end
 
-function ENT:SetAcceleration(int)
-	self.dt.Acceleration = int
-end
-
 function ENT:SetTiberiumAmount(am)
 	if am <= 0 then
 		self:Die()
 	else
 		self.dt.TiberiumAmount = math.Clamp(am,1,self:GetMaxTiberiumAmount())
 	end
+end
+
+function ENT:AddTiberiumAmount(am)
+	self:SetTiberiumAmount(self:GetTiberiumAmount() + am)
+end
+
+function ENT:DrainTiberiumAmount(am)
+	self:SetTiberiumAmount(self:GetTiberiumAmount() - am)
 end

@@ -4,11 +4,15 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
-ENT.AccelerationLevel	= 1.75
-ENT.MaxRange			= 350
-ENT.MinRange			= 10
+ENT.MinAccelerationAmount	= 40
+ENT.MaxAccelerationAmount	= 50
+ENT.AccelerationDelay		= 5
+ENT.MaxRange				= 512
+ENT.MinRange				= 10
 
-ENT.AcceleratedEnts = {}
+ENT.EffectOrigin = Vector(0,0,32)
+ENT.Scale = 2
+
 ENT.NextCheck = 0
 
 function ENT:Initialize()
@@ -36,34 +40,35 @@ end
 function ENT:Think()
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	if self.NextCheck <= CurTime() and self.dt.Online then
+		local TotalAdded = 0
 		local Ents = {}
 		for _,v in pairs(ents.FindInSphere(self:GetPos(),self:GetRange())) do
 			if WTib.IsValid(v) and v.IsTiberium then
-				table.insert(Ents,v)
+				local Add = math.random(self.MinAccelerationAmount, self.MaxAccelerationAmount)
+				TotalAdded = TotalAdded + Add
+				Ents[v] = Add
 			end
 		end
-		for k,v in pairs(self.AcceleratedEnts) do
-			if !table.HasValue(Ents,v) then
-				if WTib.IsValid(v) then
-					v:SetAcceleration(1)
-				end
-				self.AcceleratedEnts[k] = nil
-			end
-		end
-		self.AcceleratedEnts = Ents
-		local Drain = (table.Count(Ents)*(self:GetRange()/(20+self.AccelerationLevel)))*2
+		local Drain = ((TotalAdded / 4) + (self:GetRange() / 2)) / 2
 		if Energy >= Drain then
-			for _,v in pairs(Ents) do
-				v:SetAcceleration(self.AccelerationLevel)
+			for k,v in pairs(Ents) do
+				k:AddTiberiumAmount(v)
 			end
 			WTib.ConsumeResource(self,"energy",Drain)
+			
+			local ed = EffectData()
+				ed:SetEntity(self)
+				ed:SetOrigin(self.EffectOrigin)
+				ed:SetScale(self.Scale)
+				ed:SetMagnitude(self:GetRange())
+			util.Effect("wtib_growthaccelerator_pulse", ed)
 		else
 			self:TurnOff()
 		end
-		self.NextCheck = CurTime()+2
+		self.NextCheck = CurTime()+self.AccelerationDelay
 	end
 	Energy = WTib.GetResourceAmount(self,"energy")
-	WTib.TriggerOutput(self,"Range",self:GetRange())
+	
 	WTib.TriggerOutput(self,"Energy",Energy)
 	self.dt.Energy = Energy
 end
@@ -116,4 +121,5 @@ end
 
 function ENT:SetRange(int)
 	self.dt.Range = math.Clamp(int,self.MinRange,self.MaxRange)
+	WTib.TriggerOutput(self,"Range", int)
 end
