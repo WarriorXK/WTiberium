@@ -21,12 +21,14 @@ end
 
 hook.Add("OnPhysgunFreeze", "WTib_Factory_OnPhysgunFreeze", function(wep, phys, ent, ply)
 	if ent:GetClass() == "wtib_factory" and ValidEntity(ent.dt.Panel) then
-		ent.dt.Panel:GetPhysicsObject():EnableMotion(false)
+		local Phys = ent.dt.Panel:GetPhysicsObject()
+		if Phys:IsValid() then ent.dt.Panel:GetPhysicsObject():EnableMotion(false) end
 	end
 end)
 
 hook.Add("PhysgunPickup", "WTib_Factory_PhysgunPickup", function(ply, ent)
 	if ent:GetClass() == "wtib_factory" and ValidEntity(ent.dt.Panel) then
-		ent.dt.Panel:GetPhysicsObject():EnableMotion(true)
+		local Phys = ent.dt.Panel:GetPhysicsObject()
+		if Phys:IsValid() then ent.dt.Panel:GetPhysicsObject():EnableMotion(true) end
 	end
 end)

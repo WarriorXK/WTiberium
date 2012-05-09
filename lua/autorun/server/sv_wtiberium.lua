@@ -59,23 +59,25 @@ function WTib.GetAllTiberium(tFilter)
 end
 
 function WTib.AddResources()
-	if WTib.Config.ForceResources and file.Exists(WTib.Config.ResourceFile) then
-		print("\nWTib - Adding resource files...")
-		WTib.DebugPrint("***************************")
-		for _,v in pairs(string.Explode("\n",file.Read(WTib.Config.ResourceFile))) do
-			if string.find(v,"//") == 1 then
-				WTib.DebugPrint(v)
-			elseif v == "" then
-				WTib.DebugPrint("\n")
-			else
-				resource.AddFile(v)
-				WTib.DebugPrint(v)
+	if WTib.Config.ForceResources then
+		if file.Exists(WTib.Config.ResourceFile) then
+			print("\nWTib - Adding resource files...")
+			WTib.DebugPrint("***************************")
+			for _,v in pairs(string.Explode("\n",file.Read(WTib.Config.ResourceFile))) do
+				if string.find(v,"//") == 1 then
+					WTib.DebugPrint(v)
+				elseif v == "" then
+					WTib.DebugPrint("\n")
+				else
+					resource.AddFile(v)
+					WTib.DebugPrint(v)
+				end
 			end
+			WTib.DebugPrint("***************************")
+			print("Done\n")
+		else
+			print("WTib - Force resource enabled but \""..WTib.Config.ResourceFile.."\" does not exists, not adding resources.")
 		end
-		WTib.DebugPrint("***************************")
-		print("Done\n")
-	else
-		print("WTib - \""..WTib.Config.ResourceFile.."\" does not exists, not adding resources.")
 	end
 end
 

@@ -23,6 +23,7 @@ function ENT:Initialize()
 	end
 	self.Inputs = WTib.CreateInputs(self,{"BuildID"})
 	self.Outputs = WTib.CreateOutputs(self,{"IsBuilding","PercentageComplete"})
+	if WDS2 then WDS2.InitProp(self, 10000, 1, "AP") end
 end
 
 function ENT:SpawnFunction(p,t)
