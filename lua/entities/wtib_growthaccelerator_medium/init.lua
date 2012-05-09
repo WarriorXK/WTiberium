@@ -48,7 +48,7 @@ function ENT:Think()
 					local Add = math.random(self.MinAccelerationAmount, self.MaxAccelerationAmount)
 					TotalAdded = TotalAdded + Add
 					Ents[v] = Add
-				elseif v:IsPlayer() or v:IsNPC() then
+				elseif (v:IsPlayer() and v:Armor() > 0) or v:IsNPC() then
 					if math.random(0,2) == 1 then WTib.Infect(v) end
 				end
 			end
