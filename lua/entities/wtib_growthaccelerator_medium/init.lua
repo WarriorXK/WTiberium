@@ -43,10 +43,14 @@ function ENT:Think()
 		local TotalAdded = 0
 		local Ents = {}
 		for _,v in pairs(ents.FindInSphere(self:GetPos(),self:GetRange())) do
-			if WTib.IsValid(v) and v.IsTiberium then
-				local Add = math.random(self.MinAccelerationAmount, self.MaxAccelerationAmount)
-				TotalAdded = TotalAdded + Add
-				Ents[v] = Add
+			if WTib.IsValid(v) then
+				if v.IsTiberium then
+					local Add = math.random(self.MinAccelerationAmount, self.MaxAccelerationAmount)
+					TotalAdded = TotalAdded + Add
+					Ents[v] = Add
+				elseif v:IsPlayer() or v:IsNPC() then
+					if math.random(0,2) == 1 then WTib.Infect(v) end
+				end
 			end
 		end
 		local Drain = ((TotalAdded / 4) + (self:GetRange() / 2)) / 2
