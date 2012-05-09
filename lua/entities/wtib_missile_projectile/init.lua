@@ -18,7 +18,6 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	self:StartMotionController()
-	self.dt.Warhead = 1
 end
 
 function ENT:SpawnFunction(p,t)
@@ -26,12 +25,6 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think() self:NextThink(CurTime()+1) return true end
-
-function ENT:Touch(ent)
-	if ValidEntity(ent) and ent:GetClass() == "wtib_missile_warhead" then
-		
-	end
-end
 
 function ENT:Launch(ply)
 	self.WDSO = ply

@@ -10,14 +10,6 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 ENT.WTib_IsMissile	= true
 
-function ENT:SetupDataTables()
-	self:DTVar("Int",0,"Energy")
-	self:DTVar("Int",0,"Raw")
-	self:DTVar("Int",0,"Refined")
-	self:DTVar("Int",0,"Chemical")
-	self:DTVar("Float",0,"Liquid")
-end
-
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
@@ -25,7 +17,7 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.02,
 	Information =	{
 						ENT.PrintName,
-						"\nThis factory converts refined Tiberium into Tiberium chemicals."
+						"\nYou can load this missile into a launcher and fire it at your enemy."
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

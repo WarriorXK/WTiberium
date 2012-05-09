@@ -131,12 +131,12 @@ end
 	Misc things
 */
 
-function WTib.Trace(...) // Make it stargate compatible later on maybe.
+function WTib.Trace(...) // In case we'd ever need to replace it
 	return util.QuickTrace(...)
 end
 
-function WTib.GetClass(ent)
-	return string.Replace(string.Replace(ent.Folder,"entities/",""),"weapons/","")
+function WTib.GetClass(ENT)
+	return string.Replace(string.Replace(ENT.Folder,"entities/",""),"weapons/","")
 end
 
 function WTib.IsValid(e)
