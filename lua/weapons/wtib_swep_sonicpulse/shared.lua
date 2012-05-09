@@ -128,6 +128,7 @@ WTib.Dispenser.AddObject({
 			undo.Create(Obj.Class)
 				undo.AddEntity(ent)
 				undo.SetPlayer(ply)
+				undo.SetCustomUndoText("Undone "..Obj.Name)
 			undo.Finish()
 		end
 		

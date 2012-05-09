@@ -73,7 +73,7 @@ usermessage.Hook("wtib_factory_openmenu",function(um)
 		InfoButton:SetText("Info")
 		InfoButton:SetDisabled(true)
 		InfoButton.DoClick = function(self)
-			WTib_Factory_InfoMenu(MainBox.BuildList:GetLine(MainBox.BuildList:GetSelectedLine()):GetValue(1))
+			if MainBox.BuildList:GetSelectedLine() then WTib_Factory_InfoMenu(MainBox.BuildList:GetLine(MainBox.BuildList:GetSelectedLine()):GetValue(1)) end
 		end
 		
 		local BuildButton = vgui.Create("DButton")
