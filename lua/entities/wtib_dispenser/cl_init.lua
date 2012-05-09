@@ -63,9 +63,6 @@ usermessage.Hook("wtib_dispenser_openmenu",function(um)
 		ExitButton:SetSize(100,30)
 		ExitButton:SetText("Close")
 		ExitButton.DoClick = function(self)
-			net.Start("wtib_dispenser_closemenu")
-				net.WriteLong(Dispenser:EntIndex())
-			net.SendToServer()
 			MainBox:SetVisible(false)
 		end
 
@@ -76,14 +73,7 @@ usermessage.Hook("wtib_dispenser_openmenu",function(um)
 		BuildButton:SetText("Build")
 		BuildButton:SetDisabled(true)
 		BuildButton.DoClick = function(self)
-			net.Start("wtib_dispenser_buildobject")
-				net.WriteLong(Dispenser:EntIndex())
-				net.WriteEntity(LocalPlayer())
-				net.WriteFloat(Selected)
-			net.SendToServer()
-			net.Start("wtib_dispenser_closemenu")
-				net.WriteLong(Dispenser:EntIndex())
-			net.SendToServer()
+			WTib_Dispenser_StartBuild(Dispenser,Selected)
 			MainBox:SetVisible(false)
 		end
 		
@@ -125,7 +115,8 @@ usermessage.Hook("wtib_dispenser_openmenu",function(um)
 		end
 		BuildList.DoDoubleClick = function(panel,line,list)
 			Selected = BuildList:GetLine(line):GetValue(1)
-			BuildButton.DoClick(BuildButton)
+			WTib_Dispenser_StartBuild(Dispenser, Selected)
+			MainBox:SetVisible(false)
 		end
 		
 		for k,v in pairs(WTib.Dispenser.GetObjects()) do
@@ -140,3 +131,11 @@ usermessage.Hook("wtib_dispenser_openmenu",function(um)
 		MainBox:SetVisible(true)
 	end
 end)
+
+function WTib_Dispenser_StartBuild(Dispenser, ProjectID)
+	net.Start("wtib_dispenser_buildobject")
+		net.WriteLong(LocalPlayer():EntIndex())
+		net.WriteEntity(Dispenser)
+		net.WriteFloat(ProjectID)
+	net.SendToServer()
+end

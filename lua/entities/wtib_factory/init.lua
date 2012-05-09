@@ -143,7 +143,12 @@ end
 
 function ENT:TriggerInput(name,val)
 	if name == "BuildID" then
-		self:BuildObject(math.Round(val))
+		if self:BuildObject(math.Round(val)) then
+			self:EmitSound(SuccessSound)
+		elseif self.LastErrorSound < CurTime() then
+			self:EmitSound(ErrorSound)
+			self.LastErrorSound = CurTime()+ErrorSoundDelay
+		end
 	end
 end
 
@@ -155,9 +160,9 @@ net.Receive( "wtib_factory_buildobject", function( len )
 	if WTib.IsValid(ent) then
 		if ent:BuildObject(math.Round(net.ReadFloat()),ply) then
 			ent:EmitSound(SuccessSound)
-		elseif self.LastErrorSound < CurTime() then
+		elseif ent.LastErrorSound < CurTime() then
 			ent:EmitSound(ErrorSound)
-			self.LastErrorSound = CurTime()+ErrorSoundDelay
+			ent.LastErrorSound = CurTime()+ErrorSoundDelay
 		end
 	end
 	

@@ -4,8 +4,13 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
-ENT.NextEffect = 0
+ENT.LastErrorSound = 0
 ENT.LastBuild = 0
+
+local SuccessSound = Sound("buttons/button14.wav")
+local ErrorSound = Sound("buttons/button8.wav")
+
+local ErrorSoundDelay = SoundDuration(ErrorSound)
 
 function ENT:Initialize()
 	self:SetModel("models/Tiberium/dispenser.mdl")
@@ -26,7 +31,7 @@ end
 
 function ENT:Think()
 	if self.dt.IsBuilding then
-		if self.LastBuild+WTib.Dispenser.GetObjectByID(self.dt.BuildingID).PercentDelay <= CurTime() then
+		if (self.LastBuild + WTib.Dispenser.GetObjectByID(self.dt.BuildingID).PercentDelay) <= CurTime() then
 			self.dt.PercentageComplete = self.dt.PercentageComplete+1
 			if self.dt.PercentageComplete >= 100 then
 				local ply
@@ -41,37 +46,22 @@ function ENT:Think()
 			end
 			self.LastBuild = CurTime()
 		end
-		/*
-		if self.NextEffect <= CurTime() then
-			for i=1,2 do
-				local Attach = self:GetAttachment(self:LookupAttachment("las"..tostring(i)))
-				local ed = EffectData()
-					ed:SetStart(Attach.Pos)
-					ed:SetOrigin(self.dt.CurObject:GetPos())
-					ed:SetMagnitude(0.1)
-					ed:SetNormal(self:GetUp())
-				util.Effect("wtib_dispenserlaser",ed)
-			end
-			self.NextEffect = CurTime()+0.1
-		end
-		*/
 	end
 	WTib.TriggerOutput(self,"PercentageComplete",tonumber(self.dt.PercentageComplete))
-	if !WTib.IsValid(self.PlayerUsingMe) then
-		self.BeingUsed = false
-		self.PlayerUsingMe = nil
-	end
 	self:NextThink(CurTime())
 	return true
 end
 
 function ENT:Use(ply)
-	if !self.BeingUsed then
+	if !self.dt.IsBuilding then
+	
+		// Notify the client that the menu needs to open
 		umsg.Start("wtib_dispenser_openmenu",ply)
 			umsg.Entity(self)
 		umsg.End()
-		self.PlayerUsingMe = ply
-		self.BeingUsed = true
+		
+	else
+		self:EmitSound(ErrorSound)
 	end
 end
 
@@ -92,7 +82,9 @@ function ENT:BuildObject(id,ply)
 		self.dt.CurObject.dt.Dispenser = self
 		self.dt.CurObject.WDSO = ply or self
 		WTib.TriggerOutput(self,"IsBuilding",1)
+		return true
 	end
+	return false
 end
 
 function ENT:OnRestore()
@@ -101,22 +93,27 @@ end
 
 function ENT:TriggerInput(name,val)
 	if name == "BuildID" then
-		self:BuildObject(math.Round(val))
+		if self:BuildObject(math.Round(val)) then
+			self:EmitSound(SuccessSound)
+		elseif self.LastErrorSound < CurTime() then
+			self:EmitSound(ErrorSound)
+			self.LastErrorSound = CurTime()+ErrorSoundDelay
+		end
 	end
 end
 
-net.Receive( "wtib_dispenser_closemenu", function( len )
-	local ent = ents.GetByIndex(net.ReadLong())
-	if WTib.IsValid(ent) then
-		ent.BeingUsed = false
-		ent.PlayerUsingMe = nil
-	end
-end)
-
 net.Receive( "wtib_dispenser_buildobject", function( len )
-	local ent = ents.GetByIndex(net.ReadLong())
-	local ply = net.ReadEntity()
+
+	local ply = Entity(net.ReadLong())
+	local ent = net.ReadEntity()
+	
 	if WTib.IsValid(ent) then
-		ent:BuildObject(math.Round(net.ReadFloat()),ply)
+		if ent:BuildObject(math.Round(net.ReadFloat()),ply) then
+			ent:EmitSound(SuccessSound)
+		elseif ent.LastErrorSound < CurTime() then
+			ent:EmitSound(ErrorSound)
+			ent.LastErrorSound = CurTime()+ErrorSoundDelay
+		end
 	end
+	
 end)
