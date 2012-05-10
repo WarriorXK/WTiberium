@@ -110,6 +110,7 @@ end
 function WTib.CanTiberiumGrow(class, pos)
 	local Call = hook.Call("WTib_TiberiumCanGrow",GAMEMODE,class,pos)
 	if Call != nil and !tobool(a) then return false end
+	return true
 end
 
 function WTib.SpawnFunction(p,t,ent,offset)
