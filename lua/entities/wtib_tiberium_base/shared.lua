@@ -21,7 +21,7 @@ ENT.Models =	{
 					"models/Tiberium/tiberium_crystal1.mdl",
 					"models/Tiberium/tiberium_crystal3.mdl"
 				}
-ENT.Class = "wtib_tiberium_base"
+ENT.ClassToSpawn = "wtib_tiberium_base"
 
 ENT.Damage_Explode_RequiredDamage = 0
 ENT.Damage_ExplosionDelay = 0

@@ -26,7 +26,7 @@ function ENT:SetRandomModel()
 end
 
 function ENT:SpawnFunction(p,t)
-	return WTib.CreateTiberium(self,self.Class,t,p)
+	return WTib.CreateTiberium(self,self.ClassName,t,p)
 end
 
 function ENT:InitTiberium()
@@ -171,7 +171,7 @@ function ENT:AttemptReproduce()
 				ed:SetScale(2)
 			WTib.DebugEffect("WTib_DebugTrace",ed)
 		end
-		local ent = WTib.CreateTiberium(self,self.Class,t,self.WDSO)
+		local ent = WTib.CreateTiberium(self,self.ClassToSpawn,t,self.WDSO)
 		if WTib.IsValid(ent) then
 			table.insert(self.Produces,ent)
 			WTib.DebugPrint("New Tiberium grown from old")

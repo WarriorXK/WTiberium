@@ -17,5 +17,5 @@ function ENT:Initialize()
 end
 
 function ENT:SpawnFunction(p,t)
-	return WTib.CreateTiberium(self,self.Class,t,p)
+	return WTib.CreateTiberium(self,self.ClassName,t,p)
 end
