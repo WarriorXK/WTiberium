@@ -8,7 +8,6 @@ util.PrecacheSound("apc_engine_start")
 util.PrecacheSound("apc_engine_stop")
 
 ENT.MaxDrain = 200
-ENT.MinDrain = 20
 ENT.Range = 200
 
 ENT.EffectEntities = {}
@@ -40,7 +39,7 @@ function ENT:Harvest()
 	local SPos = self:GetPos()
 	for _,v in pairs(ents.FindInCone(self:GetPos(),self:GetUp(),self.Range,10)) do
 		if v.IsTiberium then
-			local Drain = math.Clamp(v:GetTiberiumAmount(),math.Clamp(v:GetTiberiumAmount(),1,self.MinDrain),math.Clamp(SPos:Distance(v:GetPos())/2,40,self.MaxDrain))
+			local Drain = math.min(v:GetTiberiumAmount(),self.MaxDrain)
 			if Energy > Drain*1.2 then
 				if !table.HasValue(self.EffectEntities,v) then
 					local ed = EffectData()
@@ -52,7 +51,6 @@ function ENT:Harvest()
 				end
 				WTib.ConsumeResource(self,"energy",Drain*1.2)
 				WTib.SupplyResource(self,"RawTiberium",Drain)
-				Energy = WTib.GetResourceAmount(self,"energy")
 				v:SetTiberiumAmount(v:GetTiberiumAmount()-Drain)
 			else
 				self:TurnOff()

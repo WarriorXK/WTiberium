@@ -8,7 +8,6 @@ util.PrecacheSound("apc_engine_start")
 util.PrecacheSound("apc_engine_stop")
 
 ENT.MaxDrain = 400
-ENT.MinDrain = 40
 ENT.Range = 400
 
 function ENT:Initialize()
