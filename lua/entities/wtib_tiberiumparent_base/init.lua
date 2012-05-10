@@ -11,7 +11,6 @@ function ENT:Initialize()
 	self:PhysicsInit(SOLID_BBOX)
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetSolid(SOLID_BBOX)
-	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
 	self:DrawShadow(false)
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
@@ -21,10 +20,8 @@ function ENT:Initialize()
 end
 
 function ENT:SetRandomModel()
-	local Modl = ""
-	if type(self.Models) == "table" then Modl = table.Random(self.Models) end
-	if type(Modl) != "string" or !util.IsValidModel(Modl)) then Modl = "models/Tiberium/tiberium_crystal1.mdl" end
-	self:SetModel(Modl)
+	local Modl = table.Random(self.Models)
+	self:SetModel(util.IsValidModel(Modl) and Modl or "models/Tiberium/tiberium_parent.mdl")
 end
 
 function ENT:SpawnFunction(p,t)
@@ -45,11 +42,7 @@ function ENT:InitTiberium()
 	end
 	
 	self:SetRenderMode(self.RenderMode)
-	self:SetColor(Color(self.TiberiumColor.r,
-						self.TiberiumColor.g,
-						self.TiberiumColor.b,
-						((self:GetTiberiumAmount()/self:GetColorDevider())/2)+100))
-	self:CheckColor()
+	self:SetColor(self.TiberiumColor)
 end
 
 function ENT:Think()
@@ -58,76 +51,9 @@ function ENT:Think()
 		self.NextGrow = CurTime()+self.Growth_Delay
 	end
 	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
-	
-	self:CalcSize()
-	self:CheckColor()
-	self:DamageTouchingEntities()
-	
+
 	self:NextThink(CurTime()+1)
 	return true
-end
-
-function ENT:CalcSize()
-	local LocalScale = (self:GetTiberiumAmount()/self:GetMaxTiberiumAmount())
-	local FieldScale = 1 // Todo: Scale by distance from center
-	self.dt.CrystalSize = (LocalScale * FieldScale)
-end
-
-function ENT:OnTakeDamage(dmginfo)
-	if self.Damage_Explosive and dmginfo:IsExplosionDamage() and dmginfo:GetDamage() > self.Damage_Explode_RequiredDamage then
-		timer.Simple(math.Rand(self.Damage_ExplosionDelay-0.5,self.Damage_ExplosionDelay+0.5),self.Explode,self,dmginfo)
-		self.OnTakeDamage = function() end
-	end
-end
-
-function ENT:Explode(dmginfo)
-	if WTib.IsValid(self) then
-		util.BlastDamage(self,self,self:LocalToWorld(self:OBBCenter()),self.Damage_Explode_Size,self.Damage_Explode_Damage)
-		local ed = EffectData()
-			ed:SetOrigin(self:LocalToWorld(self:OBBCenter()))
-			ed:SetStart(self:LocalToWorld(self:OBBCenter()))
-			ed:SetScale(self.Damage_Explode_Size)
-			ed:SetRadius(self.Damage_Explode_Size*10)
-		util.Effect("Explosion",ed)
-		self:Die()
-	end
-end
-
-function ENT:CheckColor()
-	local inc = 2
-	local Col = self:GetColor()
-	self:SetRenderMode(self.RenderMode)
-	self:SetColor(Color(
-		math.Approach(Col.r,self.TiberiumColor.r,inc),
-		math.Approach(Col.g,self.TiberiumColor.g,inc),
-		math.Approach(Col.b,self.TiberiumColor.b,inc),
-		math.Approach(Col.a,((self:GetTiberiumAmount()/self:GetColorDevider())/2)+75,inc))
-	)
-end
-
-function ENT:DamageTouchingEntities()
-	local CSize = (self:GetCrystalSize() + 0.5)
-	local dmginfo = DamageInfo()
-	dmginfo:SetAttacker(self)
-	dmginfo:SetInflictor(self)
-	dmginfo:SetDamageType(DMG_ACID)
-	dmginfo:SetDamage((CSize*8)+(self:GetTiberiumAmount()/100))
-	local Range = 50*CSize
-	if Range < 5 then Range = 5 end
-	for _,v in pairs(ents.FindInSphere(self:GetPos(),Range)) do
-		if v:IsNPC() then
-			v:TakeDamageInfo(dmginfo)
-			if math.random(0,1) == 1 then WTib.Infect(v) end
-		elseif v:IsPlayer() then
-			if v:Armor() > 0 then // If the player has suit armor then only deal armor damage, no infection can occur
-				v:SetArmor(v:Armor() - dmginfo:GetDamage())
-				v:TakeDamage(0, self, self) // Shows the player that he is being damaged (Is there a better way?)
-			else
-				v:TakeDamageInfo(dmginfo)
-				if math.random(0,1) == 1 then WTib.Infect(v) end
-			end
-		end
-	end
 end
 
 function ENT:AttemptReproduce()
@@ -143,11 +69,6 @@ function ENT:AttemptReproduce()
 		else
 			self.Produces[k] = nil
 		end
-	end
-	if Amount >= self.Reproduce_MaxProduces then
-		self.NextReproduce = CurTime()+self.Reproduce_Delay
-		WTib.DebugPrint(tostring(self) .. " - To much!")
-		return
 	end
 	local AllEntities = ents.GetAll()
 	local Filter = {}
@@ -194,20 +115,12 @@ function ENT:TakeSonicDamage(am) // Do something fancy?
 	self:DrainTiberiumAmount(am)
 end
 
-function ENT:Die() // Do something fancy?
-	self:Remove()
-end
-
 function ENT:SetField(num)
 	self.dt.TiberiumField = num
 end
 
 function ENT:SetTiberiumAmount(am)
-	if am <= 0 then
-		self:Die()
-	else
-		self.dt.TiberiumAmount = math.Clamp(am,1,self:GetMaxTiberiumAmount())
-	end
+	self.dt.TiberiumAmount = math.Clamp(am,1,self:GetMaxTiberiumAmount())
 end
 
 function ENT:AddTiberiumAmount(am)

@@ -2,32 +2,13 @@ include('shared.lua')
 
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
-ENT.GrowingSinceSpawn = true
-ENT.LastLightSize = 0
 ENT.LastSize = 0
 
 function ENT:Draw()
-	self:SetModelScale(Vector(self.Size,self.Size,self.Size))
 	self:DrawModel()
 end
 
-function ENT:ThinkSize()
-	local Target = 0.5 + (self:GetCrystalSize() / 1.7)
-	
-	local Speed = 0.00003
-	if Target == self.LastSize then self.GrowingSinceSpawn = false end
-	if self.GrowingSinceSpawn then Speed = 0.0003 end // Speed it up a bit if it has just been spawned
-	
-	self.Size = math.Approach(self.LastSize,Target,Speed)
-	if self.Size < self.LastSize then // No shrinking
-		self.Size = self.LastSize
-	else
-		self.LastSize = self.Size
-	end
-end
-
 function ENT:Think()
-	self:ThinkSize()
 	self:CreateDLight()
 	self:NextThink(CurTime()+1)
 	return true
@@ -39,7 +20,7 @@ function ENT:CreateDLight()
 	if dlight then
 		local LightScale = WTib.DynamicLightSize:GetInt()
 		local Col = self:GetColor()
-		local LightSize = math.Clamp(50 + (self.Size * 120),0,255)
+		local LightSize = 170
 		dlight.Pos = self:LocalToWorld(self:OBBCenter())
 		dlight.r = Col.r
 		dlight.g = Col.g

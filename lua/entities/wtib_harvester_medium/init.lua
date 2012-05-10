@@ -7,6 +7,7 @@ WTib.ApplyDupeFunctions(ENT)
 util.PrecacheSound("apc_engine_start")
 util.PrecacheSound("apc_engine_stop")
 
+ENT.HarvestParents = false
 ENT.MaxDrain = 200
 ENT.Range = 200
 
@@ -23,7 +24,7 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
-	self.Inputs = WTib.CreateInputs(self,{"On"})
+	self.Inputs = WTib.CreateInputs(self,{"On", "HarvestParents"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","RawTiberium"})
 	WTib.AddResource(self,"RawTiberium",0)
 	WTib.AddResource(self,"energy",0)
@@ -40,18 +41,22 @@ function ENT:Harvest()
 	for _,v in pairs(ents.FindInCone(self:GetPos(),self:GetUp(),self.Range,10)) do
 		if v.IsTiberium then
 			local Drain = math.min(v:GetTiberiumAmount(),self.MaxDrain)
-			if Energy > Drain*1.2 then
-				if !table.HasValue(self.EffectEntities,v) then
-					local ed = EffectData()
-						ed:SetEntity(self)
-						ed:SetScale(v:EntIndex())
-						ed:SetMagnitude(self.Range)
-					util.Effect("wtib_harvestbeam",ed)
-					table.insert(self.EffectEntities,v)
+			local Mul = 1.2
+			if v.IsTiberiumParent then Mul = 1.5 end
+			if Energy > Drain*Mul then
+				if (v.IsTiberiumParent and v.HarvestParents) or !v.IsTiberiumParent then
+					if !table.HasValue(self.EffectEntities,v) then
+						local ed = EffectData()
+							ed:SetEntity(self)
+							ed:SetScale(v:EntIndex())
+							ed:SetMagnitude(self.Range)
+						util.Effect("wtib_harvestbeam",ed)
+						table.insert(self.EffectEntities,v)
+					end
+					WTib.ConsumeResource(self,"energy",Drain*1.2)
+					WTib.SupplyResource(self,"RawTiberium",Drain)
+					v:SetTiberiumAmount(v:GetTiberiumAmount()-Drain)
 				end
-				WTib.ConsumeResource(self,"energy",Drain*1.2)
-				WTib.SupplyResource(self,"RawTiberium",Drain)
-				v:SetTiberiumAmount(v:GetTiberiumAmount()-Drain)
 			else
 				self:TurnOff()
 				break
@@ -119,5 +124,7 @@ function ENT:TriggerInput(name,val)
 		else
 			self:TurnOn()
 		end
+	elseif name = "HarvestParents" then
+		self.HarvestParents = tobool(val)
 	end
 end
