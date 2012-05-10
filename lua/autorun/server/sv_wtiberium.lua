@@ -171,7 +171,7 @@ function WTib.TiberiumCanGrow(class,pos)
 			
 			WTib.DebugPrint("'" .. class .. "' - '" .. v:GetClass() .. "' - '" .. tostring(EntTable.t.ClassToSpawn) .. "'")
 			
-			if class == v:GetClass() or (type(EntTable) == "table" and (EntTable.t.ClassToSpawn == v:GetClass() or EntTable.t.ClassToSpawn == v:GetClass())) then
+			if class == v:GetClass() or (type(EntTable) == "table" and (EntTable.t.ClassToSpawn == v:GetClass() or EntTable.t.ClassToSpawn == class)) then
 				if Dist <= 80 then
 					WTib.DebugPrint("false (Closer than 80)")
 					return false
