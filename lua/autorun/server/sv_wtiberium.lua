@@ -82,8 +82,7 @@ function WTib.AddResources()
 end
 
 function WTib.CreateTiberium(creator,class,t,ply)
-	local Call = hook.Call("WTib_TiberiumCanGrow",GAMEMODE,class,t,creator)
-	if Call != nil and !tobool(a) then return end
+	WTib.CanTiberiumGrow(class, t.HitPos)
 	if !t.Hit or (t.Entity and (t.Entity:IsPlayer() or t.Entity:IsNPC() or t.Entity.IsTiberium)) or t.HitSky then return end
 	local e = ents.Create(class)
 	local ang = t.HitNormal:Angle()+Angle(90,0,0)
@@ -106,6 +105,11 @@ function WTib.CreateTiberium(creator,class,t,ply)
 		e:SetParent(t.Entity)
 	end
 	return e
+end
+
+function WTib.CanTiberiumGrow(class, pos)
+	local Call = hook.Call("WTib_TiberiumCanGrow",GAMEMODE,class,pos)
+	if Call != nil and !tobool(a) then return false end
 end
 
 function WTib.SpawnFunction(p,t,ent,offset)
@@ -158,12 +162,11 @@ timer.Create("WTib.InfectedTimer",1,0,function()
 	end
 end)
 
-function WTib.TiberiumCanGrow(class,t,ent)
-	// TODO: Prevent fields from extending from their max size here.
-	for _,v in pairs(ents.FindInSphere(t.HitPos,600)) do
-		local Dist = v:GetPos():Distance(t.HitPos)
+function WTib.TiberiumCanGrow(class,pos)
+	for _,v in pairs(ents.FindInSphere(pos,600)) do
+		local Dist = v:GetPos():Distance(pos)
 		if v.IsTiberium then
-			if v:GetClass() == class then
+			if v:GetClass() == class or v.ClassToSpawn == class then
 				if Dist <= 80 then
 					return false
 				end
