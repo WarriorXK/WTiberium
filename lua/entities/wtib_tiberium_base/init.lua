@@ -42,7 +42,7 @@ function ENT:InitTiberium()
 		end
 	end
 	
-	self:SetRenderMode(RENDERMODE_TRANSTEXTURE)
+	self:SetRenderMode(self.RenderMode)
 	self:SetColor(Color(self.TiberiumColor.r,
 						self.TiberiumColor.g,
 						self.TiberiumColor.b,
@@ -57,15 +57,18 @@ function ENT:Think()
 	end
 	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
 	
-	local LocalScale = (self:GetTiberiumAmount()/self:GetMaxTiberiumAmount())
-	local FieldScale = 1 // Todo: Scale by distance from center
-	self.dt.CrystalSize = (LocalScale * FieldScale)
-	
+	self:CalcSize()
 	self:CheckColor()
 	self:DamageTouchingEntities()
 	
 	self:NextThink(CurTime()+1)
 	return true
+end
+
+function ENT:CalcSize()
+	local LocalScale = (self:GetTiberiumAmount()/self:GetMaxTiberiumAmount())
+	local FieldScale = 1 // Todo: Scale by distance from center
+	self.dt.CrystalSize = (LocalScale * FieldScale)
 end
 
 function ENT:OnTakeDamage(dmginfo)
@@ -91,7 +94,7 @@ end
 function ENT:CheckColor()
 	local inc = 2
 	local Col = self:GetColor()
-	self:SetRenderMode(RENDERMODE_TRANSTEXTURE)
+	self:SetRenderMode(self.RenderMode)
 	self:SetColor(Color(
 		math.Approach(Col.r,self.TiberiumColor.r,inc),
 		math.Approach(Col.g,self.TiberiumColor.g,inc),

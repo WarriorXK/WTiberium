@@ -9,6 +9,8 @@ ENT.AdminSpawnable	= false
 ENT.Category		= "Tiberium"
 ENT.IsTiberium		= true
 
+ENT.RenderMode = RENDERMODE_TRANSTEXTURE
+
 ENT.Reproduce_TiberiumRequired = 1000
 ENT.Reproduce_TiberiumDrained = 400
 ENT.Reproduce_MaxProduces = 5
