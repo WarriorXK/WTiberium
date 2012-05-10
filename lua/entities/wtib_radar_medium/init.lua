@@ -37,13 +37,13 @@ function ENT:Think()
 				for _,v in pairs(ents.FindInSphere(self:GetPos(),self.Range)) do
 					if v.IsTiberium then
 						if self.ParentOnly then
-							if v.IsParentCrystal then
+							if v.IsTiberiumParent then
 								if self:GetPos():Distance(v:GetPos()) < Range then
 									Target = v
 								end
 							end
 						else
-							if !v.IsParentCrystal then
+							if !v.IsTiberiumParent then
 								if self:GetPos():Distance(v:GetPos()) < Range then
 									Target = v
 								end

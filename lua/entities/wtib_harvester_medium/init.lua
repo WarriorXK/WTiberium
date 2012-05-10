@@ -124,7 +124,7 @@ function ENT:TriggerInput(name,val)
 		else
 			self:TurnOn()
 		end
-	elseif name = "HarvestParents" then
+	elseif name == "HarvestParents" then
 		self.HarvestParents = tobool(val)
 	end
 end

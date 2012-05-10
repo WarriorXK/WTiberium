@@ -23,7 +23,7 @@ end
 function ENT:SetRandomModel()
 	local Modl = ""
 	if type(self.Models) == "table" then Modl = table.Random(self.Models) end
-	if type(Modl) != "string" or !util.IsValidModel(Modl)) then Modl = "models/Tiberium/tiberium_crystal1.mdl" end
+	if type(Modl) != "string" or !util.IsValidModel(Modl) then Modl = "models/Tiberium/tiberium_crystal1.mdl" end
 	self:SetModel(Modl)
 end
 

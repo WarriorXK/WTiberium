@@ -29,8 +29,14 @@ end
 
 function ENT:Think()
 	local Count = 0
+	local EnergyToAdd = 0
 	for _,v in pairs(ents.FindInCone(self:GetPos(),self:GetForward(),625,25)) do
 		if v.IsTiberium then
+			if v.IsTiberiumParent then
+				EnergyToAdd = EnergyToAdd + 3
+			else
+				EnergyToAdd = EnergyToAdd + 1
+			end
 			Count = Count+1
 			if Count >= self.MaxCount then break end
 		end
@@ -41,7 +47,7 @@ function ENT:Think()
 	self.dt.Energy = WTib.GetResourceAmount(self,"energy")
 	WTib.TriggerOutput(self,"Online",On)
 	WTib.TriggerOutput(self,"Energy",self.dt.Energy)
-	WTib.SupplyResource(self,"energy",Count*math.Rand(self.MinMul,self.MaxMul))
+	WTib.SupplyResource(self,"energy",EnergyToAdd*math.Rand(self.MinMul,self.MaxMul))
 	self:NextThink(CurTime()+1)
 	return true
 end
