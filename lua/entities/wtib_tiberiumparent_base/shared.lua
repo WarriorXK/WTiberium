@@ -28,6 +28,40 @@ ENT.Growth_Delay = 10
 ENT.DecalSize = 1
 ENT.Decal = ""
 
+function ENT:Initialize()
+	if SERVER then
+		self:SetRandomModel()
+		self:PhysicsInit(SOLID_BBOX)
+		self:SetMoveType(MOVETYPE_NONE)
+		self:SetSolid(SOLID_BBOX)
+		local phys = self:GetPhysicsObject()
+		if phys:IsValid() then
+			phys:Wake()
+		end
+	end
+	self:DrawShadow(false)
+	if type(self.InitTiberium) == "function" then self:InitTiberium() end
+end
+
+function ENT:InitTiberium()
+	if SERVER then
+		self.NextReproduce = 0
+		self.Produces = {}
+		self.NextGrow = 0
+		if self:GetField() <= 0 then self:SetField(WTib.CreateField(self)) end // If no field was set before we spawned create one
+		self:SetTiberiumAmount(self.TiberiumStartAmount)
+		
+		for i=2,100 do // Efficiency at its best
+			if (self:GetMaxTiberiumAmount()/i) == 250 then
+				self.dt.ColorDevider = i
+			end
+		end
+	end
+	
+	self:SetRenderMode(self.RenderMode)
+	self:SetColor(self.TiberiumColor)
+end
+
 function ENT:SetupDataTables()
 	self:DTVar("Int",0,"TiberiumAmount")
 	self:DTVar("Int",1,"ColorDevider")

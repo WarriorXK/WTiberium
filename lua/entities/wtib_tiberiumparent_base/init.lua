@@ -6,19 +6,6 @@ ENT.NextReproduce = 0
 ENT.Produces = {}
 ENT.NextGrow = 0
 
-function ENT:Initialize()
-	self:SetRandomModel()
-	self:PhysicsInit(SOLID_BBOX)
-	self:SetMoveType(MOVETYPE_NONE)
-	self:SetSolid(SOLID_BBOX)
-	self:DrawShadow(false)
-	local phys = self:GetPhysicsObject()
-	if phys:IsValid() then
-		phys:Wake()
-	end
-	self:InitTiberium()
-end
-
 function ENT:SetRandomModel()
 	local Modl = table.Random(self.Models)
 	self:SetModel(util.IsValidModel(Modl) and Modl or "models/Tiberium/tiberium_parent.mdl")
@@ -26,23 +13,6 @@ end
 
 function ENT:SpawnFunction(p,t)
 	return WTib.CreateTiberium(self,self.ClassName,t,p)
-end
-
-function ENT:InitTiberium()
-	self.NextReproduce = 0
-	self.Produces = {}
-	self.NextGrow = 0
-	if self:GetField() <= 0 then self:SetField(WTib.CreateField(self)) end // If no field was set before we spawned create one
-	self:SetTiberiumAmount(self.TiberiumStartAmount)
-	
-	for i=2,100 do // Efficiency at its best
-		if (self:GetMaxTiberiumAmount()/i) == 250 then
-			self.dt.ColorDevider = i
-		end
-	end
-	
-	self:SetRenderMode(self.RenderMode)
-	self:SetColor(self.TiberiumColor)
 end
 
 function ENT:Think()

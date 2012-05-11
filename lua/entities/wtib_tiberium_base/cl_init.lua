@@ -3,7 +3,7 @@ include('shared.lua')
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
 ENT.GrowingSinceSpawn = true
-ENT.LastLightSize = 0
+ENT.NextLight = 0
 ENT.LastSize = 0
 
 function ENT:Draw()
@@ -35,20 +35,23 @@ end
 
 function ENT:CreateDLight()
 	if (WTib.DynamicLight and !WTib.DynamicLight:GetBool()) or false then return end
-	local dlight = DynamicLight(self:EntIndex())
-	if dlight then
-		local LightScale = WTib.DynamicLightSize:GetInt()
-		local Col = self:GetColor()
-		local LightSize = math.Clamp(50 + (self.Size * 120),0,255)
-		dlight.Pos = self:LocalToWorld(self:OBBCenter())
-		dlight.r = Col.r
-		dlight.g = Col.g
-		dlight.b = Col.b
-		dlight.Style = 1
-		dlight.Brightness = 1
-		dlight.Size = (LightSize*1.1)*LightScale
-		dlight.Decay = (LightSize*5.5)*LightScale
-		dlight.DieTime = CurTime()+1
+	if self.NextLight <= CurTime() then
+		local dlight = DynamicLight(0)
+		if dlight then
+			local LightScale = WTib.DynamicLightSize:GetInt()
+			local Col = self:GetColor()
+			local LightSize = math.Clamp(50 + (self.Size * 120),0,255)
+			dlight.Pos = self:LocalToWorld(self:OBBCenter())
+			dlight.r = Col.r
+			dlight.g = Col.g
+			dlight.b = Col.b
+			dlight.Style = 1
+			dlight.Brightness = 1
+			dlight.Size = (LightSize*1.1)*LightScale
+			dlight.Decay = dlight.Size
+			dlight.DieTime = CurTime()+0.1
+		end
+		self.NextLight = CurTime()+0.1
 	end
 end
 language.Add(WTib.GetClass(ENT),ENT.PrintName)
