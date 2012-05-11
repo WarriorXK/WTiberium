@@ -151,12 +151,17 @@ end
 hook.Add("PlayerSpawn","WTib.Disenfect",WTib.Disenfect)
 
 timer.Create("WTib.InfectedTimer",1,0,function()
+	local Crystal = ents.FindByClass("wtib_tiberiuminfection")[1]
+	if !WTib.IsValid(Crystal) then
+		Crystal = ents.Create("wtib_tiberiuminfection")
+		Crystal:Spawn()
+	end
 	local dmginfo = DamageInfo()
 	dmginfo:SetDamageType(DMG_ACID)
+	dmginfo:SetAttacker(Crystal)
+	dmginfo:SetInflictor(Crystal)
 	for _,v in pairs(WTib.InfectedEntities) do
-		if WTib.IsValid(v) and (v:IsPlayer() and v:Alive() or true) then
-			dmginfo:SetAttacker(v)
-			dmginfo:SetInflictor(v)
+		if WTib.IsValid(v) and ((v:IsPlayer() and v:Alive()) or v:IsNPC()) then
 			dmginfo:SetDamage(math.random(1,3))
 			v:TakeDamageInfo(dmginfo)
 		end
@@ -215,9 +220,7 @@ function WTib.KillField(num)
 end
 
 function WTib.GetFurthestCrystalFromField(num)
-	if !WTib.IsValid(WTib.Fields[num].MostDistant) then
-		WTib.SelectMostDistant(num)
-	end
+	WTib.SelectMostDistant(num)
 	return WTib.Fields[num].MostDistant
 end
 
@@ -231,13 +234,15 @@ end
 function WTib.SelectMostDistant(num)
 	local Ent
 	local Dis = 0
-	for _,v in pairs(WTib.Fields[num].Entities) do
+	for k,v in pairs(WTib.Fields[num].Entities) do
 		if WTib.IsValid(v) then
 			local a = v:GetPos():Distance(WTib.GetFieldMaster(num):GetPos())
 			if a > Dis then
 				Ent = v
 				Dis = a
 			end
+		else
+			WTib.Fields[num].Entities[k] = nil
 		end
 	end
 	WTib.Fields[num].MostDistant = Ent
