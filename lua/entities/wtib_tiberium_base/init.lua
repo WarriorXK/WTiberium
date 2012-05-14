@@ -117,14 +117,14 @@ function ENT:DamageTouchingEntities()
 	for _,v in pairs(ents.FindInSphere(self:GetPos(),Range)) do
 		if v:IsNPC() then
 			v:TakeDamageInfo(dmginfo)
-			if math.random(0,1) == 1 then WTib.Infect(v) end
+			if WTib.Config.InfectionChance > 0 and math.random(1, WTib.Config.InfectionChance) == 1 then WTib.Infect(v) end
 		elseif v:IsPlayer() then
 			if v:Armor() > 0 then // If the player has suit armor then only deal armor damage, no infection can occur
 				v:SetArmor(v:Armor() - dmginfo:GetDamage())
 				v:TakeDamage(0, self, self) // Shows the player that he is being damaged (Is there a better way?)
 			else
 				v:TakeDamageInfo(dmginfo)
-				if math.random(0,1) == 1 then WTib.Infect(v) end
+				if WTib.Config.InfectionChance > 0 and math.random(1, WTib.Config.InfectionChance) == 1 then WTib.Infect(v) end
 			end
 		end
 	end

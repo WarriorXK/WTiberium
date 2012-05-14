@@ -7,6 +7,7 @@ WTib.ApplyDupeFunctions(ENT)
 ENT.MinAccelerationAmount	= 60
 ENT.MaxAccelerationAmount	= 70
 ENT.AccelerationDelay		= 5
+ENT.InfectionChance			= 3
 ENT.MaxRange				= 1024
 ENT.MinRange				= 10
 

@@ -4,22 +4,24 @@ WTib.InfectedEntities			= {}
 WTib.Config						= {}
 WTib.Config.ResourceFile		= "WTib/resources.txt"
 WTib.Config.ForceResources		= false
+WTib.Config.InfectionChance		= 2
 WTib.Config.MaximumFieldSize	= 70
 
 /*
 	Console Commands
 */
 
-concommand.Add("WTib_RemoveAllTiberium",function(ply,com,args)
+concommand.Add("wtib_removealltiberium",function(ply,com,args)
 	if ply == NULL or ply:IsAdmin() then
 		for _,v in pairs(WTib.GetAllTiberium()) do
 			v:Remove()
 		end
+		local Text = "All Tiberium has been removed"
 		for _,v in pairs(player.GetAll()) do
 			if v:IsAdmin() then
-				v:ChatPrint("All Tiberium has been removed by \""..ply:Nick().."\".")
+				v:ChatPrint(Text .. " by \""..ply:Nick().."\".")
 			else
-				v:ChatPrint("All Tiberium has been removed.")
+				v:ChatPrint(Text)
 			end
 		end
 	else
@@ -27,15 +29,34 @@ concommand.Add("WTib_RemoveAllTiberium",function(ply,com,args)
 	end
 end)
 
-concommand.Add("WTib_DefaultMaxFieldSize",function(ply,com,args)
+concommand.Add("wtib_defaultmaxfieldsize",function(ply,com,args)
 	if ply == NULL or ply:IsAdmin() then
 		local val = math.Clamp(tonumber(args[1]),10,300)
 		WTib.Config.MaximumFieldSize = val
+		local Text = "Max Tiberium per field has been set to "..val
 		for _,v in pairs(player.GetAll()) do
 			if v:IsAdmin() then
-				v:ChatPrint("Max Tiberium per field has been set to "..val.." by \""..ply:Nick().."\".")
+				v:ChatPrint(Text .." by \""..ply:Nick().."\".")
 			else
-				v:ChatPrint("Max Tiberium per field has been set to "..val)
+				v:ChatPrint(Text)
+			end
+		end
+	else
+		ply:ChatPrint("This command is admin only.")
+	end
+end)
+
+concommand.Add("wtib_infectionchance",function(ply,com,args)
+	if ply == NULL or ply:IsAdmin() then
+		local val = math.max(tonumber(args[1]),-1)
+		WTib.Config.InfectionChance = val
+		local Text = "The Tiberium infection chance has been set to 1 in "..val
+		if val <= 0 then Text = "Tiberium infection has been disabled" end
+		for _,v in pairs(player.GetAll()) do
+			if v:IsAdmin() then
+				v:ChatPrint(Text .. " by \""..ply:Nick().."\".")
+			else
+				v:ChatPrint(Text)
 			end
 		end
 	else

@@ -7,6 +7,7 @@ WTib.ApplyDupeFunctions(ENT)
 ENT.MinAccelerationAmount	= 40
 ENT.MaxAccelerationAmount	= 50
 ENT.AccelerationDelay		= 5
+ENT.InfectionChance			= 5
 ENT.MaxRange				= 512
 ENT.MinRange				= 10
 
@@ -49,7 +50,7 @@ function ENT:Think()
 					TotalAdded = TotalAdded + Add
 					Ents[v] = Add
 				elseif (v:IsPlayer() and v:Armor() <= 0) or v:IsNPC() then
-					if math.random(0,2) == 1 then WTib.Infect(v) end
+					if math.random(1, self.InfectionChance) == 1 then WTib.Infect(v) end
 				end
 			end
 		end
