@@ -33,3 +33,32 @@ function WTib.RemovePanelControls(panel)
 	panel.btnMaxim:SetVisible(false)
 	panel.btnMinim:SetVisible(false)
 end
+
+function WTib.AddClientMenu()
+	spawnmenu.AddToolCategory("Options","WTiberium Options","WTiberium Options")
+	spawnmenu.AddToolMenuOption("Options","WTiberium Options","WTibAdminOptions","Administrative Options","","",WTib.PopulateAdminOptions)
+end
+hook.Add("AddToolMenuTabs", "WTib.AddClientMenu", WTib.AddClientMenu)
+
+function WTib.PopulateAdminOptions(Panel)
+	Panel:ClearControls()
+
+	if LocalPlayer():IsAdmin() then
+
+		Panel:Button("Remove all Tiberium", "wtib_removealltiberium")
+		local Sldr = Panel:NumSlider("Max tiberium field size:", "wtib_defaultmaxfieldsize", 10, 300, 0)
+			Sldr:SetToolTip("This option specifies how many crystals a field can have, Default : 50")
+			PrintTable(Sldr:GetTable())
+		
+		Panel:NumSlider("Tiberium infection chance:", "wtib_infectionchance", 0, 50, 0):SetToolTip("This option specifies how big the infection by Tiberium chance is, Default : 3")
+		
+		// Because the sliders set the values to 0 when they load
+		timer.Simple(0.1, function()
+			RunConsoleCommand("wtib_defaultmaxfieldsize", 50)
+			RunConsoleCommand("wtib_infectionchance", 3)
+		end)
+	else
+		Panel:AddControl("Label",{Text="This panel is only available for admins"})
+	end
+	
+end

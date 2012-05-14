@@ -2,6 +2,9 @@
 WTib = WTib or {}
 WTib.InfectedEntities			= {}
 WTib.Config						= {}
+WTib.ConfigMessages				= {}
+WTib.ConCommandsIgnoredPlayers	= {}
+
 WTib.Config.ResourceFile		= "WTib/resources.txt"
 WTib.Config.ForceResources		= false
 WTib.Config.InfectionChance		= 2
@@ -11,6 +14,22 @@ WTib.Config.MaximumFieldSize	= 70
 	Console Commands
 */
 
+function WTib.SetConfigVar(var, val, mess)
+	WTib.ConfigMessages[var] = {Message = mess, BroadcastOn = CurTime()+0.5}
+	WTib.Config[var] = val
+end
+
+timer.Create("WTib.ConfigMessagesTimer",0.1,0,function()
+	for k,v in pairs(WTib.ConfigMessages) do
+		if v.BroadcastOn <= CurTime() then
+			for _,ply in pairs(player.GetAll()) do
+				ply:ChatPrint(v.Message)
+			end
+			WTib.ConfigMessages[k] = nil
+		end
+	end
+end)
+
 concommand.Add("wtib_removealltiberium",function(ply,com,args)
 	if ply == NULL or ply:IsAdmin() then
 		for _,v in pairs(WTib.GetAllTiberium()) do
@@ -18,11 +37,7 @@ concommand.Add("wtib_removealltiberium",function(ply,com,args)
 		end
 		local Text = "All Tiberium has been removed"
 		for _,v in pairs(player.GetAll()) do
-			if v:IsAdmin() then
-				v:ChatPrint(Text .. " by \""..ply:Nick().."\".")
-			else
-				v:ChatPrint(Text)
-			end
+			v:ChatPrint(Text)
 		end
 	else
 		ply:ChatPrint("This command is admin only.")
@@ -32,14 +47,9 @@ end)
 concommand.Add("wtib_defaultmaxfieldsize",function(ply,com,args)
 	if ply == NULL or ply:IsAdmin() then
 		local val = math.Clamp(tonumber(args[1]),10,300)
-		WTib.Config.MaximumFieldSize = val
-		local Text = "Max Tiberium per field has been set to "..val
-		for _,v in pairs(player.GetAll()) do
-			if v:IsAdmin() then
-				v:ChatPrint(Text .." by \""..ply:Nick().."\".")
-			else
-				v:ChatPrint(Text)
-			end
+		if WTib.Config.MaximumFieldSize != val then
+			WTib.Config.MaximumFieldSize = val
+			WTib.SetConfigVar("MaximumFieldSize", val, "Max Tiberium per field has been set to "..val)
 		end
 	else
 		ply:ChatPrint("This command is admin only.")
@@ -49,15 +59,12 @@ end)
 concommand.Add("wtib_infectionchance",function(ply,com,args)
 	if ply == NULL or ply:IsAdmin() then
 		local val = math.max(tonumber(args[1]),-1)
-		WTib.Config.InfectionChance = val
-		local Text = "The Tiberium infection chance has been set to 1 in "..val
-		if val <= 0 then Text = "Tiberium infection has been disabled" end
-		for _,v in pairs(player.GetAll()) do
-			if v:IsAdmin() then
-				v:ChatPrint(Text .. " by \""..ply:Nick().."\".")
-			else
-				v:ChatPrint(Text)
-			end
+		if WTib.Config.InfectionChance != val then
+			WTib.Config.InfectionChance = val
+			
+			local Text = "The Tiberium infection chance has been set to 1 in "..val
+			if val <= 0 then Text = "Tiberium infection has been disabled" end
+			WTib.SetConfigVar("InfectionChance", val, Text)
 		end
 	else
 		ply:ChatPrint("This command is admin only.")
