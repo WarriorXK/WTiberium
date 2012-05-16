@@ -15,7 +15,7 @@ ENT.Refined = 25
 ENT.Chemicals = 25
 ENT.Liquid = 25
 
-local SpawnPos = Vector(18.4114, 23.4715, -4.5913)
+local SpawnPos = Vector(27, 20, -8)
 
 local SuccessSound = Sound("buttons/button14.wav")
 local ErrorSound = Sound("buttons/button8.wav")
@@ -78,7 +78,7 @@ function ENT:BuildWarhead()
 			local LiquidDrain = (OnePercent * self.Liquid)
 			local ChemicalDrain = (OnePercent * self.Chemicals)
 			
-			if RawTiberium >= RawDrain and RefinedTiberium >= RefinedDrain and ChemicalTiberium >= ChemicalDrain and LiquidTiberium >= LiquidDrain and Energy >= Total then
+			if (RawTiberium >= RawDrain and RefinedTiberium >= RefinedDrain and ChemicalTiberium >= ChemicalDrain and LiquidTiberium >= LiquidDrain and Energy >= Total) then
 	
 				WTib.ConsumeResource(self,"energy", Total)
 				WTib.ConsumeResource(self,"RawTiberium", RawDrain)
