@@ -4,7 +4,7 @@
 	"$bumpmap"		"wtiberium/factory_vent_n"
 	"$surfaceprop"		"metal"
 	"$envmap" 		"env_cubemap"
-	"$envmapsaturation"	"2"
+	"$envmapsaturation"	"1"
 	"$envmapcontrast"		"1"
 	"$envmaptint"		"[-1 2 -1]"
 }
