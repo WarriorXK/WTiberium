@@ -4,6 +4,7 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
+ENT.ProjectileSpeed = 80
 ENT.LockDelay = 0
 ENT.TargetPos = Vector(0,0,0)
 ENT.Launched = false
@@ -75,7 +76,7 @@ function ENT:PhysicsSimulate(phys,deltatime)
 	self.TAngle = (ValidEntity(self.Launcher) and self.Launcher.Locked and self.LockDelay < CurTime()) and (Vector(self.Launcher.CoX,self.Launcher.CoY,self.Launcher.CoZ)-self:GetPos()):Angle() or self:GetAngles()
 	local pr = {}
 	pr.secondstoarrive	= 0.5
-	pr.pos				= self:GetPos()+self:GetForward()*80
+	pr.pos				= self:GetPos()+self:GetForward()*self.ProjectileSpeed
 	pr.maxangular		= 5000
 	pr.maxangulardamp	= 10000
 	pr.maxspeed			= 1000000
