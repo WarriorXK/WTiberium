@@ -23,6 +23,8 @@ end
 function ENT:Touch(ent)
 	if ValidEntity(ent) and ent:GetClass() == "wtib_missile_projectile" then
 		ent.Explode = self.Explode
+		self:Remove()
+		return
 	end
 end
 
