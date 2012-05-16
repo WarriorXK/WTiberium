@@ -7,13 +7,13 @@ WTib.ApplyDupeFunctions(ENT)
 ENT.LastErrorSound = 0
 ENT.NextBuild = 0
 
-local Total = 1000 // The total amount of resources drained
-
 // Percentages drained
 ENT.Raw = 25
 ENT.Refined = 25
 ENT.Chemicals = 25
 ENT.Liquid = 25
+
+local Total = 1000 // The total amount of resources drained
 
 local SpawnPos = Vector(27, 20, -8)
 
@@ -53,77 +53,56 @@ function ENT:Think()
 	self.dt.Refined = WTib.GetResourceAmount(self, "RefinedTiberium")
 	self.dt.Chemicals = WTib.GetResourceAmount(self, "ChemicalTiberium")
 	self.dt.Liquid = WTib.GetResourceAmount(self, "LiquidTiberium")
+	
+	local CBuild = 0
+	if self:CanBuild() then CBuild = 1 end
+	WTib.TriggerOutput(self, "Can Build", CBuild)
 end
 
 function ENT:CanBuild()
-	return self.NextBuild < CurTime()
+
+	local OnePercent = Total / 100
+
+	return 	(self.NextBuild < CurTime() and
+			(WTib.GetResourceAmount(self, "energy") >= Total) and
+			(WTib.GetResourceAmount(self, "RawTiberium") >= (OnePercent * self.Raw)) and
+			(WTib.GetResourceAmount(self, "RefinedTiberium") >= (OnePercent * self.Refined)) and
+			(WTib.GetResourceAmount(self, "ChemicalTiberium") >= (OnePercent * self.Chemicals)) and
+			(WTib.GetResourceAmount(self, "LiquidTiberium") >= (OnePercent * self.Liquid)))
 end
 
 function ENT:BuildWarhead()
 
-	local Energy = WTib.GetResourceAmount(self, "energy")
-	local RawTiberium = WTib.GetResourceAmount(self, "RawTiberium")
-	local RefinedTiberium = WTib.GetResourceAmount(self, "RefinedTiberium")
-	local ChemicalTiberium = WTib.GetResourceAmount(self, "ChemicalTiberium")
-	local LiquidTiberium = WTib.GetResourceAmount(self, "LiquidTiberium")
-	
 	if self:CanBuild() then
+	
 		local Tot = math.Round(self.Raw + self.Refined + self.Chemicals + self.Liquid)
 		if Tot == 100 then // The total percentage is 100
-			
-			local OnePercent = Total / 100
-			
-			local RawDrain = (OnePercent * self.Raw)
-			local RefinedDrain = (OnePercent * self.Refined)
-			local LiquidDrain = (OnePercent * self.Liquid)
-			local ChemicalDrain = (OnePercent * self.Chemicals)
-			
-			if (RawTiberium >= RawDrain and RefinedTiberium >= RefinedDrain and ChemicalTiberium >= ChemicalDrain and LiquidTiberium >= LiquidDrain and Energy >= Total) then
-	
-				WTib.ConsumeResource(self,"energy", Total)
-				WTib.ConsumeResource(self,"RawTiberium", RawDrain)
-				WTib.ConsumeResource(self,"RefinedTiberium", RefinedDrain)
-				WTib.ConsumeResource(self,"ChemicalTiberium", ChemicalDrain)
-				WTib.ConsumeResource(self,"LiquidTiberium", LiquidDrain)
 
-				local ent = ents.Create("wtib_missile_warhead")
-				ent:SetAngles( self:GetAngles() )
-				ent:SetPos( self:LocalToWorld(SpawnPos) )
-				ent:Spawn()
-				ent:Activate()
-				ent:SetWarheadValues(self.Energy, self.Raw, self.Refined, self.Chemicals, self.Liquid)
-				
-				self:EmitSound(SuccessSound)
-				self.NextBuild = CurTime()+1
+			WTib.ConsumeResource(self,"energy", Total)
+			WTib.ConsumeResource(self,"RawTiberium", RawDrain)
+			WTib.ConsumeResource(self,"RefinedTiberium", RefinedDrain)
+			WTib.ConsumeResource(self,"ChemicalTiberium", ChemicalDrain)
+			WTib.ConsumeResource(self,"LiquidTiberium", LiquidDrain)
+
+			local ent = ents.Create("wtib_missile_warhead")
+			ent:SetAngles( self:GetAngles() )
+			ent:SetPos( self:LocalToWorld(SpawnPos) )
+			ent:Spawn()
+			ent:Activate()
+			ent:SetWarheadValues(self.Energy, self.Raw, self.Refined, self.Chemicals, self.Liquid)
 			
-			else
-				
-				print("Not enough resources :")
-				print("\tEnergy :" .. Energy .. "/" .. Total)
-				print("\tRaw :" .. RawTiberium .. "/" .. RawDrain)
-				print("\tRefined :" .. RefinedTiberium .. "/" .. RefinedDrain)
-				print("\tChemical :" .. ChemicalTiberium .. "/" .. ChemicalDrain)
-				print("\tLiquid :" .. LiquidTiberium .. "/" .. ChemicalDrain)
-				
-				self:EmitSound(ErrorSound)
-				
-			end
-			
+			self:EmitSound(SuccessSound)
+			self.NextBuild = CurTime()+1
+
 		else
-			
-			print("Total is not 100 but (" .. Tot .. ") :")
-			print("\tRaw : " .. self.Raw)
-			print("\tRefined : " .. self.Refined)
-			print("\tChemicals : " .. self.Chemicals)
-			print("\tLiquid : " .. self.Liquid)
-			
 			self:EmitSound(ErrorSound)
-			
 		end
 		
 	elseif self.LastErrorSound < CurTime() then
+	
 		self:EmitSound(ErrorSound)
 		self.LastErrorSound = CurTime()+ErrorSoundDelay
+		
 	end
 	
 end
@@ -133,6 +112,7 @@ function ENT:OnRestore()
 end
 
 function ENT:TriggerInput(name,val)
+
 	if name == "Build" then
 		if tobool(val) then
 			self:BuildWarhead()
@@ -146,4 +126,5 @@ function ENT:TriggerInput(name,val)
 	elseif name == "Liquid" then
 		self.Liquid = tonumber(val)
 	end
+	
 end

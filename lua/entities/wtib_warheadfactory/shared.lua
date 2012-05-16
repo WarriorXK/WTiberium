@@ -11,9 +11,9 @@ ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:DTVar("Int",0,"Energy")
-	self:DTVar("Int",0,"Raw")
-	self:DTVar("Int",0,"Refined")
-	self:DTVar("Int",0,"Chemicals")
+	self:DTVar("Int",1,"Raw")
+	self:DTVar("Int",2,"Refined")
+	self:DTVar("Int",3,"Chemicals")
 	self:DTVar("Float",0,"Liquid")
 end
 
