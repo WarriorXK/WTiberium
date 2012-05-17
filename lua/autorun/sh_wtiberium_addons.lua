@@ -6,9 +6,7 @@ WTib = WTib or {}
 */
 
 function WTib.RegisterEnt(a,b)
-	print(a,b)
 	if WTib.HasResourceAPI() then
-		print("api")
 		return a:InitResources()
 	elseif LS_RegisterEnt then
 		return LS_RegisterEnt(a,b)
