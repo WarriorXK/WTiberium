@@ -5,6 +5,32 @@ WTib = WTib or {}
 	Resource distribution
 */
 
+function WTib.HasResourceAPI()
+	return type(RESOURCES) == "table"
+end
+
+function WTib.HasRD2()
+	return RD2Version != nil
+end
+
+function WTib.HasRD3()
+	if WTib.RD3 != nil then return true end
+	if CAF then
+		if CAF.Addons then
+			if (CAF.Addons.Get("Resource Distribution")) then
+				WTib.RD3 = CAF.Addons.Get("Resource Distribution")
+				return true
+			end
+		else
+			if CAF and CAF.GetAddon and CAF.GetAddon("Resource Distribution") then
+				WTib.RD3 = CAF.GetAddon("Resource Distribution")
+				return true
+			end
+		end
+	end
+	return false
+end
+
 function WTib.RegisterEnt(a,b)
 	if WTib.HasResourceAPI() then
 		return a:InitResources()
@@ -16,7 +42,6 @@ function WTib.RegisterEnt(a,b)
 		end
 	end
 end
-
 
 if SERVER then
 

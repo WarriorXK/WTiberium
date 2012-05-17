@@ -101,35 +101,6 @@ function WTib.ShouldCollide(ent1,ent2)
 end
 hook.Add("ShouldCollide","WTib.ShouldCollide",WTib.ShouldCollide)
 
-/*
-	RD and Wire functions
-*/
-
-function WTib.HasResourceAPI()
-	return type(RESOURCES) == "table"
-end
-
-function WTib.HasRD2()
-	return RD2Version != nil
-end
-
-function WTib.HasRD3()
-	if WTib.RD3 != nil then return true end
-	if CAF then
-		if CAF.Addons then
-			if (CAF.Addons.Get("Resource Distribution")) then
-				WTib.RD3 = CAF.Addons.Get("Resource Distribution")
-				return true
-			end
-		else
-			if CAF and CAF.GetAddon and CAF.GetAddon("Resource Distribution") then
-				WTib.RD3 = CAF.GetAddon("Resource Distribution")
-				return true
-			end
-		end
-	end
-	return false
-end
 
 /*
 	Misc things
@@ -140,7 +111,9 @@ function WTib.Trace(...) // In case we'd ever need to replace it
 end
 
 function WTib.GetClass(ENT)
-	return string.Replace(string.Replace(ENT.Folder,"entities/",""),"weapons/","")
+	local Class = ENT.ClassName
+	if Class == nil or Class == "" then Class = string.Replace(string.Replace(ENT.Folder,"entities/",""),"weapons/","") end
+	return Class
 end
 
 function WTib.IsValid(e)
