@@ -105,12 +105,16 @@ hook.Add("ShouldCollide","WTib.ShouldCollide",WTib.ShouldCollide)
 	RD and Wire functions
 */
 
+function WTib.HasResourceAPI()
+	return type(RESOURCES) == "table"
+end
+
 function WTib.HasRD2()
 	return RD2Version != nil
 end
 
 function WTib.HasRD3()
-	if WTib.RD3 != nil then return WTib.RD3 != nil end
+	if WTib.RD3 != nil then return true end
 	if CAF then
 		if CAF.Addons then
 			if (CAF.Addons.Get("Resource Distribution")) then
