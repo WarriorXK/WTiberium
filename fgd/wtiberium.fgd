@@ -15,3 +15,18 @@
 [
 	model(studio) : "Model" : "models/Tiberium/tiberium_crystal1.mdl" : "The Tiberium model."
 ]
+
+@PointClass base(Angles, Studiomodel, Origin) studio( "models/Tiberium/tiberium_parent.mdl" ) = wtib_tiberiumparent_green : "Tiberium Parent Green"
+[
+	model(studio) : "Model" : "models/Tiberium/tiberium_parent.mdl" : "The Tiberium parent model."
+]
+
+@PointClass base(Angles, Studiomodel, Origin) studio( "models/Tiberium/tiberium_parent.mdl" ) = wtib_tiberiumparent_blue : "Tiberium Parent Blue"
+[
+	model(studio) : "Model" : "models/Tiberium/tiberium_parent.mdl" : "The Tiberium parent model."
+]
+
+@PointClass base(Angles, Studiomodel, Origin) studio( "models/Tiberium/tiberium_parent.mdl" ) = wtib_tiberiumparent_red : "Tiberium Parent Red"
+[
+	model(studio) : "Model" : "models/Tiberium/tiberium_parent.mdl" : "The Tiberium parent model."
+]
