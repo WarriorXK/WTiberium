@@ -14,8 +14,8 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	self.Outputs = WTib.CreateOutputs(self,{"RefinedTiberium","MaxRefinedTiberium"})
-	WTib.AddResource(self,"RefinedTiberium",1000)
 	WTib.RegisterEnt(self,"Storage")
+	WTib.AddResource(self,"RefinedTiberium",1000)
 end
 
 function ENT:SpawnFunction(p,t)

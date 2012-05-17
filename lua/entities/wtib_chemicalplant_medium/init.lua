@@ -18,10 +18,10 @@ function ENT:Initialize()
 	end
 	self.Inputs = WTib.CreateInputs(self,{"On"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","ChemicalTiberium","RefinedTiberium"})
+	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"ChemicalTiberium",0)
 	WTib.AddResource(self,"RefinedTiberium",0)
 	WTib.AddResource(self,"energy",0)
-	WTib.RegisterEnt(self,"Generator")
 end
 
 function ENT:SpawnFunction(p,t)

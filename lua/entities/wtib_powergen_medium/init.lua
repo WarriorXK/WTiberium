@@ -24,10 +24,10 @@ function ENT:Initialize()
 	end
 	self.Inputs = WTib.CreateInputs(self,{"On","Boost"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Chemicals","Boosting"})
+	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"ChemicalTiberium",0)
 	WTib.AddResource(self,"LiquidTiberium",0)
 	WTib.AddResource(self,"energy",0)
-	WTib.RegisterEnt(self,"Generator")
 end
 
 function ENT:SpawnFunction(p,t)

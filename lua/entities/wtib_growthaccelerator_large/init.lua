@@ -26,8 +26,8 @@ function ENT:Initialize()
 	end
 	self.Inputs = WTib.CreateInputs(self,{"On","SetRange"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Range","MaxRange","Energy"})
-	WTib.AddResource(self,"energy",0)
 	WTib.RegisterEnt(self,"Generator")
+	WTib.AddResource(self,"energy",0)
 	self:SetRange(self.MaxRange)
 	WTib.TriggerOutput(self,"MaxRange",self.MaxRange)
 end

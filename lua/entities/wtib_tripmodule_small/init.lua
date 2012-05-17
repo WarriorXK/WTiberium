@@ -19,8 +19,8 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy"})
-	WTib.AddResource(self,"energy",0)
 	WTib.RegisterEnt(self,"Generator")
+	WTib.AddResource(self,"energy",0)
 end
 
 function ENT:SpawnFunction(p,t)

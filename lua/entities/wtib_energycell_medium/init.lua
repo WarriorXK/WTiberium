@@ -14,8 +14,8 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	self.Outputs = WTib.CreateOutputs(self,{"Energy","MaxEnergy"})
-	WTib.AddResource(self,"energy",3000)
 	WTib.RegisterEnt(self,"Storage")
+	WTib.AddResource(self,"energy",3000)
 end
 
 function ENT:SpawnFunction(p,t)

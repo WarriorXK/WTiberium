@@ -35,12 +35,12 @@ function ENT:Initialize()
 	self.Inputs = WTib.CreateInputs(self,{"Build", "Raw", "Refined", "Chemicals", "Liquid"})
 	self.Outputs = WTib.CreateOutputs(self,{"Can Build"})
 	
+	WTib.RegisterEnt(self, "Generator")
 	WTib.AddResource(self, "energy", 0)
 	WTib.AddResource(self, "RawTiberium", 0)
 	WTib.AddResource(self, "RefinedTiberium", 0)
 	WTib.AddResource(self, "ChemicalTiberium", 0)
 	WTib.AddResource(self, "LiquidTiberium", 0)
-	WTib.RegisterEnt(self, "Generator")
 end
 
 function ENT:SpawnFunction(p,t)
