@@ -7,8 +7,13 @@ ENT.Produces = {}
 ENT.NextGrow = 0
 
 function ENT:SetRandomModel()
-	local Modl = table.Random(self.Models)
-	self:SetModel(util.IsValidModel(Modl) and Modl or "models/Tiberium/tiberium_parent.mdl")
+
+	local Modl = ""
+	if type(self.Models) == "table" then Modl = table.Random(self.Models) end
+	if type(Modl) != "string" or !util.IsValidModel(Modl) then Modl = "models/Tiberium/tiberium_parent.mdl" end
+	
+	self:SetModel(Modl)
+	
 end
 
 function ENT:SpawnFunction(p,t)
@@ -16,6 +21,7 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
+
 	if self.NextGrow <= CurTime() then // Check if we should get more resources
 		self:AddTiberiumAmount(self.Growth_Addition)
 		self.NextGrow = CurTime()+self.Growth_Delay
@@ -24,6 +30,7 @@ function ENT:Think()
 
 	self:NextThink(CurTime()+1)
 	return true
+	
 end
 
 function ENT:AttemptReproduce()
@@ -43,12 +50,14 @@ function ENT:AttemptReproduce()
 		local t = WTib.Trace(pos, VectorRand() * math.random(-Rnd, Rnd), Filter)
 		
 		if WTib.Debug then
+		
 			local ed = EffectData()
 				ed:SetOrigin(pos)
 				ed:SetStart(t.HitPos)
 				ed:SetMagnitude(10)
 				ed:SetScale(2)
 			util.Effect("WTib_DebugTrace",ed)
+			
 		end
 		
 		if !t.Hit then
@@ -57,12 +66,14 @@ function ENT:AttemptReproduce()
 			t = WTib.Trace(t.HitPos,(self:GetUp()*-1)*400,Filter)
 			
 			if WTib.Debug then
+			
 				local ed = EffectData()
 					ed:SetOrigin(pos)
 					ed:SetStart(t.HitPos)
 					ed:SetMagnitude(10)
 					ed:SetScale(2)
 				util.Effect("WTib_DebugTrace",ed)
+				
 			end
 			
 		end

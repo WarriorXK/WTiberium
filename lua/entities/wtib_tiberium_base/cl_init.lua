@@ -1,12 +1,11 @@
 include('shared.lua')
 
-ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
+ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.GrowingSinceSpawn = true
 ENT.NextSizeThink = 0
 ENT.NextLight = 0
 ENT.LastSize = 0
-ENT.Size = 0.1
 
 function ENT:Draw()
 	self:SetModelScale(Vector(self.Size, self.Size, self.Size))
@@ -59,4 +58,4 @@ function ENT:CreateDLight()
 	end
 	
 end
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)

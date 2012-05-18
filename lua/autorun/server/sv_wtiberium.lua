@@ -112,9 +112,11 @@ end
 function WTib.CreateTiberium(creator,class,t,ply)
 	if !WTib.CanTiberiumGrow(class, t.HitPos) then return end
 	if !t.Hit or (t.Entity and (t.Entity:IsPlayer() or t.Entity:IsNPC() or t.Entity.IsTiberium)) or t.HitSky then return end
-	local e = ents.Create(class)
+	
 	local ang = t.HitNormal:Angle()+Angle(90,0,0)
 	ang:RotateAroundAxis(ang:Up(),math.random(0,360))
+	
+	local e = ents.Create(class)
 	e:SetAngles(ang)
 	e:SetPos(t.HitPos+ang:Up()*5)
 	if WTib.IsValid(creator) and (creator:GetField() or 0) > 0 then
@@ -123,15 +125,18 @@ function WTib.CreateTiberium(creator,class,t,ply)
 	e.WDSO = ply
 	e:Spawn()
 	e:Activate()
+	
 	if e.Decal and e.Decal != "" then
 		local Col = e.TiberiumColor
 		Col.a = 255
 		util.DecalEx(e.Decal, t.HitEntity, t.HitPos, t.HitNormal, Col, e.DecalSize or 1, e.DecalSize or 1)
 	end
+	
 	if WTib.IsValid(t.Entity) and !t.Entity:IsWorld() then
 		e:SetMoveType(MOVETYPE_VPHYSICS)
 		e:SetParent(t.Entity)
 	end
+	
 	return e
 end
 

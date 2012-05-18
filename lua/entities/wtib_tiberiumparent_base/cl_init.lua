@@ -1,6 +1,6 @@
 include('shared.lua')
 
-ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
+ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.NextLight = 0
 
@@ -33,8 +33,10 @@ function ENT:CreateDLight()
 			dlight.Decay = dlight.Size
 			dlight.DieTime = CurTime()+1.1
 		end
+		
 		self.NextLight = CurTime()+1
+		
 	end
 	
 end
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)
