@@ -2,4 +2,12 @@
 {
 	"$basetexture" "models/tiberium_r"
 	"$bumpmap"	"models/tiberium_normal"
+
+	"$surfaceprop"		"glass"
+	"$translucent"		"1"
+	"$envmap"		"models/props_trainstation/trainstation_clock_glass001_mask"
+	"$envmapsaturation"	".95"
+	"$envmapcontrast"		"1"
+	"$envmaptint"		"[2 -1 -1]"
 }
+
