@@ -27,58 +27,75 @@ function ENT:Think()
 end
 
 function ENT:AttemptReproduce()
-	if WTib.IsFieldFull(self:GetField()) then
-		self.NextReproduce = CurTime()+self.Reproduce_Delay
-		WTib.DebugPrint(tostring(self) .. " - Field is full")
-		return
-	end
-	local Amount = 0
-	for k,v in pairs(self.Produces) do
-		if WTib.IsValid(v) then
-			Amount = Amount+1
-		else
-			self.Produces[k] = nil
-		end
-	end
-	local AllEntities = ents.GetAll()
+	if !self:CanReproduce() then return false end
+	
 	local Filter = {}
-	for _,v in pairs(AllEntities) do
-		if v.IsTiberium or (v.Alive and v:Alive()) then
+	for _,v in pairs(ents.GetAll()) do
+		if v.IsTiberium or (v:IsPlayer() and v:Alive()) or v:IsNPC() then
 			table.insert(Filter,v)
 		end
 	end
-	for i=1,10 do
+	
+	for i=1, 7 do
+	
 		local pos = self:LocalToWorld(self:OBBCenter())
-		local t = WTib.Trace(pos,VectorRand()*math.random(-500,500),Filter)
-		local ed = EffectData()
-			ed:SetOrigin(pos)
-			ed:SetStart(t.HitPos)
-			ed:SetMagnitude(10)
-			ed:SetScale(2)
-		WTib.DebugEffect("WTib_DebugTrace",ed)
-		local Save = true
-		if !t.Hit then
-			pos = t.HitPos
-			t = WTib.Trace(t.HitPos,(self:GetUp()*-1)*300,Filter)
+		local Rnd = i * 70
+		local t = WTib.Trace(pos, VectorRand() * math.random(-Rnd, Rnd), Filter)
+		
+		if WTib.Debug then
 			local ed = EffectData()
 				ed:SetOrigin(pos)
 				ed:SetStart(t.HitPos)
 				ed:SetMagnitude(10)
 				ed:SetScale(2)
-			WTib.DebugEffect("WTib_DebugTrace",ed)
+			util.Effect("WTib_DebugTrace",ed)
 		end
-		local ent = WTib.CreateTiberium(self,self.ClassToSpawn,t,self.WDSO)
-		if WTib.IsValid(ent) then
-			table.insert(self.Produces,ent)
-			WTib.DebugPrint("New Tiberium grown from old")
-			self.NextReproduce = CurTime()+self.Reproduce_Delay
-			self:DrainTiberiumAmount(self.Reproduce_TiberiumDrained)
-			WTib.AddFieldMember(self:GetField(),ent)
-			break
-		else
-			self.NextReproduce = CurTime()+60
+		
+		if !t.Hit then
+		
+			pos = t.HitPos
+			t = WTib.Trace(t.HitPos,(self:GetUp()*-1)*400,Filter)
+			
+			if WTib.Debug then
+				local ed = EffectData()
+					ed:SetOrigin(pos)
+					ed:SetStart(t.HitPos)
+					ed:SetMagnitude(10)
+					ed:SetScale(2)
+				util.Effect("WTib_DebugTrace",ed)
+			end
+			
 		end
+		
+		if t.Hit then
+		
+			local ent = WTib.CreateTiberium(self,self.ClassToSpawn,t,self.WDSO)
+			if WTib.IsValid(ent) then
+			
+				table.insert(self.Produces,ent)
+				WTib.AddFieldMember(self:GetField(),ent)
+				
+				WTib.DebugPrint("New Tiberium grown from old")
+				self.NextReproduce = CurTime()+self.Reproduce_Delay
+				self:DrainTiberiumAmount(self.Reproduce_TiberiumDrained)
+				
+				break
+
+			end
+			
+		end
+		
+		self.NextReproduce = CurTime()+self.Reproduce_Delay
+		
 	end
+	
+	return false
+	
+end
+
+function ENT:CanReproduce()
+	if WTib.IsFieldFull(self:GetField()) then return false end
+	return true
 end
 
 function ENT:TakeSonicDamage(am) // Do something fancy?
@@ -90,13 +107,13 @@ function ENT:SetField(num)
 end
 
 function ENT:SetTiberiumAmount(am)
-	self.dt.TiberiumAmount = math.Clamp(am,1,self:GetMaxTiberiumAmount())
+	self.dt.TiberiumAmount = math.Clamp(am, 1, self:GetMaxTiberiumAmount())
 end
 
 function ENT:AddTiberiumAmount(am)
-	self:SetTiberiumAmount(self:GetTiberiumAmount() + am)
+	self:SetTiberiumAmount(self:GetTiberiumAmount() + math.max(am, 0))
 end
 
 function ENT:DrainTiberiumAmount(am)
-	self:SetTiberiumAmount(self:GetTiberiumAmount() - am)
+	self:SetTiberiumAmount(self:GetTiberiumAmount() - math.min(am, 0))
 end

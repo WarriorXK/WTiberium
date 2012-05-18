@@ -15,11 +15,13 @@ function ENT:Think()
 end
 
 function ENT:CreateDLight()
+
 	if (WTib.DynamicLight and !WTib.DynamicLight:GetBool()) or false then return end
+	
 	if self.NextLight <= CurTime() then
+	
 		local dlight = DynamicLight(0)
 		if dlight then
-			local LightScale = WTib.DynamicLightSize:GetInt()
 			local Col = self:GetColor()
 			dlight.Pos = self:LocalToWorld(self:OBBCenter())
 			dlight.r = Col.r
@@ -27,11 +29,12 @@ function ENT:CreateDLight()
 			dlight.b = Col.b
 			dlight.Style = 1
 			dlight.Brightness = 3
-			dlight.Size = 250 * LightScale
+			dlight.Size = 250 * WTib.DynamicLightSize:GetInt()
 			dlight.Decay = dlight.Size
-			dlight.DieTime = CurTime()+1
+			dlight.DieTime = CurTime()+1.1
 		end
 		self.NextLight = CurTime()+1
 	end
+	
 end
 language.Add(WTib.GetClass(ENT),ENT.PrintName)
