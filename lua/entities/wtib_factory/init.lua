@@ -3,6 +3,7 @@ AddCSLuaFile("shared.lua")
 include('shared.lua')
 
 util.AddNetworkString("wtib_factory_buildobject")
+util.AddNetworkString("wtib_factory_openmenu")
 
 WTib.ApplyDupeFunctions(ENT)
 
@@ -53,10 +54,14 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
+
 	if self.dt.IsBuilding then
 		if self.LastBuild+WTib.Factory.GetObjectByID(self.dt.BuildingID).PercentDelay <= CurTime() then
+		
 			self.dt.PercentageComplete = self.dt.PercentageComplete+1
+			
 			if self.dt.PercentageComplete >= 100 then
+			
 				local ply
 				if ValidEntity(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
 				
@@ -74,25 +79,31 @@ function ENT:Think()
 				WTib.TriggerOutput(self,"IsBuilding",0)
 				
 			end
+			
 			self.LastBuild = CurTime()
+			
 		end
 	end
+	
 	WTib.TriggerOutput(self,"PercentageComplete",tonumber(self.dt.PercentageComplete))
+	
 	self:NextThink(CurTime())
 	return true
 end
 
 function ENT:PanelUse(ply)
+
 	if !self.dt.IsBuilding then
 	
 		// Notify the client that the menu needs to open
-		umsg.Start("wtib_factory_openmenu",ply)
-			umsg.Entity(self)
-		umsg.End()
+		net.Start("wtib_factory_openmenu")
+			net.WriteEntity(self)
+		net.Send(ply)
 		
 	else
 		self:EmitSound(ErrorSound)
 	end
+	
 end
 
 function ENT:BuildObject(id,ply)
@@ -155,13 +166,13 @@ function ENT:TriggerInput(name,val)
 	end
 end
 
-net.Receive( "wtib_factory_buildobject", function( len )
+net.Receive( "wtib_factory_buildobject", function( len, ply )
 	
-	local ply = Entity(net.ReadLong())
 	local ent = net.ReadEntity()
+	local BID = net.ReadFloat()
 
 	if WTib.IsValid(ent) then
-		if ent:BuildObject(math.Round(net.ReadFloat()),ply) then
+		if ent:BuildObject( math.Round(BID), ply ) then
 			ent:EmitSound(SuccessSound)
 		elseif ent.LastErrorSound < CurTime() then
 			ent:EmitSound(ErrorSound)

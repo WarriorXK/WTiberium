@@ -3,6 +3,7 @@ AddCSLuaFile("shared.lua")
 include('shared.lua')
 
 util.AddNetworkString("wtib_dispenser_buildobject")
+util.AddNetworkString("wtib_dispenser_openmenu")
 
 WTib.ApplyDupeFunctions(ENT)
 
@@ -58,9 +59,9 @@ function ENT:Use(ply)
 	if !self.dt.IsBuilding then
 	
 		// Notify the client that the menu needs to open
-		umsg.Start("wtib_dispenser_openmenu",ply)
-			umsg.Entity(self)
-		umsg.End()
+		net.Start("wtib_dispenser_openmenu")
+			net.WriteEntity(self)
+		net.Send(ply)
 		
 	else
 		self:EmitSound(ErrorSound)
@@ -104,13 +105,13 @@ function ENT:TriggerInput(name,val)
 	end
 end
 
-net.Receive( "wtib_dispenser_buildobject", function( len )
+net.Receive( "wtib_dispenser_buildobject", function( len, ply )
 
-	local ply = Entity(net.ReadLong())
 	local ent = net.ReadEntity()
+	local BID = net.ReadFloat()
 	
 	if WTib.IsValid(ent) then
-		if ent:BuildObject(math.Round(net.ReadFloat()),ply) then
+		if ent:BuildObject( math.Round(BID), ply ) then
 			ent:EmitSound(SuccessSound)
 		elseif ent.LastErrorSound < CurTime() then
 			ent:EmitSound(ErrorSound)

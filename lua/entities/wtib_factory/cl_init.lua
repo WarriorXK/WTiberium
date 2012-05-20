@@ -40,12 +40,19 @@ function ENT:Think()
 end
 language.Add(WTib.GetClass(ENT),ENT.PrintName)
 
-usermessage.Hook("wtib_factory_openmenu",function(um)
-	local Factory = um:ReadEntity()
-	if Factory != LastFactory and MainBox and MainBox != NULL then MainBox:Remove() end
+net.Receive("wtib_factory_openmenu", function( len )
+
+	local Factory = net.ReadEntity()
+	
+	if Factory != LastFactory and MainBox and MainBox != NULL then
+		MainBox:Remove()
+		MainBox = nil
+		WTib.DebugPrint("New factory, new menu")
+	end
 	LastFactory = Factory
 	
 	if !MainBox or MainBox == NULL or !MainBox.BuildList or MainBox.BuildList == NULL then
+	
 		MainBox = vgui.Create("DFrame")
 		MainBox:SetSize(400,350)
 		MainBox:SetPos((ScrW()/2)-200,(ScrH()/2)-175)
@@ -131,7 +138,9 @@ usermessage.Hook("wtib_factory_openmenu",function(um)
 		for k,v in pairs(WTib.Factory.GetObjects()) do
 			BuildList:AddLine(k,v.Name,tostring(math.ceil(1000*v.PercentDelay) / 10).." Sec.")
 		end
+		
 	else // The menu still exists, refresh the items list and show it again
+	
 		MainBox.BuildList:Clear()
 		for k,v in pairs(WTib.Factory.GetObjects()) do
 			MainBox.BuildList:AddLine(k,v.Name,tostring(math.ceil(1000*v.PercentDelay) / 10).." Sec.")
@@ -140,12 +149,13 @@ usermessage.Hook("wtib_factory_openmenu",function(um)
 		MainBox:SetSize(400,350)
 		MainBox:SetPos((ScrW()/2)-200,(ScrH()/2)-175)
 		MainBox:SetVisible(true)
+		
 	end
+	
 end)
 
 function WTib_Factory_StartBuild(Factory, ProjectID)
 	net.Start("wtib_factory_buildobject")
-		net.WriteLong(LocalPlayer():EntIndex())
 		net.WriteEntity(Factory)
 		net.WriteFloat(ProjectID)
 	net.SendToServer()

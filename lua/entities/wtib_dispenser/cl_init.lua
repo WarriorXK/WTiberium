@@ -4,6 +4,7 @@ local Color_White = Color(255,255,255,255)
 local ScreenVect = Vector(9,-15,24)
 local ScreenAng = Angle(0,90,90)
 
+local LastDispenser
 local MainBox
 
 function ENT:Draw()
@@ -42,10 +43,19 @@ function ENT:Think()
 end
 language.Add(WTib.GetClass(ENT),ENT.PrintName)
 
-usermessage.Hook("wtib_dispenser_openmenu",function(um)
+net.Receive("wtib_dispenser_openmenu", function( len )
+
+	local Dispenser = net.ReadEntity()
+
+	if Dispenser != LastDispenser and MainBox and MainBox != NULL then
+		MainBox:Remove()
+		MainBox = nil
+		WTib.DebugPrint("New dispenser, new menu")
+	end
+	LastDispenser = Dispenser
+
 	if !MainBox or MainBox == NULL then
-		local Dispenser = um:ReadEntity()
-		local Selected
+
 		MainBox = vgui.Create("DFrame")
 		MainBox:SetSize(400,350)
 		MainBox:SetPos((ScrW()/2)-200,(ScrH()/2)-175)
@@ -73,7 +83,7 @@ usermessage.Hook("wtib_dispenser_openmenu",function(um)
 		BuildButton:SetText("Build")
 		BuildButton:SetDisabled(true)
 		BuildButton.DoClick = function(self)
-			WTib_Dispenser_StartBuild(Dispenser,Selected)
+			WTib_Dispenser_StartBuild(Dispenser, MainBox.BuildList:GetLine(MainBox.BuildList:GetSelectedLine()):GetValue(1))
 			MainBox:SetVisible(false)
 		end
 		
@@ -110,32 +120,34 @@ usermessage.Hook("wtib_dispenser_openmenu",function(um)
 			
 		end
 		BuildList.OnRowSelected = function(panel,line)
-			Selected = BuildList:GetLine(line):GetValue(1)
 			BuildButton:SetDisabled(false)
 		end
 		BuildList.DoDoubleClick = function(panel,line,list)
-			Selected = BuildList:GetLine(line):GetValue(1)
-			WTib_Dispenser_StartBuild(Dispenser, Selected)
+			WTib_Dispenser_StartBuild(Dispenser, MainBox.BuildList:GetLine(MainBox.BuildList:GetSelectedLine()):GetValue(1))
 			MainBox:SetVisible(false)
 		end
 		
 		for k,v in pairs(WTib.Dispenser.GetObjects()) do
 			BuildList:AddLine(k,v.Name,tostring(math.ceil(100*v.PercentDelay)).." Sec.")
 		end
+		
 	else
+	
 		MainBox.BuildList:Clear()
 		for k,v in pairs(WTib.Dispenser.GetObjects()) do
 			MainBox.BuildList:AddLine(k,v.Name,tostring(math.ceil(100*v.PercentDelay)).." Sec.")
 		end
 		
 		MainBox:SetVisible(true)
+		
 	end
 end)
 
 function WTib_Dispenser_StartBuild(Dispenser, ProjectID)
+
 	net.Start("wtib_dispenser_buildobject")
-		net.WriteLong(LocalPlayer():EntIndex())
 		net.WriteEntity(Dispenser)
 		net.WriteFloat(ProjectID)
 	net.SendToServer()
+	
 end
