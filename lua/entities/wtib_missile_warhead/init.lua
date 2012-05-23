@@ -22,7 +22,7 @@ end
 
 function ENT:Touch(ent)
 	if ValidEntity(ent) and ent:GetClass() == "wtib_missile_projectile" then
-		ent.Explode = self.Explode
+		if type(self.ApplyWarhead) == "function" then self:ApplyWarhead(ent) end
 		self:Remove()
 		return
 	end
@@ -35,6 +35,11 @@ function ENT:SetWarheadValues(en, raw, ref, chem, liq)
 	self.Liquids = liq
 end
 
-function ENT:Explode()
+function ENT:ApplyWarhead(missle)
+	missle.Explode = self.Explode
+end
+
+function ENT:Explode(HitPos, Ent, Speed, Normal)
+	
 	self:Remove()
 end

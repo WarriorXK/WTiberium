@@ -66,7 +66,7 @@ end
 
 function ENT:PhysicsCollide(data,phys)
 	if data.HitEntity and self.Launched and data.HitEntity != self.MissileL then
-		self:Explode(data)
+		self:Explode(data, data.HitPos, data.HitEntity, data.Speed, data.HitNormal)
 	end
 end
 
@@ -88,12 +88,11 @@ function ENT:PhysicsSimulate(phys,deltatime)
 	phys:ComputeShadowControl(pr)
 end
 
-function ENT:Explode(data)
-	data = data or {}
+function ENT:Explode(HitPos, Ent, Speed, Normal)
 	util.BlastDamage(self,ValidEntity(self.WDSO) and self.WDSO or self,self:GetPos(),math.Rand(200,300),math.Rand(300,400))
 	local ed = EffectData()
-	ed:SetOrigin(data.HitPos or self:GetPos())
-	ed:SetStart(data.HitPos or self:GetPos())
+	ed:SetOrigin(HitPos or self:GetPos())
+	ed:SetStart(HitPos or self:GetPos())
 	ed:SetScale(3)
 	util.Effect("Explosion",ed)
 	self:Remove()
