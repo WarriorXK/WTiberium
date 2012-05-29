@@ -1,4 +1,6 @@
-"LightmappedGeneric"
+"VertexLitGeneric"
 {
 	"$basetexture" "wtiberium/acc_vent"
+	"$bumpmap"		"wtiberium/acc_vent_n"
+
 }

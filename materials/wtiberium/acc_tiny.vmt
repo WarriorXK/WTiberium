@@ -1,4 +1,11 @@
-"LightmappedGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "wtiberium/acc_tiny"
+	"$basetexture"		"wtiberium/acc_tiny"
+	"$bumpmap"		"wtiberium/acc_tiny_n"
+	"$envmap"		"wtiberium/acc_tiny_a"
+
+	"$envmapsaturation"	".20"
+	"$envmapcontrast"		".1"
+ 	"$envmaptint" 		"[ .3 .3 .5 ]"
+	"$normalmapalphaenvmapmask" "1"
 }
