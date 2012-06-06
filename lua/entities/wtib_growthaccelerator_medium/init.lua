@@ -17,7 +17,7 @@ ENT.Scale = 2
 ENT.NextCheck = 0
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/medium_growth_accelerator.mdl")
+	self:SetModel("models/Tiberium/acc_m.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

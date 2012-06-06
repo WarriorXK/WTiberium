@@ -11,11 +11,11 @@ ENT.InfectionChance			= 3
 ENT.MaxRange				= 1024
 ENT.MinRange				= 10
 
-ENT.EffectOrigin = Vector(0,0,12)
+ENT.EffectOrigin = Vector(0,0,65)
 ENT.Scale = 3
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/large_growth_accelerator.mdl")
+	self:SetModel("models/Tiberium/acc_l.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

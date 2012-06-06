@@ -1,0 +1,19 @@
+To setup a device you need to run the code:
+	ent:InitResources()
+
+After that the following functions are available to use:
+	Client Side Functions:
+		ent:ResourcesDraw()
+		ent:ResourcesGetAmount( resourcename )
+
+	Server Side Functions:
+		ent:ResourcesConsume( resourcename, amount )
+		ent:ResourcesSupply( resourcename, amount )
+		ent:ResourcesGetCapacity( resourcename )
+		ent:ResourcesSetDeviceCapacity( resourcename, amount )
+		ent:ResourcesGetAmount( resourcename )
+		ent:ResourcesGetDeviceAmount( resourcename )
+		ent:ResourcesGetDeviceCapacity( resourcename )
+		ent:ResourcesLink( entity )
+		ent:ResourcesUnlink( entity )
+		ent:ResourcesCanLink( entity )
