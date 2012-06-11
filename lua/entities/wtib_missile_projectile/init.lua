@@ -66,7 +66,7 @@ end
 
 function ENT:PhysicsCollide(data,phys)
 	if data.HitEntity and self.Launched and data.HitEntity != self.MissileL then
-		self:Explode(data, data.HitPos, data.HitEntity, data.Speed, data.HitNormal)
+		self:Explode(data.HitPos, data.HitEntity, data.Speed, data.HitNormal)
 	end
 end
 
