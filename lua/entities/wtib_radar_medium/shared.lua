@@ -3,8 +3,8 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Tiberium Radar"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "To locate Tiberium Crystals and Tiberium Parent Crystals"
+ENT.Instructions	= "Supply the radar with Energy and turn it on, using wiremod you can read out the values"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -22,7 +22,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.05,
 	Information =	{
 						ENT.PrintName,
-						"\nMedium Radar."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

@@ -1,10 +1,10 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
-ENT.PrintName		= "Tiberium Liquifier"
+ENT.PrintName		= "Tiberium Liquefier"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "Uses energy to convert Raw Tiberium into Liquid Tiberium"
+ENT.Instructions	= "Link the liquefier to the required resources and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -22,7 +22,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.15,
 	Information =	{
 						ENT.PrintName,
-						"\nConverts raw Tiberium into liquid Tiberium."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

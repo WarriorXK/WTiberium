@@ -3,8 +3,8 @@ ENT.Base			= "wtib_liquidtibstorage_medium"
 ENT.PrintName		= "Small Liquid Tiberium Tank"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "This module stores 1000 units of Liquid Tiberium until it can be used"
+ENT.Instructions	= "Link this storage unit to a network that requires additional Liquid Tiberium storage"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -20,7 +20,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.04,
 	Information =	{
 						ENT.PrintName,
-						"\nStores up to 1000 units of liquid Tiberium."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

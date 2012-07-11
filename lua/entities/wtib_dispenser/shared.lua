@@ -3,8 +3,8 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Dispenser"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "To create SWeps and other small entities from the WTiberium addon pack"
+ENT.Instructions	= "Place the Dispenser and activate it, from the UI select the entity that needs to be created"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -23,7 +23,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.08,
 	Information =	{
 						ENT.PrintName,
-						"\nDispenses infantry weaponary."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

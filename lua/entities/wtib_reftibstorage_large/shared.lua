@@ -3,8 +3,8 @@ ENT.Base			= "wtib_reftibstorage_medium"
 ENT.PrintName		= "Large Refined Tiberium Storage"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "This module stores 9000 units of Refined Tiberium until it can be used"
+ENT.Instructions	= "Link this storage unit to a network that requires additional Refined Tiberium storage"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -20,7 +20,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.1,
 	Information =	{
 						ENT.PrintName,
-						"\nStores up to 9000 units of refined Tiberium."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

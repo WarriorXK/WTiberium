@@ -22,7 +22,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.8,
 	Information =	{
 						ENT.PrintName,
-						"\nConverts raw Tiberium into refined Tiberium."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

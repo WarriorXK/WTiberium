@@ -3,8 +3,8 @@ ENT.Base			= "wtib_powergen_medium"
 ENT.PrintName		= "Large Powerplant"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "To generate energy from Tiberium Chemicals, the Energy output can be boosted using Liquid Tiberium"
+ENT.Instructions	= "Link the Power Generator to the required resources and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -22,7 +22,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.6,
 	Information =	{
 						ENT.PrintName,
-						"\nUses Tiberium chemicals to generate Energy. Can be fueled with Liquid Tiberium for an increased output."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

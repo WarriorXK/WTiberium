@@ -3,8 +3,8 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Warhead Factory"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "The warhead factory produces warheads to use with the missiles"
+ENT.Instructions	= "Place the warhead factory and link it up to all requires resources, then use the factory and create the warhead using the UI"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -24,7 +24,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.08,
 	Information =	{
 						ENT.PrintName,
-						"\nCreates warheads to enhance your rockets."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

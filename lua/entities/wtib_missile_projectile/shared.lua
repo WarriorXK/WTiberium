@@ -3,8 +3,8 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Missile"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "Fire this using the launcher at your foes"
+ENT.Instructions	= "Load this missile by touching it to a launcher"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -17,7 +17,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.02,
 	Information =	{
 						ENT.PrintName,
-						"\nYou can load this missile into a launcher and fire it at your enemy."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

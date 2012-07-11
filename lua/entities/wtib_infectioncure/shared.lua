@@ -2,8 +2,8 @@ ENT.Type			= "anim"
 ENT.PrintName		= "Tiberium infection cure"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "Cures infected players from a Tiberium infection and restores health"
+ENT.Instructions	= "Activate or touch the entity to use it"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -16,7 +16,8 @@ WTib.Dispenser.AddObject({
 	PercentDelay = 0.02,
 	Information =	{
 						ENT.PrintName,
-						"\nA vial that contains the antidote for tiberium infection."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function(dispenser,angles,pos,id,ply)
 		local Obj = WTib.Dispenser.GetObjectByID(id)

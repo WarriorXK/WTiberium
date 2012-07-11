@@ -3,8 +3,8 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Chemical Plant"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "Uses Energy to convert Refined Tiberium into Tiberium Chemicals"
+ENT.Instructions	= "Link the Chemical Plant to the required resources and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -22,7 +22,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.15,
 	Information =	{
 						ENT.PrintName,
-						"\nConverts refined Tiberium into Tiberium chemicals."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

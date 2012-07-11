@@ -3,8 +3,8 @@ ENT.Base			= "wtib_growthaccelerator_medium"
 ENT.PrintName		= "Small Growth Accelerator"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "Accelerates the growth of Tiberium Crystals in the area that the accelerator is active"
+ENT.Instructions	= "Place the accelerator in the area that requires acceleration, supply it with energy and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -22,7 +22,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.05,
 	Information =	{
 						ENT.PrintName,
-						"\nAccelerates nearby Tiberium crystal growth."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

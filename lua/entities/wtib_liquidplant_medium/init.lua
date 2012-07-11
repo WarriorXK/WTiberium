@@ -37,7 +37,7 @@ function ENT:Think()
 		if Drain > 0 and RawTiberium >= Drain and Energy >= EDrain then
 			WTib.ConsumeResource(self,"energy",EDrain)
 			WTib.ConsumeResource(self,"RawTiberium",Drain)
-			WTib.SupplyResource(self,"LiquidTiberium",Drain/15)
+			WTib.SupplyResource(self,"LiquidTiberium",Drain/10)
 		else
 			self:TurnOff()
 		end

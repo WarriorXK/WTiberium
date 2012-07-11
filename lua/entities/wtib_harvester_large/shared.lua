@@ -3,8 +3,8 @@ ENT.Base			= "wtib_harvester_medium"
 ENT.PrintName		= "Large Harvester"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "Harvests Tiberium Crystals using energy"
+ENT.Instructions	= "Link the harvester to an energy source, point it towards a Tiberium Crystals and activate it"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -22,7 +22,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.09,
 	Information =	{
 						ENT.PrintName,
-						"\nUsed to harvest raw Tiberium from Tiberium crystals."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)

@@ -3,8 +3,8 @@ ENT.Base			= "wtib_energycell_medium"
 ENT.PrintName		= "Small Energy Cell"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
+ENT.Purpose			= "This module stores 1000 units of Energy until it can be used"
+ENT.Instructions	= "Link this storage unit to a network that requires additional Energy storage"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
@@ -20,7 +20,8 @@ WTib.Factory.AddObject({
 	PercentDelay = 0.03,
 	Information =	{
 						ENT.PrintName,
-						"\nStores up to 1000 units of Energy."
+						"\nPurpose :\n" .. ENT.Purpose,
+						"\nInstructions :\n" .. ENT.Instructions
 					},
 	CreateEnt = function( factory, angles, pos, id, ply )
 		local Obj = WTib.Factory.GetObjectByID(id)
