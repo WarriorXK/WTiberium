@@ -20,6 +20,7 @@ function ENT:Initialize()
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
+	self:SetUseType(SIMPLE_USE)
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
@@ -64,7 +65,9 @@ function ENT:Use(ply)
 		net.Send(ply)
 		
 	else
+	
 		self:EmitSound(ErrorSound)
+		
 	end
 end
 

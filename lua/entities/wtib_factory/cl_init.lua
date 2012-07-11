@@ -155,10 +155,12 @@ net.Receive("wtib_factory_openmenu", function( len )
 end)
 
 function WTib_Factory_StartBuild(Factory, ProjectID)
+
 	net.Start("wtib_factory_buildobject")
 		net.WriteEntity(Factory)
 		net.WriteFloat(ProjectID)
 	net.SendToServer()
+	
 end
 
 function WTib_Factory_InfoMenu(ProjectID)

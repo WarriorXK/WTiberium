@@ -20,6 +20,7 @@ function ENT:Initialize()
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
+	self:SetUseType(SIMPLE_USE)
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
@@ -94,14 +95,16 @@ end
 function ENT:PanelUse(ply)
 
 	if !self.dt.IsBuilding then
-	
+
 		// Notify the client that the menu needs to open
 		net.Start("wtib_factory_openmenu")
 			net.WriteEntity(self)
 		net.Send(ply)
 		
 	else
+	
 		self:EmitSound(ErrorSound)
+		
 	end
 	
 end
