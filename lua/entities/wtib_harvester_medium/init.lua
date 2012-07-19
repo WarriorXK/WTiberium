@@ -11,24 +11,28 @@ ENT.HarvestParents = false
 ENT.MaxDrain = 200
 ENT.Range = 200
 
-ENT.EffectEntities = {}
 ENT.NextHarvest = 0
 
 function ENT:Initialize()
+
 	self:SetModel("models/Tiberium/medium_harvester.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	
 	self.Inputs = WTib.CreateInputs(self,{"On", "HarvestParents"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","RawTiberium"})
+	
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"RawTiberium",0)
 	WTib.AddResource(self,"energy",0)
+	
 end
 
 function ENT:SpawnFunction(p,t)
@@ -36,50 +40,66 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Harvest()
+
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	local SPos = self:GetPos()
 	for _,v in pairs(ents.FindInCone(self:GetPos(),self:GetUp(),self.Range,10)) do
+	
 		if v.IsTiberium then
+		
 			local Drain = math.min(v:GetTiberiumAmount(),self.MaxDrain)
 			local Mul = 1.2
 			if v.IsTiberiumParent then Mul = 1.5 end
+			
 			if Energy > Drain*Mul then
+			
 				if (v.IsTiberiumParent and v.HarvestParents) or !v.IsTiberiumParent then
-					if !table.HasValue(self.EffectEntities,v) then
-						local ed = EffectData()
-							ed:SetEntity(self)
-							ed:SetScale(v:EntIndex())
-							ed:SetMagnitude(self.Range)
-						util.Effect("wtib_harvestbeam",ed)
-						table.insert(self.EffectEntities,v)
-					end
+
 					WTib.ConsumeResource(self,"energy",Drain*1.2)
 					WTib.SupplyResource(self,"RawTiberium",Drain)
 					v:SetTiberiumAmount(v:GetTiberiumAmount()-Drain)
+					
 				end
+				
 			else
+			
 				self:TurnOff()
 				break
+				
 			end
 		end
+		
 	end
+	
 end
 
 function ENT:Think()
-	if self.NextHarvest <= CurTime() then
-		if WTib.GetResourceAmount(self,"energy") < 10 then
+
+	local Energy = WTib.GetResourceAmount(self,"energy")
+
+	if self.NextHarvest <= CurTime() and self.dt.Online then
+	
+		if Energy < 10 then
+		
 			self:TurnOff()
-		end
-		if self.dt.Online then
+			
+		else
+		
 			WTib.ConsumeResource(self,"energy",10)
+			Energy = Energy - 10
+			
 			self:Harvest()
 			self.NextHarvest = CurTime()+1
+		
 		end
+
 	end
-	local Energy = WTib.GetResourceAmount(self,"energy")
+	
 	WTib.TriggerOutput(self,"Energy",Energy)
-	WTib.TriggerOutput(self,"RawTiberium",WTib.GetResourceAmount(self,"RawTiberium"))
+	WTib.TriggerOutput(self,"RawTiberium", WTib.GetResourceAmount(self,"RawTiberium"))
+	
 	self.dt.Energy = Energy
+	
 end
 
 function ENT:OnRestore()
@@ -87,20 +107,26 @@ function ENT:OnRestore()
 end
 
 function ENT:Use(ply)
+
 	if self.dt.Online then
 		self:TurnOff()
 	else
 		self:TurnOn()
 	end
+	
 end
 
 function ENT:TurnOn()
+
 	if WTib.GetResourceAmount(self,"energy") <= 10 then return end
+	
 	if !self.dt.Online then
 		self:EmitSound("apc_engine_start")
 	end
+	
 	self.dt.Online = true
 	WTib.TriggerOutput(self,"Online",1)
+	
 end
 
 function ENT:OnRemove()
@@ -108,23 +134,32 @@ function ENT:OnRemove()
 end
 
 function ENT:TurnOff()
+
 	self:StopSound("apc_engine_start")
+	
 	if self.dt.Online then
 		self:EmitSound("apc_engine_stop")
 	end
-	self.EffectEntities = {}
+	
 	self.dt.Online = false
 	WTib.TriggerOutput(self,"Online",0)
+	
 end
 
 function ENT:TriggerInput(name,val)
+
 	if name == "On" then
+	
 		if val == 0 then
 			self:TurnOff()
 		else
 			self:TurnOn()
 		end
+		
 	elseif name == "HarvestParents" then
+	
 		self.HarvestParents = tobool(val)
+		
 	end
+	
 end

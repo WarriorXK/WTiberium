@@ -23,15 +23,18 @@ local ErrorSound = Sound("buttons/button8.wav")
 local ErrorSoundDelay = SoundDuration(ErrorSound)
 
 function ENT:Initialize()
+
 	self:SetModel("models/Tiberium/tiberium_warhead_factory.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	
 	self.Inputs = WTib.CreateInputs(self,{"Build", "Raw", "Refined", "Chemicals", "Liquid"})
 	self.Outputs = WTib.CreateOutputs(self,{"Can Build"})
 	
@@ -41,6 +44,7 @@ function ENT:Initialize()
 	WTib.AddResource(self, "RefinedTiberium", 0)
 	WTib.AddResource(self, "ChemicalTiberium", 0)
 	WTib.AddResource(self, "LiquidTiberium", 0)
+	
 end
 
 function ENT:SpawnFunction(p,t)
@@ -48,6 +52,7 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
+
 	self.dt.Energy = WTib.GetResourceAmount(self, "energy")
 	self.dt.Raw = WTib.GetResourceAmount(self, "RawTiberium")
 	self.dt.Refined = WTib.GetResourceAmount(self, "RefinedTiberium")
@@ -56,7 +61,9 @@ function ENT:Think()
 	
 	local CBuild = 0
 	if self:CanBuild() then CBuild = 1 end
+	
 	WTib.TriggerOutput(self, "Can Build", CBuild)
+	
 end
 
 function ENT:CanBuild()

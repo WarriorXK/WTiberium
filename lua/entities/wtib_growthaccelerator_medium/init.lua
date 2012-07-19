@@ -54,23 +54,34 @@ function ENT:Think()
 		local Ents = {}
 		
 		for _,v in pairs(ents.FindInSphere(self:GetPos(),self:GetRange())) do
+		
 			if WTib.IsValid(v) then
+			
 				if v.IsTiberium then
+				
 					local Add = math.random(self.MinAccelerationAmount, self.MaxAccelerationAmount)
 					TotalAdded = TotalAdded + Add
 					Ents[v] = Add
+					
 				elseif (v:IsPlayer() and v:Armor() <= 0) or v:IsNPC() then
+				
 					if math.random(1, self.InfectionChance) == 1 then WTib.Infect(v) end
+					
 				end
+				
 			end
+			
 		end
 		
 		local Drain = ((TotalAdded / 4) + (self:GetRange() / 2)) / 2
 		if Energy >= Drain then
+		
 			for k,v in pairs(Ents) do
 				k:AddTiberiumAmount(v)
 			end
+			
 			WTib.ConsumeResource(self,"energy",Drain)
+			Energy = Energy - Drain
 			
 			local ed = EffectData()
 				ed:SetEntity(self)
@@ -78,6 +89,7 @@ function ENT:Think()
 				ed:SetScale(self.Scale)
 				ed:SetMagnitude(self:GetRange())
 			util.Effect("wtib_growthaccelerator_pulse", ed)
+			
 		else
 			self:TurnOff()
 		end
@@ -85,14 +97,14 @@ function ENT:Think()
 		self.NextCheck = CurTime()+self.AccelerationDelay
 		
 	end
-	
-	Energy = WTib.GetResourceAmount(self,"energy")
-	
+
 	WTib.TriggerOutput(self,"Energy", Energy)
+	
 	self.dt.Energy = Energy
 	
 	self:NextThink(CurTime()+0.2)
 	return true
+	
 end
 
 function ENT:OnRestore()

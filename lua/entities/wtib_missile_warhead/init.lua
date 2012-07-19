@@ -21,18 +21,25 @@ function ENT:Initialize()
 end
 
 function ENT:Touch(ent)
+
 	if ValidEntity(ent) and ent:GetClass() == "wtib_missile_projectile" then
+	
 		if type(self.ApplyWarhead) == "function" then self:ApplyWarhead(ent) end
+		
 		self:Remove()
 		return
+		
 	end
+	
 end
 
 function ENT:SetWarheadValues(en, raw, ref, chem, liq)
+
 	self.RawTiberium = raw
 	self.RefTiberium = ref
 	self.Chemicals = chem
 	self.Liquids = liq
+	
 end
 
 function ENT:ApplyWarhead(missle)

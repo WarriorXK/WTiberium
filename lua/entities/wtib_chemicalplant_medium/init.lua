@@ -46,8 +46,11 @@ function ENT:Think()
 		if Supply > 0 and RefinedTiberium >= Supply*1.5 and Energy >= EDrain then
 		
 			WTib.ConsumeResource(self,"energy",EDrain)
-			WTib.ConsumeResource(self,"RefinedTiberium",Supply*1.5)
+			WTib.ConsumeResource(self,"RefinedTiberium", Supply * 1.5)
 			WTib.SupplyResource(self,"ChemicalTiberium",Supply)
+			
+			Energy = Energy - EDrain
+			RefinedTiberium = RefinedTiberium - (Supply * 1.5)
 			
 		else
 		
@@ -58,9 +61,6 @@ function ENT:Think()
 		self.NextChemical = CurTime()+1
 		
 	end
-	
-	Energy = WTib.GetResourceAmount(self,"energy")
-	RefinedTiberium = WTib.GetResourceAmount(self,"RefinedTiberium")
 	
 	WTib.TriggerOutput(self,"Energy",Energy)
 	WTib.TriggerOutput(self,"ChemicalTiberium",WTib.GetResourceAmount(self,"ChemicalTiberium"))
