@@ -58,8 +58,8 @@ function ENT:Think()
 	self.dt.Online = Count >= 1
 	self.dt.Energy = WTib.GetResourceAmount(self,"energy")
 	
-	WTib.TriggerOutput(self,"Online", tonumber(self.dt.Online)
-	WTib.TriggerOutput(self,"Energy",self.dt.Energy)
+	WTib.TriggerOutput(self,"Online", tonumber(self.dt.Online))
+	WTib.TriggerOutput(self,"Energy", self.dt.Energy)
 	
 	self:NextThink(CurTime()+1)
 	return true

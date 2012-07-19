@@ -34,7 +34,7 @@ function ENT:Draw3D2D()
 		
 		for k,v in pairs(string.Explode("",WTib.Dispenser.GetObjectByID(self.dt.BuildingID).Name)) do
 			CurProj = CurProj .. v
-			if (k % 22) == 0 then CurProj = CurProj .. "\n" end
+			if (k % 18) == 0 then CurProj = CurProj .. "\n" end
 		end
 	end
 	

@@ -42,7 +42,7 @@ function ENT:Think()
 		if Energy >= Amount then
 		
 			WTib.ConsumeResource(self, "energy",Amount)
-			Energy = Energy = Amount
+			Energy = Energy - Amount
 			
 			if !WTib.IsValid(self.Target) then
 			
