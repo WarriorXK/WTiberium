@@ -10,7 +10,7 @@ function ENT:SetRandomModel()
 
 	local Modl = ""
 	if type(self.Models) == "table" then Modl = table.Random(self.Models) end
-	if type(Modl) != "string" or !util.IsValidModel(Modl) then Modl = "models/Tiberium/tiberium_crystal1.mdl" end
+	if type(Modl) != "string" or !util.IsValidModel(Modl) then Modl = "models/Tiberium/tiberium_crystal1.mdl" end // To make sure the selected model path from the table is valid
 	
 	self:SetModel(Modl)
 	
@@ -23,15 +23,14 @@ end
 function ENT:Think()
 
 	if self.NextGrow <= CurTime() then // Check if we should get more resources
+	
 		self:AddTiberiumAmount(self.Growth_Addition)
 		self.NextGrow = CurTime()+self.Growth_Delay
+		
 	end
-	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
-	
-	self:CalcSize()
-	self:CheckColor()
+
 	self:DamageTouchingEntities()
-	
+
 	self:NextThink(CurTime()+1)
 	return true
 	
@@ -45,37 +44,6 @@ function ENT:CalcSize()
 	
 end
 
-function ENT:OnTakeDamage(dmginfo)
-
-	if self.Damage_Explosive and dmginfo:IsExplosionDamage() and dmginfo:GetDamage() >= self.Damage_Explode_RequiredDamage then
-	
-		timer.Simple(math.Rand(self.Damage_ExplosionDelay-0.5,self.Damage_ExplosionDelay+0.5), self.Explode, self, dmginfo)
-		
-		self.OnTakeDamage = function() end
-		
-	end
-	
-end
-
-function ENT:Explode(dmginfo)
-
-	if WTib.IsValid(self) then
-	
-		util.BlastDamage(self,self,self:LocalToWorld(self:OBBCenter()),self.Damage_Explode_Size,self.Damage_Explode_Damage)
-		
-		local ed = EffectData()
-			ed:SetOrigin(self:LocalToWorld(self:OBBCenter()))
-			ed:SetStart(self:LocalToWorld(self:OBBCenter()))
-			ed:SetScale(self.Damage_Explode_Size)
-			ed:SetRadius(self.Damage_Explode_Size*10)
-		util.Effect("Explosion",ed)
-		
-		self:Die()
-		
-	end
-	
-end
-
 function ENT:CheckColor()
 
 	local Col = self:GetColor()
@@ -85,12 +53,44 @@ function ENT:CheckColor()
 		math.Approach(Col.r, self.TiberiumColor.r, 5),
 		math.Approach(Col.g, self.TiberiumColor.g, 5),
 		math.Approach(Col.b, self.TiberiumColor.b, 5),
-		math.Approach(Col.a, ((self:GetTiberiumAmount()/self:GetColorDevider())/2)+75, 2))
+		math.Approach(Col.a, ((self:GetTiberiumAmount()/self:GetColorDevider())/2) + 75, 2))
 	)
 	
 end
 
+function ENT:OnTakeDamage(dmginfo)
+
+	if self.Damage_Explosive and dmginfo:IsExplosionDamage() and dmginfo:GetDamage() >= self.Damage_Explode_RequiredDamage then
+	
+		timer.Simple(math.Rand(self.Damage_ExplosionDelay - 0.5,self.Damage_ExplosionDelay + 0.5), function() self:Explode() end)
+		
+		self.OnTakeDamage = function() end
+		
+	end
+	
+end
+
+function ENT:Explode()
+
+	if WTib.IsValid(self) then
+	
+		util.BlastDamage(self,self,self:LocalToWorld(self:OBBCenter()),self.Damage_Explode_Size,self.Damage_Explode_Damage)
+		
+		local ed = EffectData()
+			ed:SetOrigin(self:LocalToWorld(self:OBBCenter()))
+			ed:SetStart(self:LocalToWorld(self:OBBCenter()))
+			ed:SetScale(self.Damage_Explode_Size)
+			ed:SetRadius(self.Damage_Explode_Size * 10)
+		util.Effect("Explosion",ed)
+		
+		self:Die()
+		
+	end
+	
+end
+
 function ENT:DamageTouchingEntities()
+
 	local CSize = (self:GetCrystalSize() + 0.5)
 	
 	local dmginfo = DamageInfo()
@@ -99,7 +99,7 @@ function ENT:DamageTouchingEntities()
 	dmginfo:SetDamageType(DMG_ACID)
 	dmginfo:SetDamage((CSize*8)+(self:GetTiberiumAmount()/100))
 
-	for _,v in pairs(ents.FindInSphere(self:GetPos(), math.max(50*CSize, 5))) do
+	for _,v in pairs(ents.FindInSphere(self:GetPos(), math.max(50 * CSize, 5))) do
 	
 		if v:IsNPC() then
 		
@@ -123,12 +123,15 @@ function ENT:DamageTouchingEntities()
 		end
 		
 	end
+	
 end
 
 function ENT:AttemptInfection(ent)
+
 	if WTib.Config.InfectionChance > 0 and math.random(1, WTib.Config.InfectionChance) == 1 then
 		WTib.Infect(ent)
 	end
+	
 end
 
 function ENT:AttemptReproduce()
@@ -224,8 +227,16 @@ function ENT:SetField(num)
 end
 
 function ENT:SetTiberiumAmount(am)
+
 	if am <= 0 then self:Die() return end
+	
 	self.dt.TiberiumAmount = math.Clamp(am,1,self:GetMaxTiberiumAmount())
+	
+	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
+	
+	self:CalcSize()
+	self:CheckColor()
+	
 end
 
 function ENT:AddTiberiumAmount(am)

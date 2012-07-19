@@ -73,8 +73,6 @@ function ENT:InitTiberium()
 			end
 		end
 
-		self:CheckColor()
-	
 	end
 	
 	self:SetRenderMode(self.RenderMode)

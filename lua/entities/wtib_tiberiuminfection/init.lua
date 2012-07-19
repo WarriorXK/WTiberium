@@ -2,11 +2,11 @@ AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 
-timer.Simple(0.1, function(ENT)
+timer.Simple(0.1, function()
 	if WDS2 then
-		table.insert(WDS2.ProtectedClasses, ENT.ClassName)
+		table.insert(WDS2.ProtectedClasses, "wtib_tiberiuminfection")
 	end
-end, ENT)
+end)
 
 function ENT:Initialize()
 	self:PhysicsInit(SOLID_NONE)

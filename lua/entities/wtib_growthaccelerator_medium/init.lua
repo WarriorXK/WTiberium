@@ -17,21 +17,27 @@ ENT.Scale = 2
 ENT.NextCheck = 0
 
 function ENT:Initialize()
+
 	self:SetModel("models/Tiberium/acc_m.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	
 	self.Inputs = WTib.CreateInputs(self,{"On","SetRange"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Range","MaxRange","Energy"})
+	WTib.TriggerOutput(self,"MaxRange",self.MaxRange)
+	
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"energy",0)
+	
 	self:SetRange(self.MaxRange)
-	WTib.TriggerOutput(self,"MaxRange",self.MaxRange)
+	
 end
 
 function ENT:SpawnFunction(p,t)
@@ -39,10 +45,14 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
+
 	local Energy = WTib.GetResourceAmount(self,"energy")
+	
 	if self.NextCheck <= CurTime() and self.dt.Online then
+	
 		local TotalAdded = 0
 		local Ents = {}
+		
 		for _,v in pairs(ents.FindInSphere(self:GetPos(),self:GetRange())) do
 			if WTib.IsValid(v) then
 				if v.IsTiberium then
@@ -54,6 +64,7 @@ function ENT:Think()
 				end
 			end
 		end
+		
 		local Drain = ((TotalAdded / 4) + (self:GetRange() / 2)) / 2
 		if Energy >= Drain then
 			for k,v in pairs(Ents) do
@@ -70,12 +81,18 @@ function ENT:Think()
 		else
 			self:TurnOff()
 		end
+		
 		self.NextCheck = CurTime()+self.AccelerationDelay
+		
 	end
+	
 	Energy = WTib.GetResourceAmount(self,"energy")
 	
-	WTib.TriggerOutput(self,"Energy",Energy)
+	WTib.TriggerOutput(self,"Energy", Energy)
 	self.dt.Energy = Energy
+	
+	self:NextThink(CurTime()+0.2)
+	return true
 end
 
 function ENT:OnRestore()
@@ -83,20 +100,26 @@ function ENT:OnRestore()
 end
 
 function ENT:Use(ply)
+
 	if self.dt.Online then
 		self:TurnOff()
 	else
 		self:TurnOn()
 	end
+	
 end
 
 function ENT:TurnOn()
+
 	if WTib.GetResourceAmount(self,"energy") <= 1 then return end
+	
 	if !self.dt.Online then
 		self:EmitSound("apc_engine_start")
 	end
+	
 	self.dt.Online = true
 	WTib.TriggerOutput(self,"Online",1)
+	
 end
 
 function ENT:OnRemove()
@@ -104,27 +127,37 @@ function ENT:OnRemove()
 end
 
 function ENT:TurnOff()
+
 	self:StopSound("apc_engine_start")
+	
 	if self.dt.Online then
 		self:EmitSound("apc_engine_stop")
 	end
+	
 	self.dt.Online = false
 	WTib.TriggerOutput(self,"Online",0)
+	
 end
 
 function ENT:TriggerInput(name,val)
+
 	if name == "On" then
+	
 		if val == 0 then
 			self:TurnOff()
 		else
 			self:TurnOn()
 		end
+		
 	elseif name == "SetRange" then
 		self:SetRange(val)
 	end
+	
 end
 
 function ENT:SetRange(int)
+
 	self.dt.Range = math.Clamp(int,self.MinRange,self.MaxRange)
 	WTib.TriggerOutput(self,"Range", int)
+	
 end

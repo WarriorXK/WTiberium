@@ -12,6 +12,7 @@ function ENT:Draw()
 end
 
 function ENT:Draw3D2D()
+
 	// Black background
 	surface.SetDrawColor(0,0,0,255)
 	surface.DrawRect(0,0,136,100)
@@ -20,6 +21,7 @@ function ENT:Draw3D2D()
 	local Text = "Idle"
 	local Percent = 0
 	local CurProj = "None"
+	
 	if WTib.IsValid(self.dt.Factory) then
 		Percent = self.dt.Factory.dt.PercentageComplete
 		if self.dt.Factory.dt.IsBuilding then
@@ -33,13 +35,10 @@ function ENT:Draw3D2D()
 			
 		end
 	end
+	
 	draw.DrawText(Text,"Trebuchet18",1,4,Color_White,ALIGN_LEFT)
-	draw.DrawText("Current project : ","Trebuchet18",1,36,Color_White,ALIGN_LEFT)
-	draw.DrawText(CurProj,"Trebuchet18",1,52,Color_White,ALIGN_LEFT)
+	draw.DrawText("Current project :\n" .. CurProj,"Trebuchet18",1,36,Color_White,ALIGN_LEFT)
+	
 end
 
-function ENT:Think()
-	self:NextThink(CurTime()+1)
-	return true
-end
 language.Add(WTib.GetClass(ENT),ENT.PrintName)

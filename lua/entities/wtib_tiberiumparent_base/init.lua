@@ -26,7 +26,6 @@ function ENT:Think()
 		self:AddTiberiumAmount(self.Growth_Addition)
 		self.NextGrow = CurTime()+self.Growth_Delay
 	end
-	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
 
 	self:NextThink(CurTime()+1)
 	return true
@@ -118,7 +117,11 @@ function ENT:SetField(num)
 end
 
 function ENT:SetTiberiumAmount(am)
+
 	self.dt.TiberiumAmount = math.Clamp(am, 1, self:GetMaxTiberiumAmount())
+	
+	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
+	
 end
 
 function ENT:AddTiberiumAmount(am)

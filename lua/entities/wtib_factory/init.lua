@@ -16,21 +16,27 @@ local ErrorSound = Sound("buttons/button8.wav")
 local ErrorSoundDelay = SoundDuration(ErrorSound)
 
 function ENT:Initialize()
+
 	self:SetModel("models/Tiberium/factory.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	
 	self.Inputs = WTib.CreateInputs(self,{"BuildID"})
 	self.Outputs = WTib.CreateOutputs(self,{"IsBuilding","PercentageComplete"})
+	
 	if WDS2 then WDS2.InitProp(self, 10000, 1, "AP") end
+	
 end
 
 function ENT:SpawnFunction(p,t)
+
 	local ent = WTib.SpawnFunction(p,t,self)
 	if ValidEntity(ent) then
 		
@@ -51,12 +57,15 @@ function ENT:SpawnFunction(p,t)
 		Panel.WDSO = p
 		
 	end
+	
 	return ent
+	
 end
 
 function ENT:Think()
 
 	if self.dt.IsBuilding then
+	
 		if self.LastBuild+WTib.Factory.GetObjectByID(self.dt.BuildingID).PercentDelay <= CurTime() then
 		
 			self.dt.PercentageComplete = self.dt.PercentageComplete+1
@@ -81,12 +90,13 @@ function ENT:Think()
 				
 			end
 			
+			WTib.TriggerOutput(self,"PercentageComplete",tonumber(self.dt.PercentageComplete))
+			
 			self.LastBuild = CurTime()
 			
 		end
+		
 	end
-	
-	WTib.TriggerOutput(self,"PercentageComplete",tonumber(self.dt.PercentageComplete))
 	
 	self:NextThink(CurTime())
 	return true
@@ -110,6 +120,7 @@ function ENT:PanelUse(ply)
 end
 
 function ENT:BuildObject(id,ply)
+
 	if !self.dt.IsBuilding and WTib.Factory.GetObjectByID(id) then
 		local Obj = WTib.Factory.GetObjectByID(id)
 		
@@ -146,8 +157,11 @@ function ENT:BuildObject(id,ply)
 		util.Effect("wtib_factorybuilding", ed)
 		
 		return true
+		
 	end
+	
 	return false
+	
 end
 
 function ENT:OnRestore()
@@ -159,14 +173,18 @@ function ENT:OnRemove()
 end
 
 function ENT:TriggerInput(name,val)
+
 	if name == "BuildID" then
+	
 		if self:BuildObject(math.Round(val)) then
 			self:EmitSound(SuccessSound)
 		elseif self.LastErrorSound < CurTime() then
 			self:EmitSound(ErrorSound)
 			self.LastErrorSound = CurTime()+ErrorSoundDelay
 		end
+		
 	end
+	
 end
 
 net.Receive( "wtib_factory_buildobject", function( len, ply )

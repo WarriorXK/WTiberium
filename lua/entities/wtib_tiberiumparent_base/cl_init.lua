@@ -9,9 +9,11 @@ function ENT:Draw()
 end
 
 function ENT:Think()
+
 	self:CreateDLight()
 	self:NextThink(CurTime()+1)
 	return true
+	
 end
 
 function ENT:CreateDLight()
