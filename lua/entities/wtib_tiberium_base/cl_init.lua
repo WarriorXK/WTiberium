@@ -48,6 +48,7 @@ function ENT:CreateDLight()
 			dlight.g = Col.g
 			dlight.b = Col.b
 			dlight.Style = 1
+			dlight.NoModel = WTib.CheapDynamicLight:GetBool()
 			dlight.Brightness = 1
 			dlight.Size = math.Clamp(50 + (self.Size * 120),0,255) * WTib.DynamicLightSize:GetInt()
 			dlight.Decay = dlight.Size
@@ -55,6 +56,7 @@ function ENT:CreateDLight()
 		end
 		
 		self.NextLight = CurTime()+0.1
+		
 	end
 	
 end

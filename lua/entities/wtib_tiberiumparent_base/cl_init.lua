@@ -30,6 +30,7 @@ function ENT:CreateDLight()
 			dlight.g = Col.g
 			dlight.b = Col.b
 			dlight.Style = 1
+			dlight.NoModel = WTib.CheapDynamicLight:GetBool()
 			dlight.Brightness = 3
 			dlight.Size = 250 * WTib.DynamicLightSize:GetInt()
 			dlight.Decay = dlight.Size
