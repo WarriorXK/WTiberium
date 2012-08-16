@@ -95,7 +95,7 @@ function EFFECT:Think()
 			self.LastParticle = CurTime()+0.12
 			for k,v in pairs(self.Vents) do
 				local Opposite = k % 2 == 0 and self.Vents[k - 1] or self.Vents[k + 1] // Get the vent opposing the current vent
-				local PartVel = (v - Opposite):Normalize() * 50
+				local PartVel = (v - Opposite):GetNormalized() * 50
 				local Val = 3
 				local RandVect = Vector(math.Rand(-Val,Val),math.Rand(-Val,Val),math.Rand(-Val,Val))
 			
