@@ -1,6 +1,6 @@
 include('shared.lua')
 
-local EffectDelay = 0.1
+local EffectDelay = 0.08
 local LastFactory
 local MainBox
 
@@ -12,11 +12,10 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	local B = "No"
-	if self.dt.IsBuilding then
-		B = "Yes"
-	end
+
+	local B = self.dt.IsBuilding and "Yes" or "No"
 	return self.PrintName.."\nBuilding : "..B.."\nPercentage Complete : "..self.dt.PercentageComplete.."%"
+	
 end
 
 function ENT:Think()

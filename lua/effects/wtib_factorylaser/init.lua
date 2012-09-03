@@ -36,7 +36,7 @@ function EFFECT:Render()
 		if self.NextSpark <= CurTime() then
 			local ed = EffectData()
 			ed:SetOrigin(End)
-			ed:SetNormal(self.Factory:GetUp():Normalize())
+			ed:SetNormal(self.Factory:GetUp():GetNormal())
 			ed:SetMagnitude(0.5)
 			ed:SetScale(1)
 			ed:SetRadius(1)

@@ -45,10 +45,7 @@ end
 
 function ENT:WTib_GetTooltip()
 
-	local B = "No"
-	if self.dt.IsBuilding then
-		B = "Yes"
-	end
+	local B = self.dt.IsBuilding and "Yes" or "No"
 	return self.PrintName.."\nBuilding : "..B.."\nPercentage Complete : "..self.dt.PercentageComplete.."%"
 	
 end
