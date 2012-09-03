@@ -53,7 +53,7 @@ function ENT:Think()
 		
 	end
 	
-	WTib.SupplyResource(self,"energy",EnergyToAdd*math.Rand(self.MinMul,self.MaxMul))
+	if EnergyToAdd > 0 then WTib.SupplyResource(self,"energy",EnergyToAdd*math.Rand(self.MinMul,self.MaxMul)) end
 	
 	self.dt.Online = Count >= 1
 	self.dt.Energy = WTib.GetResourceAmount(self,"energy")
