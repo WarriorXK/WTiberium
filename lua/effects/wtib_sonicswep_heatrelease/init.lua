@@ -1,19 +1,26 @@
 
 local Grav = Vector(0,0,90)
+EFFECT.Loaded = false
 
 function EFFECT:Init(d)
+
 	print("Effect2")
 	self.Swep = d:GetEntity()
 	if ValidEntity(self.Swep) then
 		self.Emitter = ParticleEmitter(self.Swep:GetPos())
 	end
-	print(self.Swep)
+	self.Loaded = true
 end
 
 function EFFECT:Think()
+
+	if !self.Loaded then return true end
+	
 	local Valid = ValidEntity(self.Swep) and self.Swep.dt.Heat > 0 
 	if Valid then
+	
 		if self.LastParticle <= CurTime() then
+		
 			self.LastParticle = CurTime()+0.12
 			for k,v in pairs(self.Vents) do
 				
@@ -32,11 +39,14 @@ function EFFECT:Think()
 				Smoke:SetGravity(Grav * math.random(0.8,1.1))
 				
 			end
+			
 		end
+		
 	elseif self.Emitter then
 		self.Emitter:Finish()
 	end
 	return Valid
+	
 end
 
 function EFFECT:Render() end
