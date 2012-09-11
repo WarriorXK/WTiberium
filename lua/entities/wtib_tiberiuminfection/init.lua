@@ -3,7 +3,7 @@ AddCSLuaFile("shared.lua")
 include('shared.lua')
 
 timer.Simple(0.1, function()
-	if WDS2 then
+	if WDS2 and type(ProtectedClasses) == "table" then
 		table.insert(WDS2.ProtectedClasses, "wtib_tiberiuminfection")
 	end
 end)
