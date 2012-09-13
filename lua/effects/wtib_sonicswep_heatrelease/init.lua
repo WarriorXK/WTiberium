@@ -6,7 +6,7 @@ function EFFECT:Init(d)
 
 	print("Effect2")
 	self.Swep = d:GetEntity()
-	if ValidEntity(self.Swep) then
+	if IsValid(self.Swep) then
 		self.Emitter = ParticleEmitter(self.Swep:GetPos())
 	end
 	self.Loaded = true
@@ -16,7 +16,7 @@ function EFFECT:Think()
 
 	if !self.Loaded then return true end
 	
-	local Valid = ValidEntity(self.Swep) and self.Swep.dt.Heat > 0 
+	local Valid = IsValid(self.Swep) and self.Swep.dt.Heat > 0 
 	if Valid then
 	
 		if self.LastParticle <= CurTime() then

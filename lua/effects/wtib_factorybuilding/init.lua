@@ -82,14 +82,14 @@ local Grav = Vector(0,0,90)
 
 function EFFECT:Init(d)
 	self.Factory = d:GetEntity()
-	if ValidEntity(self.Factory) then
+	if IsValid(self.Factory) then
 		self.Emitter = ParticleEmitter(self.Factory:GetPos())
 	end
 	self:SetRenderBoundsWS(self.Factory:OBBMaxs(),self.Factory:OBBMins())
 end
 
 function EFFECT:Think()
-	local Valid = ValidEntity(self.Factory) and self.Factory.dt.IsBuilding
+	local Valid = IsValid(self.Factory) and self.Factory.dt.IsBuilding
 	if Valid then
 		if self.LastParticle <= CurTime() then
 			self.LastParticle = CurTime()+0.12

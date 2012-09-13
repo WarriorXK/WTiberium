@@ -19,5 +19,5 @@ function ENT:Use(...)
 end
 
 function ENT:OnRemove()
-	if ValidEntity(self.dt.Factory) then self.dt.Factory:Remove() end
+	if IsValid(self.dt.Factory) then self.dt.Factory:Remove() end
 end

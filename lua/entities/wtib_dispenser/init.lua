@@ -49,7 +49,7 @@ function ENT:Think()
 			if self.dt.PercentageComplete >= 100 then
 			
 				local ply
-				if ValidEntity(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
+				if IsValid(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
 				
 				local ent = WTib.Dispenser.GetObjectByID(self.dt.BuildingID).CreateEnt(self,self.dt.CurObject:GetAngles(),self.dt.CurObject:GetPos(),self.dt.BuildingID,ply)
 				ent.WDSO = self.dt.CurObject.WDSO

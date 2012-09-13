@@ -103,14 +103,14 @@ function ENT:PhysicsSimulate(phys,deltatime)
 	pr.dampfactor		= 0.1
 	pr.teleportdistance	= 0
 	pr.deltatime		= deltatime
-	pr.angle			= (ValidEntity(self.Launcher) and self.Launcher.Locked and self.LockDelay < CurTime()) and (Vector(self.Launcher.CoX,self.Launcher.CoY,self.Launcher.CoZ)-self:GetPos()):Angle() or self:GetAngles()
+	pr.angle			= (IsValid(self.Launcher) and self.Launcher.Locked and self.LockDelay < CurTime()) and (Vector(self.Launcher.CoX,self.Launcher.CoY,self.Launcher.CoZ)-self:GetPos()):Angle() or self:GetAngles()
 	phys:ComputeShadowControl(pr)
 	
 end
 
 function ENT:Explode(HitPos, Ent, Speed, Normal)
 
-	util.BlastDamage(self,ValidEntity(self.WDSO) and self.WDSO or self,self:GetPos(),math.Rand(200,300),math.Rand(300,400))
+	util.BlastDamage(self,IsValid(self.WDSO) and self.WDSO or self,self:GetPos(),math.Rand(200,300),math.Rand(300,400))
 	
 	local ed = EffectData()
 	ed:SetOrigin(HitPos or self:GetPos())

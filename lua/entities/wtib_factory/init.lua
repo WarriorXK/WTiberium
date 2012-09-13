@@ -38,7 +38,7 @@ end
 function ENT:SpawnFunction(p,t)
 
 	local ent = WTib.SpawnFunction(p,t,self)
-	if ValidEntity(ent) then
+	if IsValid(ent) then
 		
 		// Spawn the control panel
 		local Panel = ents.Create("wtib_factory_panel")
@@ -73,7 +73,7 @@ function ENT:Think()
 			if self.dt.PercentageComplete >= 100 then
 			
 				local ply
-				if ValidEntity(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
+				if IsValid(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
 				
 				// Call the function that creates the actual entity
 				local ent = WTib.Factory.GetObjectByID(self.dt.BuildingID).CreateEnt(self, self.dt.CurObject:GetAngles(), self.dt.CurObject:GetPos(), self.dt.BuildingID, ply)
@@ -169,7 +169,7 @@ function ENT:OnRestore()
 end
 
 function ENT:OnRemove()
-	if ValidEntity(self.dt.Panel) then self.dt.Panel:Remove() end
+	if IsValid(self.dt.Panel) then self.dt.Panel:Remove() end
 end
 
 function ENT:TriggerInput(name,val)

@@ -18,7 +18,7 @@ function EFFECT:Think()
 end
 
 function EFFECT:ValidEnts()
-	return ValidEntity(self.Factory) and ValidEntity(self.Factory.dt.CurObject)
+	return IsValid(self.Factory) and IsValid(self.Factory.dt.CurObject)
 end
 
 function EFFECT:Render()
