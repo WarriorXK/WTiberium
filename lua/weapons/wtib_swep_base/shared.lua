@@ -60,7 +60,7 @@ function SWEP:PrimaryAttack()
 		self:TakePrimaryAmmo(1)
 		if self.Owner:IsNPC() then return end
 		self.Owner:ViewPunch(Angle(math.Rand(-0.2,-0.1)*self.Primary.Recoil,math.Rand(-0.1,0.1)*self.Primary.Recoil,0))
-		if (SinglePlayer() and SERVER) or CLIENT then
+		if (game.SinglePlayer() and SERVER) or CLIENT then
 			self.dt.LastShootTime = CurTime()
 		end
 	end
@@ -81,7 +81,7 @@ function SWEP:ShootBullet(dmg,recoil,numbul,cone)
 	self.Owner:MuzzleFlash()
 	self.Owner:SetAnimation(PLAYER_ATTACK1)
 	if self.Owner:IsNPC() then return end
-	if (SinglePlayer() and SERVER) or (!SinglePlayer() and CLIENT and IsFirstTimePredicted()) then
+	if (game.SinglePlayer() and SERVER) or (!game.SinglePlayer() and CLIENT and IsFirstTimePredicted()) then
 		local eyeang = self.Owner:EyeAngles()
 		eyeang.pitch = eyeang.pitch-recoil
 		self.Owner:SetEyeAngles(eyeang)
