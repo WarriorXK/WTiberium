@@ -36,7 +36,7 @@ function ENT:Think()
 
 	self.dt.Loaded = WTib.IsValid(self.Missile)
 
-	WTib.TriggerOutput(self,"Can Fire", tonumber(self.dt.Loaded))
+	WTib.TriggerOutput(self, "Can Fire", tonumber(self.dt.Loaded))
 	
 end
 

@@ -22,6 +22,14 @@ local ErrorSound = Sound("buttons/button8.wav")
 
 local ErrorSoundDelay = SoundDuration(ErrorSound)
 
+/*
+	Error Codes :
+		0 - No error
+		1 - Requires more resources
+		2 - Device is still in cooldown
+		3 - Total percentage does not equal 100
+*/
+
 function ENT:Initialize()
 
 	self:SetModel("models/Tiberium/tiberium_warhead_factory.mdl")
@@ -36,9 +44,12 @@ function ENT:Initialize()
 	end
 	
 	self.Inputs = WTib.CreateInputs(self,{"Build", "Raw", "Refined", "Chemicals", "Liquid"})
-	self.Outputs = WTib.CreateOutputs(self,{"Can Build"})
+	self.Outputs = WTib.CreateOutputs(self,{"Can Build", "Error Code"})
+	
+	WTib.TriggerOutput(self, "Error Code", 0)
 	
 	WTib.RegisterEnt(self, "Generator")
+	
 	WTib.AddResource(self, "energy", 0)
 	WTib.AddResource(self, "RawTiberium", 0)
 	WTib.AddResource(self, "RefinedTiberium", 0)
@@ -85,11 +96,11 @@ function ENT:BuildWarhead()
 		local Tot = math.Round(self.Raw + self.Refined + self.Chemicals + self.Liquid)
 		if Tot == 100 then // The total percentage is 100
 
-			WTib.ConsumeResource(self,"energy", Total)
-			WTib.ConsumeResource(self,"RawTiberium", RawDrain)
-			WTib.ConsumeResource(self,"RefinedTiberium", RefinedDrain)
-			WTib.ConsumeResource(self,"ChemicalTiberium", ChemicalDrain)
-			WTib.ConsumeResource(self,"LiquidTiberium", LiquidDrain)
+			WTib.ConsumeResource(self, "energy", Total)
+			WTib.ConsumeResource(self, "RawTiberium", (OnePercent * self.Raw))
+			WTib.ConsumeResource(self, "RefinedTiberium", (OnePercent * self.Refined))
+			WTib.ConsumeResource(self, "ChemicalTiberium", (OnePercent * self.Chemicals))
+			WTib.ConsumeResource(self, "LiquidTiberium", (OnePercent * self.Liquid))
 
 			local ent = ents.Create("wtib_missile_warhead")
 			ent:SetAngles( self:GetAngles() )
@@ -100,15 +111,24 @@ function ENT:BuildWarhead()
 			
 			self:EmitSound(SuccessSound)
 			self.NextBuild = CurTime()+1
+			
+			WTib.TriggerOutput(self, "Error Code", 0)
 
 		else
+			WTib.TriggerOutput(self, "Error Code", 3)
 			self:EmitSound(ErrorSound)
 		end
 		
 	elseif self.LastErrorSound < CurTime() then
 	
 		self:EmitSound(ErrorSound)
-		self.LastErrorSound = CurTime()+ErrorSoundDelay
+		self.LastErrorSound = CurTime() + ErrorSoundDelay
+		
+		if self.NextBuild < CurTime() then
+			WTib.TriggerOutput(self, "Error Code", 2)
+		else
+			WTib.TriggerOutput(self, "Error Code", 1)
+		end
 		
 	end
 	
@@ -119,6 +139,8 @@ function ENT:OnRestore()
 end
 
 function ENT:TriggerInput(name,val)
+
+	val = val >= 0 and math.Round(val) or 0
 
 	if name == "Build" then
 		if tobool(val) then
