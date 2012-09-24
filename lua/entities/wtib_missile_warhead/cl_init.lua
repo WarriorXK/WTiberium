@@ -6,7 +6,7 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	return self.PrintName
+	return self.PrintName.."\nRaw : "..self.dt.RawTiberium.."\nRefined : "..self.dt.RefTiberium.."\nChemicals : "..self.dt.Chemicals.."\nLiquid : "..self.dt.Liquids
 end
 
 function ENT:Think()

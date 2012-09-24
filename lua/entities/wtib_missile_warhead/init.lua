@@ -4,11 +4,6 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
-ENT.RawTiberium = 0
-ENT.RefTiberium = 0
-ENT.Chemicals = 0
-ENT.Liquids = 0
-
 function ENT:Initialize()
 	self:SetModel("models/Tiberium/tiberium_warhead.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
@@ -35,10 +30,10 @@ end
 
 function ENT:SetWarheadValues(en, raw, ref, chem, liq)
 
-	self.RawTiberium = raw
-	self.RefTiberium = ref
-	self.Chemicals = chem
-	self.Liquids = liq
+	self.dt.RawTiberium = raw
+	self.dt.RefTiberium = ref
+	self.dt.Chemicals = chem
+	self.dt.Liquids = liq
 	
 end
 
@@ -47,6 +42,8 @@ function ENT:ApplyWarhead(missle)
 end
 
 function ENT:Explode(HitPos, Ent, Speed, Normal)
+	
+	
 	
 	self:Remove()
 end

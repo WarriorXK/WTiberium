@@ -108,6 +108,8 @@ function ENT:BuildWarhead()
 		local Tot = math.Round(self.Raw + self.Refined + self.Chemicals + self.Liquid)
 		if Tot == 100 then // The total percentage is 100
 
+			local OnePercent = Total / 100
+		
 			WTib.ConsumeResource(self, "energy", Total)
 			WTib.ConsumeResource(self, "RawTiberium", (OnePercent * self.Raw))
 			WTib.ConsumeResource(self, "RefinedTiberium", (OnePercent * self.Refined))

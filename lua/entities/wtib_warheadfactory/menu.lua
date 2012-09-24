@@ -41,44 +41,44 @@ net.Receive("wtib_warheadfactory_openmenu", function( len )
 		local RawSlider = vgui.Create( "DNumSlider", MainBox )
 		RawSlider:SetPos( 25, 45 )
 		RawSlider:SetWide( 350 )
-		RawSlider:SetValue( 25 )
 		RawSlider:SetText( "Raw Tiberium" )
 		RawSlider:SetMin( 0 )
 		RawSlider:SetMax( 100 )
-		RawSlider:SetDecimals( 1 )
+		RawSlider:SetDecimals( 0 )
+		RawSlider:SetValue( 25 )
 		RawSlider.ValueChanged = SliderValueChanged
 		MainBox.RawSlider = RawSlider
 		
 		local RefinedSlider = vgui.Create( "DNumSlider", MainBox )
 		RefinedSlider:SetPos( 25, 65 )
 		RefinedSlider:SetWide( 350 )
-		RefinedSlider:SetValue( 25 )
 		RefinedSlider:SetText( "Refined Tiberium" )
 		RefinedSlider:SetMin( 0 )
 		RefinedSlider:SetMax( 100 )
-		RefinedSlider:SetDecimals( 1 )
+		RefinedSlider:SetDecimals( 0 )
+		RefinedSlider:SetValue( 25 )
 		RefinedSlider.ValueChanged = SliderValueChanged
 		MainBox.RefinedSlider = RefinedSlider
 		
 		local ChemicalSlider = vgui.Create( "DNumSlider", MainBox )
 		ChemicalSlider:SetPos( 25, 85 )
 		ChemicalSlider:SetWide( 350 )
-		ChemicalSlider:SetValue( 25 )
 		ChemicalSlider:SetText( "Tiberium Chemicals" )
 		ChemicalSlider:SetMin( 0 )
 		ChemicalSlider:SetMax( 100 )
-		ChemicalSlider:SetDecimals( 1 )
+		ChemicalSlider:SetDecimals( 0 )
+		ChemicalSlider:SetValue( 25 )
 		ChemicalSlider.ValueChanged = SliderValueChanged
 		MainBox.ChemicalSlider = ChemicalSlider
 		
 		local LiquidSlider = vgui.Create( "DNumSlider", MainBox )
 		LiquidSlider:SetPos( 25, 105 )
 		LiquidSlider:SetWide( 350 )
-		LiquidSlider:SetValue( 25 )
 		LiquidSlider:SetText( "Liquid Tiberium" )
 		LiquidSlider:SetMin( 0 )
 		LiquidSlider:SetMax( 100 )
-		LiquidSlider:SetDecimals( 1 )
+		LiquidSlider:SetDecimals( 0 )
+		LiquidSlider:SetValue( 25 )
 		LiquidSlider.ValueChanged = SliderValueChanged
 		MainBox.LiquidSlider = LiquidSlider
 		
