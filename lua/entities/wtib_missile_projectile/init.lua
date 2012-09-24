@@ -9,6 +9,11 @@ ENT.LockDelay = 0
 ENT.TargetPos = Vector(0,0,0)
 ENT.Launched = false
 
+ENT.Warhead = {}
+ENT.Warhead.Range = 62.5
+ENT.Warhead.Damage = 220
+ENT.Warhead.DOT_DPS = 12.5
+
 function ENT:Initialize()
 
 	self:SetModel("models/Tiberium/tiberium_missile.mdl")
@@ -109,14 +114,28 @@ function ENT:PhysicsSimulate(phys,deltatime)
 end
 
 function ENT:Explode(HitPos, Ent, Speed, Normal)
-
-	util.BlastDamage(self,IsValid(self.WDSO) and self.WDSO or self,self:GetPos(),math.Rand(200,300),math.Rand(300,400))
 	
-	local ed = EffectData()
-	ed:SetOrigin(HitPos or self:GetPos())
-	ed:SetStart(HitPos or self:GetPos())
-	ed:SetScale(3)
-	util.Effect("Explosion",ed)
+	local dmginfo = DamageInfo()
+	dmginfo:SetInflictor(self)
+	dmginfo:SetAttacker(self.WDSO)
+	dmginfo:SetDamageType(DMG_BLAST)
+	
+	WTib.DebugPrintTable(self.Warhead)
+	
+	for _,v in pairs(ents.FindInSphere(HitPos, self.Warhead.Range)) do
+		
+		if IsValid(v) and ((v:IsPlayer() and v:Health() > 0) or v:IsNPC()) then
+			
+			if self.Warhead.DOT_DPS > 0 then WTib.Infect(v, self.WDSO, self, self.Warhead.DOT_DPS, self.Warhead.DOT_DPS + 2, true) end
+			
+			local Dmg = self.Warhead.Damage * math.Clamp(-((HitPos:Distance(v:NearestPoint(HitPos)) / self.Warhead.Range)-1),0.2,1)
+			print(Dmg)
+			dmginfo:SetDamage(Dmg)
+			v:TakeDamageInfo(dmginfo)
+			
+		end
+		
+	end
 	
 	self:Remove()
 	

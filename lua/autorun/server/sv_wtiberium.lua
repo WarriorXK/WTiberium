@@ -19,56 +19,100 @@ function WTib.SetConfigVar(var, val, mess)
 	WTib.Config[var] = val
 end
 
-timer.Create("WTib.ConfigMessagesTimer",0.1,0,function()
+timer.Create("WTib.ConfigMessagesTimer", 0.1, 0, function()
+
 	for k,v in pairs(WTib.ConfigMessages) do
+	
 		if v.BroadcastOn <= CurTime() then
 			for _,ply in pairs(player.GetAll()) do
 				ply:ChatPrint(v.Message)
 			end
 			WTib.ConfigMessages[k] = nil
 		end
+		
 	end
+	
 end)
 
-concommand.Add("wtib_removealltiberium",function(ply,com,args)
+concommand.Add("wtib_removealltiberium", function(ply, com, args)
+
 	if ply == NULL or ply:IsAdmin() then
+	
 		for _,v in pairs(WTib.GetAllTiberium()) do
 			v:Remove()
 		end
+		
 		local Text = "All Tiberium has been removed"
+		
 		for _,v in pairs(player.GetAll()) do
 			v:ChatPrint(Text)
 		end
+		
 	else
+	
 		ply:ChatPrint("This command is admin only.")
+		
 	end
+	
 end)
 
-concommand.Add("wtib_defaultmaxfieldsize",function(ply,com,args)
+concommand.Add("wtib_defaultmaxfieldsize", function(ply, com, args)
+
 	if ply == NULL or ply:IsAdmin() then
-		local val = math.Clamp(tonumber(args[1]),10,300)
-		if WTib.Config.MaximumFieldSize != val then
-			WTib.Config.MaximumFieldSize = val
-			WTib.SetConfigVar("MaximumFieldSize", val, "Max Tiberium per field has been set to "..val)
+	
+		local Input = tonumber(args[1])
+		
+		if Input == nil then
+		
+			ply:ChatPrint("wtib_defaultmaxfieldsize = " .. WTib.Config.MaximumFieldSize)
+		
+		else
+		
+			local val = math.Clamp(Input, 10, 300)
+			if WTib.Config.MaximumFieldSize != val then
+				WTib.Config.MaximumFieldSize = val
+				WTib.SetConfigVar("MaximumFieldSize", val, "Max Tiberium per field has been set to "..val)
+			end
+			
 		end
+		
 	else
+	
 		ply:ChatPrint("This command is admin only.")
+		
 	end
+	
 end)
 
 concommand.Add("wtib_infectionchance",function(ply,com,args)
+
 	if ply == NULL or ply:IsAdmin() then
-		local val = math.max(tonumber(args[1]),-1)
-		if WTib.Config.InfectionChance != val then
-			WTib.Config.InfectionChance = val
+	
+		local Input = tonumber(args[1])
+		
+		if Input == nil then
 			
-			local Text = "The Tiberium infection chance has been set to 1 in "..val
-			if val <= 0 then Text = "Tiberium infection has been disabled" end
-			WTib.SetConfigVar("InfectionChance", val, Text)
+			ply:ChatPrint("wtib_infectionchance = " .. WTib.Config.InfectionChance)
+			
+		else
+		
+			local val = math.max(Input,-1)
+			
+			if WTib.Config.InfectionChance != val then
+				WTib.Config.InfectionChance = val
+				
+				local Text = "The Tiberium infection chance has been set to 1 in "..val
+				if val <= 0 then Text = "Tiberium infection has been disabled" end
+				WTib.SetConfigVar("InfectionChance", val, Text)
+			end
+			
 		end
 	else
+	
 		ply:ChatPrint("This command is admin only.")
+		
 	end
+	
 end)
 
 /*
@@ -160,14 +204,28 @@ function WTib.SpawnFunction(p,t,ent,offset)
 	return e
 end
 
-function WTib.Infect(ent)
+function WTib.Infect(ent, att, inf, miDOT, maDOT, IgnoreSuit)
+
 	if !WTib.IsInfected(ent) then
-		table.insert(WTib.InfectedEntities,ent)
+	
+		if ent:IsNPC() or (ent:IsPlayer() and (IgnoreSuit or ent:Armor() <= 0)) then
+		
+			table.insert(WTib.InfectedEntities, {Ent = ent, Attacker = att, Inflictor = inf, DamageMin = miDOT, DamageMax = maDOT})
+			
+		end
+		
 	end
+	
 end
 
 function WTib.IsInfected(ent)
-	return table.HasValue(WTib.InfectedEntities,ent)
+
+	for _,v in pairs(WTib.InfectedEntities) do
+		if v.Ent == ent then return true end
+	end
+	
+	return false
+	
 end
 
 /*
@@ -176,7 +234,7 @@ end
 
 function WTib.Disenfect(ent)
 	for k,v in pairs(WTib.InfectedEntities) do
-		if v == ent then
+		if v.Ent == ent then
 			WTib.InfectedEntities[k] = nil
 		end
 	end
@@ -184,21 +242,33 @@ end
 hook.Add("PlayerSpawn","WTib.Disenfect",WTib.Disenfect)
 
 timer.Create("WTib.InfectedTimer",1,0,function()
+
 	local Crystal = ents.FindByClass("wtib_tiberiuminfection")[1]
 	if !WTib.IsValid(Crystal) then
 		Crystal = ents.Create("wtib_tiberiuminfection")
 		Crystal:Spawn()
 	end
+	
 	local dmginfo = DamageInfo()
 	dmginfo:SetDamageType(DMG_ACID)
-	dmginfo:SetAttacker(Crystal)
-	dmginfo:SetInflictor(Crystal)
+	
 	for _,v in pairs(WTib.InfectedEntities) do
-		if WTib.IsValid(v) and ((v:IsPlayer() and v:Alive()) or v:IsNPC()) then
-			dmginfo:SetDamage(math.random(1,3))
-			v:TakeDamageInfo(dmginfo)
+	
+		dmginfo:SetAttacker(Crystal)
+		dmginfo:SetInflictor(Crystal)
+	
+		if WTib.IsValid(v.Ent) and ((v.Ent:IsPlayer() and v.Ent:Alive()) or v.Ent:IsNPC()) then
+		
+			if IsValid(v.Attacker) then dmginfo:SetAttacker(v.Attacker) end
+			if IsValid(v.Inflictor) then dmginfo:SetInflictor(v.Inflictor) end
+			
+			dmginfo:SetDamage(math.random(v.DamageMin or 1, v.DamageMax or 3))
+			v.Ent:TakeDamageInfo(dmginfo)
+			
 		end
+
 	end
+	
 end)
 
 function WTib.TiberiumCanGrow(class,pos)

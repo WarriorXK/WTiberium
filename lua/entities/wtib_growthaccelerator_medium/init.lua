@@ -65,7 +65,7 @@ function ENT:Think()
 					
 				elseif (v:IsPlayer() and v:Armor() <= 0) or v:IsNPC() then
 				
-					if math.random(1, self.InfectionChance) == 1 then WTib.Infect(v) end
+					if math.random(1, self.InfectionChance) == 1 then WTib.Infect(v, self, self, 1, 3, false) end
 					
 				end
 				

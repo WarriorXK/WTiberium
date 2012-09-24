@@ -129,7 +129,7 @@ end
 function ENT:AttemptInfection(ent)
 
 	if WTib.Config.InfectionChance > 0 and math.random(1, WTib.Config.InfectionChance) == 1 then
-		WTib.Infect(ent)
+		WTib.Infect(ent, self, self, 1, 3, false)
 	end
 	
 end

@@ -7,7 +7,6 @@ Balance resource usage/gain for all entities
 
 Warhead system :
 	Make a warhead factory, works like this :
-		Use wire or GUI to select resource values
 		Raw Tiberium gives the warhead explosive damage // Explosive damage and range (Extends range on seeding effect)
 		Refined Tiberium gives the warhead more direct impact damage // Direct hit damage
 		Tiberium chemicals gives the warhead toxic chemicals that do DOT // Damage over time on hit

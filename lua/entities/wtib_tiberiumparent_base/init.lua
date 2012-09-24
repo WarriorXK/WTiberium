@@ -20,6 +20,14 @@ function ENT:SpawnFunction(p,t)
 	return WTib.CreateTiberium(self,self.ClassName,t,p)
 end
 
+function ENT:Touch(ent)
+	
+	if IsValid(ent) then
+		WTib.Infect(ent, self, self, 2, 5, false)
+	end
+	
+end
+
 function ENT:Think()
 
 	if self.NextGrow <= CurTime() then // Check if we should get more resources
