@@ -36,7 +36,7 @@ function ENT:Think()
 
 	self.dt.Loaded = WTib.IsValid(self.Missile)
 
-	WTib.TriggerOutput(self, "Can Fire", tonumber(self.dt.Loaded))
+	WTib.TriggerOutput(self, "Can Fire", self.dt.Loaded and 1 or 0)
 	
 end
 
@@ -59,7 +59,7 @@ function ENT:TriggerInput(name,val)
 		
 	elseif name == "LockDelay" then
 	
-		self.LockDelay = math.max(tonumber(val),0.2)
+		self.LockDelay = math.max(tonumber(val), 0.2)
 		
 	elseif name == "X" then
 	

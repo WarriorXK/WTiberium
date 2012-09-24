@@ -1,4 +1,5 @@
 AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("menu.lua")
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 
@@ -62,7 +63,7 @@ function ENT:Think()
 				
 			end
 			
-			WTib.TriggerOutput(self,"PercentageComplete", tonumber(self.dt.PercentageComplete))
+			WTib.TriggerOutput(self,"PercentageComplete", self.dt.PercentageComplete)
 			
 			self.LastBuild = CurTime()
 		end

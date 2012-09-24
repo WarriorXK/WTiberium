@@ -65,7 +65,7 @@ function ENT:Think()
 	end
 	
 	WTib.TriggerOutput(self,"Chemicals", Chemicals)
-	WTib.TriggerOutput(self,"Boosting", tonumber(self.dt.Boosting))
+	WTib.TriggerOutput(self,"Boosting", self.dt.Boosting and 1 or 0)
 	
 	self.dt.Chemicals = Chemicals
 	

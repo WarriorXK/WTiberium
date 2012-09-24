@@ -1,6 +1,10 @@
 AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("menu.lua")
 AddCSLuaFile("shared.lua")
 include('shared.lua')
+
+util.AddNetworkString("wtib_warheadfactory_openmenu")
+util.AddNetworkString("wtib_warheadfactory_buildwarhead")
 
 WTib.ApplyDupeFunctions(ENT)
 
@@ -75,6 +79,14 @@ function ENT:Think()
 	
 	WTib.TriggerOutput(self, "Can Build", CBuild)
 	
+end
+
+function ENT:Use(ply)
+
+	net.Start("wtib_warheadfactory_openmenu")
+		net.WriteEntity(self)
+	net.Send(ply)
+
 end
 
 function ENT:CanBuild()
@@ -157,3 +169,25 @@ function ENT:TriggerInput(name,val)
 	end
 	
 end
+
+net.Receive( "wtib_warheadfactory_buildwarhead", function( len, ply )
+	
+	local ent = net.ReadEntity()
+	
+	local Raw = net.ReadFloat()
+	local Refined = net.ReadFloat()
+	local Chemicals = net.ReadFloat()
+	local Liquid = net.ReadFloat()
+
+	if WTib.IsValid(ent) then
+		
+		ent.Raw = Raw
+		ent.Refined = Refined
+		ent.Chemicals = Chemicals
+		ent.Liquid = Liquid
+		
+		ent:BuildWarhead()
+
+	end
+	
+end)
