@@ -140,9 +140,9 @@ function ENT:BuildObject(id,ply)
 		
 		// Position the fake object
 		local ModelOffset = Vector(0,0,self.dt.CurObject:OBBMins().z):Distance(Vector(0,0,self.dt.CurObject:GetPos().z))
-		local SpawnPos = self:GetAttachment(self:LookupAttachment("spawn")).Pos
+		local SpawnPos = self:WorldToLocal(self:GetAttachment(self:LookupAttachment("spawn")).Pos)
 		SpawnPos.z = SpawnPos.z + ModelOffset
-		self.dt.CurObject:SetPos(SpawnPos)
+		self.dt.CurObject:SetPos(self:LocalToWorld(SpawnPos))
 		self.dt.CurObject:DropToFloor()
 		
 		// Parent the fake object and give it the values it needs

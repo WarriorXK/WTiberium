@@ -81,19 +81,30 @@ EFFECT.LastParticle = 0
 local Grav = Vector(0,0,90)
 
 function EFFECT:Init(d)
+
 	self.Factory = d:GetEntity()
+	
 	if IsValid(self.Factory) then
+	
 		self.Emitter = ParticleEmitter(self.Factory:GetPos())
+		self:SetRenderBoundsWS( self.Factory:OBBMins(), self.Factory:OBBMaxs())
+		
 	end
-	self:SetRenderBoundsWS(self.Factory:OBBMaxs(),self.Factory:OBBMins())
+	
 end
 
 function EFFECT:Think()
+
 	local Valid = IsValid(self.Factory) and self.Factory.dt.IsBuilding
+	
 	if Valid then
+	
 		if self.LastParticle <= CurTime() then
+		
 			self.LastParticle = CurTime()+0.12
+			
 			for k,v in pairs(self.Vents) do
+			
 				local Opposite = k % 2 == 0 and self.Vents[k - 1] or self.Vents[k + 1] // Get the vent opposing the current vent
 				local PartVel = (v - Opposite):GetNormalized() * 50
 				local Val = 3
@@ -111,20 +122,30 @@ function EFFECT:Think()
 				Smoke:SetAirResistance(300)
 				Smoke:SetGravity(Grav * math.random(0.8,1.1))
 				Smoke:SetVelocity(PartVel + RandVect)
+				
 			end
+			
 		end
+		
 	elseif self.Emitter then
+	
 		self.Emitter:Finish()
+		
 	end
+	
 	return Valid
+	
 end
 
 function EFFECT:Render()
+
+	local Progress = math.ceil(self.Factory.dt.PercentageComplete / ( 100 / table.Count( self.ProgressLights) ))
 	local GlowSize = 15
-	local Progress = math.ceil(self.Factory.dt.PercentageComplete / 25)
 	local Col = self.ProgressColors[Progress]
+	
 	render.SetMaterial(self.GlowMat)
 	for _,v in pairs(self.ProgressLights[Progress]) do
 		render.DrawSprite(self.Factory:LocalToWorld(v), GlowSize, GlowSize, Col)
 	end
+	
 end
