@@ -7,4 +7,4 @@ function ENT:Draw()
 	
 end
 
-language.Add(ENT.ClassName, ENT.PrintName)
+language.Add(WTib.GetClass(ENT),ENT.PrintName)
