@@ -8,7 +8,8 @@ ENT.NextLight = 0
 ENT.LastSize = 0
 
 function ENT:Draw()
-	self:SetModelScale(Vector(self.Size, self.Size, self.Size))
+	//self:SetModelScale(Vector(self.Size, self.Size, self.Size))
+	self:SetModelScale( self.Size )
 	self:DrawModel()
 end
 
