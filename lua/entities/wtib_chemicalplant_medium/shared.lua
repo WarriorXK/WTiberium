@@ -1,6 +1,6 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
-ENT.PrintName		= "Medium Chemical Plant"
+ENT.PrintName		= "Chemical Plant"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= "Uses Energy to convert Refined Tiberium into Tiberium Chemicals"
