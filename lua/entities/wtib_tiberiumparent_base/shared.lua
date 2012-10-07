@@ -11,7 +11,7 @@ ENT.IsTiberium		= true
 ENT.IsTiberiumParent= true
 
 ENT.ShouldCollide = true
-ENT.RenderMode = RENDERMODE_TRANSCOLOR
+ENT.RenderMode = RENDERMODE_TRANSALPHA
 
 ENT.Reproduce_TiberiumRequired = 1000
 ENT.Reproduce_TiberiumDrained = 400
