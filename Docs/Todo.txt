@@ -1,16 +1,19 @@
-Add save functionality
 
-Check out this pack :
-	http://www.garrysmod.org/downloads/?a=view&id=12748
+Major :
+	Fix the effect render bounds
 
-Balance resource usage/gain for all entities
+Medium :
+	Add save functionality
+	Balance resource usage/gain for all entities
+	Warhead system :
+		Make a warhead factory, works like this :
+			Raw Tiberium gives the warhead explosive damage // Explosive damage and range (Extends range on seeding effect)
+			Refined Tiberium gives the warhead more direct impact damage // Direct hit damage
+			Tiberium chemicals gives the warhead toxic chemicals that do DOT // Damage over time on hit
+			Tiberium liquids give the warhead a seeding effect // Tiberium seed, if rocket destroys a prop turn into tiberium
 
-Warhead system :
-	Make a warhead factory, works like this :
-		Raw Tiberium gives the warhead explosive damage // Explosive damage and range (Extends range on seeding effect)
-		Refined Tiberium gives the warhead more direct impact damage // Direct hit damage
-		Tiberium chemicals gives the warhead toxic chemicals that do DOT // Damage over time on hit
-		Tiberium liquids give the warhead a seeding effect // Tiberium seed, if rocket destroys a prop turn into tiberium
+Minor
+	Check out this pack http://www.garrysmod.org/downloads/?a=view&id=12748
 
 Balduran :
 	// Balduran is going to redo all models?
