@@ -30,7 +30,7 @@ function ENT:ThinkSize()
 		self.LastSize = self.Size
 
 		self.NextSizeThink = CurTime()+0.05
-		
+
 	end
 	
 end
