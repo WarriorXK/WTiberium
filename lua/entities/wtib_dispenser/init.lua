@@ -44,26 +44,26 @@ function ENT:Think()
 
 	if self.dt.IsBuilding then
 	
-		if (self.LastBuild + WTib.Dispenser.GetObjectByID(self.dt.BuildingID).PercentDelay) <= CurTime() then
-			self.dt.PercentageComplete = self.dt.PercentageComplete+1
+		if (self.LastBuild + WTib.Dispenser.GetObjectByID( self.dt.BuildingID ).PercentDelay) <= CurTime() then
+			self.dt.PercentageComplete = self.dt.PercentageComplete + 1
 			
 			if self.dt.PercentageComplete >= 100 then
 			
 				local ply
 				if IsValid(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
 				
-				local ent = WTib.Dispenser.GetObjectByID(self.dt.BuildingID).CreateEnt(self,self.dt.CurObject:GetAngles(),self.dt.CurObject:GetPos(),self.dt.BuildingID,ply)
+				local ent = WTib.Dispenser.GetObjectByID( self.dt.BuildingID ).CreateEnt( self, self.dt.CurObject:GetAngles(), self.dt.CurObject:GetPos(), self.dt.BuildingID, ply )
 				ent.WDSO = self.dt.CurObject.WDSO
-				constraint.Weld(self,ent,0,0,4000,true)
+				ent.WTib_Dispenser_Weld = constraint.Weld( self, ent, 0, 0, 0, true )
 				
 				self.dt.CurObject:Remove()
 				self.dt.CurObject = nil
 				self.dt.IsBuilding = false
-				WTib.TriggerOutput(self,"IsBuilding",0)
+				WTib.TriggerOutput( self, "IsBuilding", 0 )
 				
 			end
 			
-			WTib.TriggerOutput(self,"PercentageComplete", self.dt.PercentageComplete)
+			WTib.TriggerOutput( self, "PercentageComplete", self.dt.PercentageComplete )
 			
 			self.LastBuild = CurTime()
 		end
@@ -112,6 +112,10 @@ function ENT:BuildObject(id,ply)
 		self.dt.CurObject.dt.Dispenser = self
 		self.dt.CurObject.WDSO = ply or self
 		
+		local ed = EffectData()
+			ed:SetEntity(self.dt.CurObject)
+		util.Effect("wtib_dispenser", ed)
+		
 		WTib.TriggerOutput(self,"IsBuilding",1)
 		return true
 		
@@ -139,6 +143,18 @@ function ENT:TriggerInput(name,val)
 	end
 	
 end
+
+function WTib_Dispenser_PickupWeldRemover(ply, ent)
+
+	if IsValid(ent.WTib_Dispenser_Weld) then
+	
+		ent.WTib_Dispenser_Weld:Remove()
+		
+	end
+	
+end
+hook.Add( "GravGunPickupAllowed", "WTib_Dispenser_GravGunPickupAllowed", WTib_Dispenser_PickupWeldRemover)
+hook.Add( "PhysgunPickup", "WTib_Dispenser_PhysgunPickup", WTib_Dispenser_PickupWeldRemover)
 
 net.Receive( "wtib_dispenser_buildobject", function( len, ply )
 

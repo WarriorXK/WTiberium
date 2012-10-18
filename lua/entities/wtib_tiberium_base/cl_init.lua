@@ -14,25 +14,27 @@ function ENT:Draw()
 end
 
 function ENT:Think()
-	self:ThinkSize()
-	self:CreateDLight()
-end
-
-function ENT:ThinkSize()
 
 	if self.NextSizeThink <= CurTime() then
 	
-		local Target = 0.5 + (self:GetCrystalSize() / 1.7)
-
-		if Target == self.LastSize then self.GrowingSinceSpawn = false end
-		
-		self.Size = math.max(self.LastSize, math.Approach(self.LastSize, Target, self.GrowingSinceSpawn and 0.001 or 0.0003))
-		self.LastSize = self.Size
-
+		self:ThinkSize()
 		self.NextSizeThink = CurTime()+0.05
 		
 	end
 	
+	self:CreateDLight()
+	
+end
+
+function ENT:ThinkSize()
+
+	local Target = 0.5 + (self:GetCrystalSize() / 1.7)
+
+	if Target == self.LastSize then self.GrowingSinceSpawn = false end
+	
+	self.Size = math.max(self.LastSize, math.Approach(self.LastSize, Target, self.GrowingSinceSpawn and 0.001 or 0.0003))
+	self.LastSize = self.Size
+
 end
 
 function ENT:CreateDLight()

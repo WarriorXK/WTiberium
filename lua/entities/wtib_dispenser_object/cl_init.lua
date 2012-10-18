@@ -2,7 +2,7 @@ include('shared.lua')
 
 function ENT:Draw()
 
-	self:SetModelScale( 0.01 * self.dt.Dispenser.dt.PercentageComplete )
+	self:SetModelScale( 0.01 * self.dt.Dispenser.dt.PercentageComplete, 0 )
 	self:DrawModel()
 	
 end

@@ -10,7 +10,8 @@ function EFFECT:Init(d)
 	self.EndPos = d:GetOrigin()
 	self.DieTime = CurTime()+d:GetMagnitude()
 	
-	self:SetRenderBoundsWS(self.Factory:OBBMaxs(),self.Factory:OBBMins())
+	local LBound, UBound = self.Factory:GetModelRenderBounds()
+	self:SetRenderBounds( LBound, UBound )
 end
 
 function EFFECT:Think()

@@ -87,7 +87,9 @@ function EFFECT:Init(d)
 	if IsValid(self.Factory) then
 	
 		self.Emitter = ParticleEmitter(self.Factory:GetPos())
-		self:SetRenderBoundsWS( self.Factory:OBBMins(), self.Factory:OBBMaxs())
+		
+		local LBound, UBound = self.Factory:GetModelRenderBounds()
+		self:SetRenderBounds( LBound, UBound )
 		
 	end
 	
