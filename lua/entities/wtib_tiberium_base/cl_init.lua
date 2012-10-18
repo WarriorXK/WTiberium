@@ -6,10 +6,10 @@ ENT.GrowingSinceSpawn = true
 ENT.NextSizeThink = 0
 ENT.NextLight = 0
 ENT.LastSize = 0
+ENT.Size = 0
 
 function ENT:Draw()
-	//self:SetModelScale(Vector(self.Size, self.Size, self.Size))
-	self:SetModelScale( self.Size )
+	self:SetModelScale( self.Size, 1 )
 	self:DrawModel()
 end
 
@@ -30,7 +30,7 @@ function ENT:ThinkSize()
 		self.LastSize = self.Size
 
 		self.NextSizeThink = CurTime()+0.05
-
+		
 	end
 	
 end
