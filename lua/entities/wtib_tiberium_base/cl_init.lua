@@ -9,7 +9,7 @@ ENT.LastSize = 0
 ENT.Size = 0
 
 function ENT:Draw()
-	self:SetModelScale( self.Size, 1 )
+	self:SetModelScale( self.Size, 0 )
 	self:DrawModel()
 end
 
