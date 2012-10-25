@@ -31,3 +31,5 @@ ENT.Growth_Delay = 10
 
 ENT.DecalSize = 1
 ENT.Decal = ""
+
+WTib_CrystalTool_AddCrystal( WTib.GetClass(ENT), ENT.PrintName )
