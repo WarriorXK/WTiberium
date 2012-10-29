@@ -72,6 +72,11 @@ function ENT:Explode(HitPos, Ent, Speed, Normal)
 		
 	end
 	
+	local ed = EffectData()
+		ed:SetOrigin(HitPos)
+		ed:SetNormal(Normal)
+	util.Effect("Explosion", ed)
+	
 	self:Remove()
 	
 end
