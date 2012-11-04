@@ -1,5 +1,6 @@
 
 local Grav = Vector(0,0,90)
+EFFECT.LastParticle = 0
 EFFECT.Loaded = false
 
 function EFFECT:Init(d)
