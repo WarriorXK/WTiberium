@@ -20,7 +20,7 @@ local ToolOptionsInc = 0
 
 function WTib_WeaponTool_AddWeapon(class, name)
 	
-	ToolOptions[name] = { wtib_tool_storage_type = ToolOptionsInc }
+	ToolOptions[name] = { wtib_tool_weapons_type = ToolOptionsInc }
 	ToolOptions_Class[ToolOptionsInc] = class
 	
 	ToolOptionsInc = ToolOptionsInc + 1
