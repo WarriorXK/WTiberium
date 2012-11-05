@@ -2,11 +2,10 @@ TOOL.Category		= "WTiberium"
 TOOL.Name			= "Crystal Spawner"
 TOOL.Command		= nil
 TOOL.ConfigName		= ""
-TOOL.Tab			= "Tools"
 
 TOOL.ClientConVar[ "type" ] = "0"
 
-local ToolClass = "wtib_crystaltool"
+local ToolClass = "wtib_tool_crystals"
 
 if ( CLIENT ) then
     language.Add( "Tool." .. ToolClass .. ".name", TOOL.Name )
@@ -21,7 +20,7 @@ local ToolOptionsInc = 0
 
 function WTib_CrystalTool_AddCrystal(class, name)
 	
-	ToolOptions[name] = { wtib_crystaltool_type = ToolOptionsInc }
+	ToolOptions[name] = { wtib_tool_crystals_type = ToolOptionsInc }
 	ToolOptions_Class[ToolOptionsInc] = class
 	
 	ToolOptionsInc = ToolOptionsInc + 1
@@ -33,8 +32,8 @@ end
 function TOOL:LeftClick(tr)
 	if !tr.Hit then return false end
 	
-	local TibType = self:GetClientNumber( "type" )
-	local Class = ToolOptions_Class[TibType]
+	local EntType = self:GetClientNumber( "type" )
+	local Class = ToolOptions_Class[EntType]
 
 	local ent = WTib.CreateTiberium(nil , Class, tr, self:GetOwner())
 	
