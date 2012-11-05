@@ -34,7 +34,12 @@ function TOOL:LeftClick(tr)
 	
 	local EntType = self:GetClientNumber( "type" )
 	local Class = ToolOptions_Class[EntType]
-
+	
+	if !WTib.CanTiberiumGrow(Class, tr.HitPos) then
+		self:GetOwner():SendLua([[notification.AddLegacy( "Invalid crystal location", NOTIFY_ERROR, 5 ); surface.PlaySound( "buttons/button10.wav" )]])
+		return false
+	end
+	
 	local ent = WTib.CreateTiberium(nil , Class, tr, self:GetOwner())
 	
 	if IsValid(ent) then

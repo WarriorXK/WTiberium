@@ -32,3 +32,5 @@ hook.Add("PhysgunPickup", "WTib_Factory_PhysgunPickup", function(ply, ent)
 		if Phys:IsValid() then ent.dt.Panel:GetPhysicsObject():EnableMotion(true) end
 	end
 end)
+
+WTib_GeneratorTool_AddGenerator( WTib.GetClass(ENT), ENT.PrintName )

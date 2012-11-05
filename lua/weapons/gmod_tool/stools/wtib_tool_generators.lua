@@ -35,7 +35,7 @@ function TOOL:LeftClick(tr)
 	local EntType = self:GetClientNumber( "type" )
 	local Class = ToolOptions_Class[EntType]
 
-	local ent = WTib.CreateTiberium(nil , Class, tr, self:GetOwner())
+	local ent = WTib.SpawnFunction( self:GetOwner(), tr, Class )
 	
 	if IsValid(ent) then
 		

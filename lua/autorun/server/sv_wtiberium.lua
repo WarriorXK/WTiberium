@@ -190,16 +190,16 @@ function WTib.CanTiberiumGrow(class, pos)
 	return true
 end
 
-function WTib.SpawnFunction(p,t,ent,offset)
-	if !t.Hit then return end
-	local e = ents.Create(WTib.GetClass(ent))
-	e.WDSO = p
+function WTib.SpawnFunction( ply, tr, ent, offset )
+	if !tr.Hit then return end
+	local e = ents.Create(type(ent) == "string" and ent or WTib.GetClass(ent))
+	e.WDSO = ply
 	e:Spawn()
 	e:Activate()
 	if offset then
-		e:SetPos(t.HitPos+t.HitNormal*offset)
+		e:SetPos(tr.HitPos+tr.HitNormal*offset)
 	else
-		e:SetPos(t.HitPos+t.HitNormal*-e:OBBMins().z)
+		e:SetPos(tr.HitPos+tr.HitNormal*-e:OBBMins().z)
 	end
 	return e
 end

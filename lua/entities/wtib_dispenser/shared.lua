@@ -48,3 +48,5 @@ WTib.Factory.AddObject({
 		return ent
 	end
 })
+
+WTib_GeneratorTool_AddGenerator( WTib.GetClass(ENT), ENT.PrintName )
