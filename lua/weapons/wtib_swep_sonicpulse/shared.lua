@@ -74,10 +74,11 @@ function SWEP:Think()
 			self:EmitSound(self.EndSound)
 
 			if self.dt.Heat > 0 then
+			
 				local ed = EffectData()
 					ed:SetEntity(self)
 				util.Effect("wtib_sonicswep_heatrelease", ed)
-				print("Effect")
+				
 			end
 			
 		end
