@@ -1,15 +1,15 @@
 TOOL.Category		= "WTiberium"
-TOOL.Name			= "Storage tank Spawner"
+TOOL.Name			= "Weapons Spawner"
 TOOL.Command		= nil
 TOOL.ConfigName		= ""
 
 TOOL.ClientConVar[ "type" ] = "0"
 
-local ToolClass = "wtib_tool_storage"
+local ToolClass = "wtib_tool_weapons"
 
 if ( CLIENT ) then
     language.Add( "Tool." .. ToolClass .. ".name", TOOL.Name )
-    language.Add( "Tool." .. ToolClass .. ".desc", "Spawns the selected storage device." )
+    language.Add( "Tool." .. ToolClass .. ".desc", "Spawns the selected weapon." )
     language.Add( "Tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
 end
 
@@ -18,7 +18,7 @@ local ToolOptions = {}
 
 local ToolOptionsInc = 0
 
-function WTib_StorageTool_AddStorage(class, name)
+function WTib_WeaponTool_AddWeapon(class, name)
 	
 	ToolOptions[name] = { wtib_tool_storage_type = ToolOptionsInc }
 	ToolOptions_Class[ToolOptionsInc] = class
@@ -59,8 +59,8 @@ function TOOL:RightClick(tr) end
 
 function TOOL.BuildCPanel(CPanel)
 
-	CPanel:AddControl("Header", { Text = "#Tool." .. ToolClass .. ".name", Description = "Select a storage device to spawn" })
+	CPanel:AddControl("Header", { Text = "#Tool." .. ToolClass .. ".name", Description = "Select a weapon to spawn" })
 
-	CPanel:AddControl("ComboBox", {Label = "Storage tank type", MenuButton = 0, Options=ToolOptions} )
+	CPanel:AddControl("ComboBox", {Label = "Weapon type", MenuButton = 0, Options=ToolOptions} )
 	
 end
