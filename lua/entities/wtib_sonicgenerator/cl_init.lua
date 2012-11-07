@@ -1,7 +1,7 @@
 include('shared.lua')
 
 local EffectColor = Color(255, 255, 255, 255)
-local EffectMat = Material("models/effects/portalrift_sheet")
+local EffectMat = Material("models/effects/portalrift_sheet.vtf")
 
 function ENT:Draw()
 	
