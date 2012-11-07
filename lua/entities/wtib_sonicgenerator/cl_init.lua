@@ -1,7 +1,7 @@
 include('shared.lua')
 
-local EffectColor = Color(255, 255, 255, 255)
-local EffectMat = Material("models/effects/portalrift_sheet.vtf")
+local EffectColor = Color(200, 200, 255, 255)
+local EffectMat = Material("models/effects/sonicgenerator")
 
 function ENT:Draw()
 	
@@ -12,9 +12,10 @@ function ENT:Draw()
 	
 		local Normal = (LocalPlayer():GetPos()-self:GetPos()):GetNormalized()
 		render.SetMaterial(EffectMat)
-		render.DrawSphere( self:GetPos(), 35, 20, 20, EffectColor )
+		render.DrawSphere( self:GetPos(), 32, 35, 35, EffectColor )
 	
 	end
+	
 end
 
 function ENT:WTib_GetTooltip()
