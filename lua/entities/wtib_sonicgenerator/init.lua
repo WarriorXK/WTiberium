@@ -42,7 +42,7 @@ function ENT:Think()
 	
 		local EDrain = math.ceil( self.dt.Range * math.Rand(0.9, 1.1) )
 		
-		if Energy >= 0 then
+		if Energy >= EDrain then
 		
 			WTib.ConsumeResource( self, "energy", EDrain )
 			
@@ -125,7 +125,7 @@ end
 
 function ENT:TurnOn()
 
-	//if WTib.GetResourceAmount( self, "energy" ) <= 1 then return end
+	if WTib.GetResourceAmount( self, "energy" ) <= math.ceil( self.dt.Range * 0.9 ) then return end
 	
 	if !self.dt.Online then
 		self:EmitSound( "apc_engine_start" )
