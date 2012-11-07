@@ -62,11 +62,9 @@ function WTib.PopulateAdminOptions(Panel)
 
 		local DMFS = Panel:NumSlider("Max tiberium field size:", "wtib_defaultmaxfieldsize", 10, 300, 0)
 			DMFS:SetToolTip("This option specifies how many crystals a field can have, Default : 50")
-			DMFS:SetValue(50)
 		
 		local IC = Panel:NumSlider("Tiberium infection chance:", "wtib_infectionchance", 0, 50, 0)
 			IC:SetToolTip("This option specifies how big the infection by Tiberium chance is, Default : 3")
-			IC:SetValue(3)
 		
 		// Because the sliders set the values to 0 when they load
 		timer.Simple(0.1, function()
