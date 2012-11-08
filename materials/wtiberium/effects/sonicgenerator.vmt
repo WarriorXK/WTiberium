@@ -15,7 +15,11 @@
 		{
 			"animatedtexturevar"			"$basetexture"
 			"animatedtextureframenumvar"	"$frame"
+<<<<<<< .mine
+			"animatedtextureframerate"		"15"
+=======
 			"animatedtextureframerate"		"25"
+>>>>>>> .r448
 		}
 	}
 
