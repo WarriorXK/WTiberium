@@ -42,7 +42,7 @@ function ENT:Think()
 	
 		local EDrain = math.ceil( self.dt.Range * math.Rand(0.9, 1.1) )
 		
-		if Energy >= 0 then
+		if Energy >= EDrain then
 		
 			WTib.ConsumeResource( self, "energy", EDrain )
 			
@@ -70,7 +70,7 @@ function ENT:PreventCrystalSpawn( pos, class )
 
 	local Energy = WTib.GetResourceAmount( self, "energy" )
 	
-	if self.dt.Online and Energy >= 0 then
+	if self.dt.Online and Energy >= 20 then
 
 		zap = ents.Create("point_tesla")
 		zap:SetKeyValue("targetname", "teslab")
@@ -125,7 +125,7 @@ end
 
 function ENT:TurnOn()
 
-	//if WTib.GetResourceAmount( self, "energy" ) <= math.ceil( self.dt.Range * 0.9 ) then return end
+	if WTib.GetResourceAmount( self, "energy" ) <= math.ceil( self.dt.Range * 0.9 ) then return end
 	
 	if !self.dt.Online then
 		self:EmitSound( "apc_engine_start" )
