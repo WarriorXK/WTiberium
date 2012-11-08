@@ -1,16 +1,17 @@
+local ToolClass = "wtib_tool_generators"
+
 TOOL.Category		= "WTiberium"
-TOOL.Name			= "Generator Spawner"
+TOOL.Name			= "#tool." .. ToolClass .. ".listname"
 TOOL.Command		= nil
 TOOL.ConfigName		= ""
 
 TOOL.ClientConVar[ "type" ] = "0"
 
-local ToolClass = "wtib_tool_generators"
-
 if ( CLIENT ) then
-    language.Add( "Tool." .. ToolClass .. ".name", TOOL.Name )
-    language.Add( "Tool." .. ToolClass .. ".desc", "Spawns the selected generator." )
-    language.Add( "Tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
+    language.Add( "tool." .. ToolClass .. ".name", "Generator Spawner" )
+    language.Add( "tool." .. ToolClass .. ".listname", "Generator Spawner" )
+    language.Add( "tool." .. ToolClass .. ".desc", "Spawns the selected generator." )
+    language.Add( "tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
 end
 
 local ToolOptions_Class = {}

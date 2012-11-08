@@ -5,6 +5,7 @@ Major :
 Medium :
 	Add save functionality
 	Balance resource usage/gain for all entities
+	Balance factory spawn time
 	Warhead system :
 		Make a warhead factory, works like this :
 			Raw Tiberium gives the warhead explosive damage // Explosive damage and range (Extends range on seeding effect)

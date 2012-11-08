@@ -1,16 +1,17 @@
+local ToolClass = "wtib_tool_crystals"
+
 TOOL.Category		= "WTiberium"
-TOOL.Name			= "Crystal Spawner"
+TOOL.Name			= "#tool." .. ToolClass .. ".listname"
 TOOL.Command		= nil
 TOOL.ConfigName		= ""
 
 TOOL.ClientConVar[ "type" ] = "0"
 
-local ToolClass = "wtib_tool_crystals"
-
 if ( CLIENT ) then
-    language.Add( "Tool." .. ToolClass .. ".name", TOOL.Name )
-    language.Add( "Tool." .. ToolClass .. ".desc", "Spawns the selected Tiberium crystal." )
-    language.Add( "Tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
+    language.Add( "tool." .. ToolClass .. ".name", "Crystal Spawner" )
+    language.Add( "tool." .. ToolClass .. ".listname", "Crystal Spawner" )
+    language.Add( "tool." .. ToolClass .. ".desc", "Spawns the selected Tiberium crystal." )
+    language.Add( "tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
 end
 
 local ToolOptions_Class = {}
