@@ -1,6 +1,6 @@
 "UnLitGeneric"
 {
-	"$basetexture"			"models/effects/sonicgenerator.vtf"
+	"$basetexture"			"wtiberium/effects/sonicgenerator.vtf"
 	"$model"				"1"
 	"$additive"				"1"
 	"$translucent"			"1"

@@ -1,7 +1,7 @@
 include('shared.lua')
 
 local EffectColor = Color(200, 200, 255, 255)
-local EffectMat = Material("models/effects/sonicgenerator")
+local EffectMat = Material("wtiberium/effects/sonicgenerator")
 
 function ENT:Draw()
 	
