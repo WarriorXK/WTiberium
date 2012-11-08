@@ -31,7 +31,6 @@ function EFFECT:Render()
 				Ang.y = i
 				part:SetVelocity(Ang:Up() * (self.Magnitude / 1.9))
 				part:SetLifeTime(0)
-				part:SetRoll(self.Ent:GetAngles())
 				part:SetRollDelta(0)
 				part:SetStartSize(7)
 				part:SetEndSize(15 * (self.Magnitude / 200))
