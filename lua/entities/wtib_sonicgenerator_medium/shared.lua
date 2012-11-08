@@ -1,6 +1,6 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
-ENT.PrintName		= "Sonic field generator"
+ENT.PrintName		= "Medium Sonic field generator"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
 ENT.Purpose			= "Uses a lot of energy to generate a sonic field that prevents Tiberium crystals from growing"

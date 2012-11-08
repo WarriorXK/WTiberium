@@ -42,7 +42,7 @@ function ENT:Think()
 	
 		local EDrain = math.ceil( self.dt.Range * math.Rand(0.9, 1.1) )
 		
-		if Energy >= EDrain then
+		if Energy >= 0 then
 		
 			WTib.ConsumeResource( self, "energy", EDrain )
 			
@@ -70,7 +70,7 @@ function ENT:PreventCrystalSpawn( pos, class )
 
 	local Energy = WTib.GetResourceAmount( self, "energy" )
 	
-	if self.dt.Online and Energy >= 20 then
+	if self.dt.Online and Energy >= 0 then
 
 		zap = ents.Create("point_tesla")
 		zap:SetKeyValue("targetname", "teslab")
@@ -125,7 +125,7 @@ end
 
 function ENT:TurnOn()
 
-	if WTib.GetResourceAmount( self, "energy" ) <= math.ceil( self.dt.Range * 0.9 ) then return end
+	//if WTib.GetResourceAmount( self, "energy" ) <= math.ceil( self.dt.Range * 0.9 ) then return end
 	
 	if !self.dt.Online then
 		self:EmitSound( "apc_engine_start" )
@@ -177,7 +177,7 @@ end
 
 function WTib_SonicGenerator_TiberiumCanGrow(class, pos)
 	
-	for _,v in pairs(ents.FindByClass("wtib_sonicgenerator")) do
+	for _,v in pairs(ents.FindByClass("wtib_sonicgenerator_*")) do
 	
 		if pos:Distance(v:GetPos()) <= v.dt.Range then
 			
