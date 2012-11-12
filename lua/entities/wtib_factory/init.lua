@@ -37,10 +37,12 @@ function ENT:Initialize()
 end
 
 function ENT:SpawnFunction(p,t)
-	
+
 	local ent = WTib.SpawnFunction(p,t,self)
-	
-	local Panel = ents.Create("wtib_factory_panel")
+	if IsValid(ent) then
+		
+		// Spawn the control panel
+		local Panel = ents.Create("wtib_factory_panel")
 		Panel:Spawn()
 		Panel:Activate()
 		
@@ -54,23 +56,12 @@ function ENT:SpawnFunction(p,t)
 		Panel.dt.Factory = ent
 		ent.dt.Panel = Panel
 		Panel.WDSO = p
-
-	return ent
-end
-
-function WTib_Factory_PanelSpawner(ent)
-	
-	print(ent, IsValid(ent), ent:GetClass() == "wtib_factory")
-	
-	if IsValid(ent) and ent:GetClass() == "wtib_factory" and !IsValid(ent.dt.Panel) then
-		
-		// Spawn the control panel
-		
 		
 	end
 	
+	return ent
+	
 end
-hook.Add("OnEntityCreated", "WTib_Factory_PanelSpawner", WTib_Factory_PanelSpawner)
 
 function ENT:Think()
 
