@@ -60,6 +60,128 @@ function WTib.Dispenser.GetObjectByID(id)
 end
 
 /*
+	STool functions
+*/
+
+WTib.Stools = {}
+
+/*
+	Crystal spawner stool
+*/
+
+WTib.Stools.Crystals = {}
+WTib.Stools.Crystals.Classes = {}
+WTib.Stools.Crystals.Options = {}
+
+WTib.Stools.Crystals.Inc = 0
+
+function WTib.Stools.Crystals.AddCrystal(class, name)
+	
+	WTib.Stools.Crystals.Options[name] = { wtib_tool_crystals_type = WTib.Stools.Crystals.Inc }
+	WTib.Stools.Crystals.Classes[WTib.Stools.Crystals.Inc] = class
+	
+	WTib.Stools.Crystals.Inc = WTib.Stools.Crystals.Inc + 1
+	
+	return WTib.Stools.Crystals.Inc - 1
+	
+end
+
+function WTib.Stools.Crystals.GetOptions()
+	return WTib.Stools.Crystals.Options
+end
+
+function WTib.Stools.Crystals.GetClassOptions()
+	return WTib.Stools.Crystals.Classes
+end
+
+/*
+	Generator STool
+*/
+
+WTib.Stools.Generators = {}
+WTib.Stools.Generators.Classes = {}
+WTib.Stools.Generators.Options = {}
+
+WTib.Stools.Generators.Inc = 0
+
+function WTib.Stools.Generators.AddGenerator(class, name)
+	
+	WTib.Stools.Generators.Options[name] = { wtib_tool_generators_type = WTib.Stools.Generators.Inc }
+	WTib.Stools.Generators.Classes[WTib.Stools.Generators.Inc] = class
+	
+	WTib.Stools.Generators.Inc = WTib.Stools.Generators.Inc + 1
+	
+	return WTib.Stools.Generators.Inc - 1
+	
+end
+
+function WTib.Stools.Generators.GetOptions()
+	return WTib.Stools.Generators.Options
+end
+
+function WTib.Stools.Generators.GetClassOptions()
+	return WTib.Stools.Generators.Classes
+end
+
+/*
+	Storage STool
+*/
+
+WTib.Stools.Storage = {}
+WTib.Stools.Storage.Classes = {}
+WTib.Stools.Storage.Options = {}
+
+WTib.Stools.Storage.Inc = 0
+
+function WTib.Stools.Storage.AddStorage(class, name)
+	
+	WTib.Stools.Storage.Options[name] = { wtib_tool_storage_type = WTib.Stools.Storage.Inc }
+	WTib.Stools.Storage.Classes[WTib.Stools.Storage.Inc] = class
+	
+	WTib.Stools.Storage.Inc = WTib.Stools.Storage.Inc + 1
+	
+	return WTib.Stools.Storage.Inc - 1
+	
+end
+
+function WTib.Stools.Storage.GetOptions()
+	return WTib.Stools.Storage.Options
+end
+
+function WTib.Stools.Storage.GetClassOptions()
+	return WTib.Stools.Storage.Classes
+end
+
+/*
+	Weapons STool
+*/
+
+WTib.Stools.Weapons = {}
+WTib.Stools.Weapons.Classes = {}
+WTib.Stools.Weapons.Options = {}
+
+WTib.Stools.Weapons.Inc = 0
+
+function WTib.Stools.Weapons.AddWeapon(class, name)
+	
+	WTib.Stools.Weapons.Options[name] = { wtib_tool_weapons_type = WTib.Stools.Weapons.Inc }
+	WTib.Stools.Weapons.Classes[WTib.Stools.Weapons.Inc] = class
+	
+	WTib.Stools.Weapons.Inc = WTib.Stools.Weapons.Inc + 1
+	
+	return WTib.Stools.Weapons.Inc - 1
+	
+end
+
+function WTib.Stools.Weapons.GetOptions()
+	return WTib.Stools.Weapons.Options
+end
+
+function WTib.Stools.Weapons.GetClassOptions()
+	return WTib.Stools.Weapons.Classes
+end
+
+/*
 	Debug things
 */
 

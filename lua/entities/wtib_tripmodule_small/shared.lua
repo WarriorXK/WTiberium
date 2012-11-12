@@ -47,4 +47,4 @@ WTib.Factory.AddObject({
 	end
 })
 
-WTib_GeneratorTool_AddGenerator( WTib.GetClass(ENT), ENT.PrintName )
+WTib.Stools.Generators.AddGenerator( WTib.GetClass(ENT), ENT.PrintName )

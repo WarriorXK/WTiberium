@@ -264,12 +264,12 @@ timer.Create("WTib.InfectedTimer", 1, 0, function()
 			
 			// The infection is already under the Armor, so only the health will be drained
 			local Armor = v.Ent:IsPlayer() and v.Ent:Armor() or 0
-			v.Ent:SetArmor(0)
+			if v.Ent:IsPlayer() then v.Ent:SetArmor(0) end
 			
 			dmginfo:SetDamage(math.random(v.DamageMin or 1, v.DamageMax or 3))
 			v.Ent:TakeDamageInfo(dmginfo)
 			
-			if Armor > 0 then v.Ent:SetArmor(Armor) end
+			if Armor > 0 and v.Ent:IsPlayer() then v.Ent:SetArmor(Armor) end
 			
 		end
 

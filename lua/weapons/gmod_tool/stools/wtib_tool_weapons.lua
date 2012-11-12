@@ -14,27 +14,11 @@ if ( CLIENT ) then
     language.Add( "tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
 end
 
-local ToolOptions_Class = {}
-local ToolOptions = {}
-
-local ToolOptionsInc = 0
-
-function WTib_WeaponTool_AddWeapon(class, name)
-	
-	ToolOptions[name] = { wtib_tool_weapons_type = ToolOptionsInc }
-	ToolOptions_Class[ToolOptionsInc] = class
-	
-	ToolOptionsInc = ToolOptionsInc + 1
-	
-	return ToolOptionsInc - 1
-	
-end
-
 function TOOL:LeftClick(tr)
 	if !tr.Hit then return false end
 	
 	local EntType = self:GetClientNumber( "type" )
-	local Class = ToolOptions_Class[EntType]
+	local Class = WTib.Stools.Weapons.GetClassOptions()[EntType]
 
 	local ent = WTib.SpawnFunction( self:GetOwner(), tr, Class )
 	
@@ -62,6 +46,6 @@ function TOOL.BuildCPanel(CPanel)
 
 	CPanel:AddControl("Header", { Text = "#Tool." .. ToolClass .. ".name", Description = "Select a weapon to spawn" })
 
-	CPanel:AddControl("ComboBox", {Label = "Weapon type", MenuButton = 0, Options=ToolOptions} )
+	CPanel:AddControl("ComboBox", {Label = "Weapon type", MenuButton = 0, Options=WTib.Stools.Weapons.GetOptions()} )
 	
 end

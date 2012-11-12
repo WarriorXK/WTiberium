@@ -14,27 +14,11 @@ if ( CLIENT ) then
     language.Add( "tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
 end
 
-local ToolOptions_Class = {}
-local ToolOptions = {}
-
-local ToolOptionsInc = 0
-
-function WTib_CrystalTool_AddCrystal(class, name)
-	
-	ToolOptions[name] = { wtib_tool_crystals_type = ToolOptionsInc }
-	ToolOptions_Class[ToolOptionsInc] = class
-	
-	ToolOptionsInc = ToolOptionsInc + 1
-	
-	return ToolOptionsInc - 1
-	
-end
-
 function TOOL:LeftClick(tr)
 	if !tr.Hit then return false end
 	
 	local EntType = self:GetClientNumber( "type" )
-	local Class = ToolOptions_Class[EntType]
+	local Class = WTib.Stools.Crystals.GetClassOptions()[EntType]
 	
 	if !WTib.CanTiberiumGrow(Class, tr.HitPos) then
 		self:GetOwner():SendLua([[notification.AddLegacy( "Invalid crystal location", NOTIFY_ERROR, 5 ); surface.PlaySound( "buttons/button10.wav" )]])
@@ -67,6 +51,6 @@ function TOOL.BuildCPanel(CPanel)
 
 	CPanel:AddControl("Header", { Text = "#Tool." .. ToolClass .. ".name", Description = "Select a crystal to spawn" })
 
-	CPanel:AddControl("ComboBox", {Label = "Crystal type", MenuButton = 0, Options=ToolOptions} )
+	CPanel:AddControl("ComboBox", {Label = "Crystal type", MenuButton = 0, Options=WTib.Stools.Crystals.GetOptions()} )
 	
 end

@@ -43,4 +43,4 @@ WTib.Factory.AddObject({
 	end
 })
 
-WTib_WeaponTool_AddWeapon( WTib.GetClass(ENT), ENT.PrintName )
+WTib.Stools.Weapons.AddWeapon( WTib.GetClass(ENT), ENT.PrintName )

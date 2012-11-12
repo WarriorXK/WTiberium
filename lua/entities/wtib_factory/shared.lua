@@ -33,4 +33,4 @@ hook.Add("PhysgunPickup", "WTib_Factory_PhysgunPickup", function(ply, ent)
 	end
 end)
 
-WTib_GeneratorTool_AddGenerator( WTib.GetClass(ENT), ENT.PrintName )
+WTib.Stools.Generators.AddGenerator( WTib.GetClass(ENT), ENT.PrintName )
