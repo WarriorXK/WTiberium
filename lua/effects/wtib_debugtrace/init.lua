@@ -8,7 +8,7 @@ function EFFECT:Init(d)
 	self.StartPos = d:GetStart()	
 	self.EndPos = d:GetOrigin()
 	
-	self.Entity:SetRenderBoundsWS(self.StartPos, self.EndPos)
+	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	self.DieTime = CurTime() + d:GetMagnitude()
 	
 end
@@ -19,5 +19,5 @@ end
 
 function EFFECT:Render()
 	render.SetMaterial(self.Mat)
-	render.DrawBeam(self.EndPos, self.StartPos, 80, 0, 0, Col)
+	render.DrawBeam(self.EndPos, self.StartPos, 15, 0, 0, Col)
 end

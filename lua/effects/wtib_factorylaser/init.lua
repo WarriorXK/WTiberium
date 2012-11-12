@@ -4,14 +4,18 @@ EFFECT.GlowSize = 15
 EFFECT.GlowMat = Material("models/factory_effect")
 EFFECT.BeamMat = Material("cable/redlaser")
 
+EFFECT.UBound = Vector(0, 0, 0)
+EFFECT.LBound = Vector(0, 0, 0)
+
 function EFFECT:Init(d)
 	self.StartPos = d:GetStart()
 	self.Factory = d:GetEntity()
 	self.EndPos = d:GetOrigin()
 	self.DieTime = CurTime()+d:GetMagnitude()
 	
-	local LBound, UBound = self.Factory:GetModelRenderBounds()
-	self:SetRenderBounds( LBound, UBound )
+	self.LBound, self.UBound = self.Factory:GetModelRenderBounds()
+	self:SetRenderBounds( self.Factory:LocalToWorld(self.UBound), self.Factory:LocalToWorld(self.LBound) )
+	
 end
 
 function EFFECT:Think()
@@ -23,7 +27,11 @@ function EFFECT:ValidEnts()
 end
 
 function EFFECT:Render()
+
 	if self:ValidEnts() then
+	
+		self:SetRenderBounds( self.Factory:LocalToWorld(self.UBound), self.Factory:LocalToWorld(self.LBound) )
+	
 		local Start = self.Factory:LocalToWorld(self.StartPos)
 		local End = self.Factory.dt.CurObject:LocalToWorld(self.EndPos)
 		local Col = Color(200,50,50,255)
@@ -35,6 +43,7 @@ function EFFECT:Render()
 		render.DrawBeam(Start, End, 10, 0, 0, Col)
 		
 		if self.NextSpark <= CurTime() then
+		
 			local ed = EffectData()
 			ed:SetOrigin(End)
 			ed:SetNormal(self.Factory:GetUp():GetNormal())
@@ -43,8 +52,8 @@ function EFFECT:Render()
 			ed:SetRadius(1)
 			util.Effect("Sparks",ed)
 			self.NextSpark = CurTime()+0.3
+			
 		end
 		
-		self:SetRenderBoundsWS(self.Factory:OBBMaxs(),self.Factory:OBBMins())
 	end
 end

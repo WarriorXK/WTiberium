@@ -6,11 +6,16 @@ local LowPos = Vector(5.33, 13.95, -7.4)
 
 local Vect = Vector(0,0,0)
 
+EFFECT.UBound = Vector(0, 0, 0)
+EFFECT.LBound = Vector(0, 0, 0)
+
 function EFFECT:Init(d)
 
 	self.DispenserObject = d:GetEntity()
-	
 	self.Emitter = ParticleEmitter(self.DispenserObject:GetPos())
+	
+	self.LBound, self.UBound = self.DispenserObject:GetModelRenderBounds()
+	self:SetRenderBounds( self.DispenserObject:LocalToWorld(self.UBound), self.DispenserObject:LocalToWorld(self.LBound) )
 	
 end
 
@@ -62,6 +67,8 @@ function EFFECT:Think()
 end
 
 function EFFECT:Render()
+	
+	self:SetRenderBounds( self.DispenserObject:LocalToWorld(self.UBound), self.DispenserObject:LocalToWorld(self.LBound) )
 	
 	local Col = Color(75, math.random(80,180), 255)
 	

@@ -77,6 +77,8 @@ EFFECT.Vents = 	{
 				}
 
 EFFECT.LastParticle = 0
+EFFECT.UBound = Vector(0, 0, 0)
+EFFECT.LBound = Vector(0, 0, 0)
 
 local Grav = Vector(0,0,90)
 
@@ -88,8 +90,8 @@ function EFFECT:Init(d)
 	
 		self.Emitter = ParticleEmitter(self.Factory:GetPos())
 		
-		local LBound, UBound = self.Factory:GetModelRenderBounds()
-		self:SetRenderBounds( LBound, UBound )
+		self.LBound, self.UBound = self.Factory:GetModelRenderBounds()
+		self:SetRenderBounds( self.Factory:LocalToWorld(self.UBound), self.Factory:LocalToWorld(self.LBound) )
 		
 	end
 	
@@ -140,6 +142,8 @@ function EFFECT:Think()
 end
 
 function EFFECT:Render()
+
+	self:SetRenderBounds( self.Factory:LocalToWorld(self.UBound), self.Factory:LocalToWorld(self.LBound) )
 
 	local Progress = math.ceil(self.Factory.dt.PercentageComplete / ( 100 / table.Count( self.ProgressLights) ))
 	local GlowSize = 15

@@ -10,6 +10,7 @@ function EFFECT:Init(d)
 		self.Emitter = ParticleEmitter(self.Swep:GetPos())
 	end
 	self.Loaded = true
+	
 end
 
 function EFFECT:Think()
@@ -40,8 +41,11 @@ function EFFECT:Think()
 		end
 		
 	elseif self.Emitter then
+	
 		self.Emitter:Finish()
+		
 	end
+	
 	return Valid
 	
 end
