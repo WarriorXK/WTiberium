@@ -1,6 +1,5 @@
 
 Major :
-	Fix the effect render bounds
 
 Medium :
 	Add save functionality
@@ -17,8 +16,4 @@ Minor
 	Check out this pack http://www.garrysmod.org/downloads/?a=view&id=12748
 
 Balduran :
-	// Balduran is going to redo all models?
-	Different models for the following ents :
-		Raw/Refined Storage
-		Liquid/Chemical Storage
-		Liquid/Chemical Plant
+	// Balduran is going to redo all models

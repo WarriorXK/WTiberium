@@ -1,11 +1,10 @@
 Because i lost the last file:
 
 BALDURAN:
--Remodel the Accelerators
--Remodel the harvesters (Only small size variations) - Refer to 
--Remodel the missiles & warheads (Simpler, like the PHX ones?)
+	-Remodel the harvesters (Only small size variations) - Refer to 
+	-Remodel the missiles & warheads (Simpler, like the PHX ones?)
 
 PJ:
--Mining laser SWEP
--Jetpack handlebar viewmodel
--AP Mine viewmodel - Bug Balduran for the mine model
+	-Mining laser SWEP
+	-Jetpack handlebar viewmodel
+	-AP Mine viewmodel - Bug Balduran for the mine model
