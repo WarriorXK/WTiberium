@@ -39,6 +39,8 @@ end
 function ENT:SpawnFunction(p,t)
 
 	local ent = WTib.SpawnFunction(p,t,self)
+	
+	/*
 	if IsValid(ent) then
 		
 		// Spawn the control panel
@@ -58,9 +60,40 @@ function ENT:SpawnFunction(p,t)
 		Panel.WDSO = p
 		
 	end
+	*/
 	
 	return ent
 	
+end
+
+hook.Add("OnEntityCreated","WTib_Factory_PanelSpawner",function(ent)
+
+    timer.Simple(0, function() WTib_FactoryPanelSpawn(ent) end)
+	
+end)
+
+function WTib_FactoryPanelSpawn(ent)
+
+	if IsValid(ent) and ent:GetClass() == "wtib_factory" then
+
+		// Spawn the control panel
+		local Panel = ents.Create("wtib_factory_panel")
+		Panel:Spawn()
+		Panel:Activate()
+		
+		// Position the control panel
+		local Attach = ent:GetAttachment(ent:LookupAttachment("panel"))
+		Panel:SetPos(Attach.Pos)
+		Panel:SetAngles(Attach.Ang)
+		
+		// Attach it to the factory
+		Panel:SetParent(ent)
+		Panel.dt.Factory = ent
+		ent.dt.Panel = Panel
+		Panel.WDSO = p
+
+	end
+
 end
 
 function ENT:Think()
