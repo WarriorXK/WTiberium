@@ -62,7 +62,7 @@ function ENT:OnTakeDamage(dmginfo)
 
 	if self.Damage_Explosive and dmginfo:IsExplosionDamage() and dmginfo:GetDamage() >= self.Damage_Explode_RequiredDamage and type(self.Explode) == "function" then
 	
-		timer.Simple(math.Rand(self.Damage_ExplosionDelay - 0.5,self.Damage_ExplosionDelay + 0.5), function() self:Explode() end)
+		timer.Simple(math.Rand(self.Damage_ExplosionDelay - 0.5,self.Damage_ExplosionDelay + 0.5), function() if IsValid(self) then self:Explode() end end)
 		
 		self.OnTakeDamage = function() end
 		
