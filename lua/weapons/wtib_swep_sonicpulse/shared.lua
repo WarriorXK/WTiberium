@@ -41,6 +41,12 @@ function SWEP:SetupDataTables()
 	self:DTVar("Float", 1, "Heat")
 end
 
+function SWEP:Initialize()
+	self.dt.LastShootTime = 0
+	self.dt.Shooting = false
+	self.dt.Heat = 0
+end
+
 function SWEP:Reload() end
 function SWEP:PrimaryAttack() end
 function SWEP:SecondaryAttack() end
