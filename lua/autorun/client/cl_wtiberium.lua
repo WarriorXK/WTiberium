@@ -4,6 +4,7 @@ WTib = WTib or {}
 WTib.DynamicLight = CreateClientConVar("wtib_dynamiclight", 1, true, false)
 WTib.DynamicLightSize = CreateClientConVar("wtib_dynamiclightsize", 1, true, false)
 WTib.CheapDynamicLight = CreateClientConVar("wtib_cheapdynamiclight", 1, true, false)
+WTib.AntiAliasingLevel = CreateClientConVar("wtib_antialiasinglevel", 0, true, false)
 
 WTib.UseToolTips = CreateClientConVar("wtib_usetooltips", 1, true, false)
 WTib.ToolTipsRange = CreateClientConVar("wtib_tooltipsrange", 512, true, false)
@@ -88,6 +89,7 @@ function WTib.PopulateClientOptions(Panel)
 	Panel:CheckBox("Enable dynamic lights:", "wtib_dynamiclight")
 	Panel:CheckBox("Enable this to disable prop lighting:", "wtib_cheapdynamiclight")
 	Panel:NumSlider("Dynamic light size:", "wtib_dynamiclightsize", 1, 10, 0)
+	Panel:NumSlider("Anti Aliasing level :", "wtib_antialiasinglevel", 1, 4, 0)
 	
 	//Panel:AddSpacer() // Non existant
 	
