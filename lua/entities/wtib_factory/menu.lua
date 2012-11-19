@@ -52,7 +52,10 @@ net.Receive("wtib_factory_openmenu", function( len )
 		BuildButton:SetText("Build")
 		BuildButton:SetDisabled(true)
 		BuildButton.DoClick = function(self)
-			WTib_Factory_StartBuild(Factory, MainBox.BuildList:GetLine(MainBox.BuildList:GetSelectedLine()):GetValue(1))
+			local SelectedIndex = MainBox.BuildList:GetSelectedLine()
+			local SelectedLine = MainBox.BuildList:GetLine(SelectedIndex)
+			local ColumnValue = SelectedLine:GetValue(1)
+			WTib_Dispenser_StartBuild(Dispenser, ColumnValue)
 			MainBox:SetVisible(false)
 		end
 		
