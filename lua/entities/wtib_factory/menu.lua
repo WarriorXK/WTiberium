@@ -55,7 +55,7 @@ net.Receive("wtib_factory_openmenu", function( len )
 			local SelectedIndex = MainBox.BuildList:GetSelectedLine()
 			local SelectedLine = MainBox.BuildList:GetLine(SelectedIndex)
 			local ColumnValue = SelectedLine:GetValue(1)
-			WTib_Dispenser_StartBuild(Dispenser, ColumnValue)
+			WTib_Factory_StartBuild(Factory, ColumnValue)
 			MainBox:SetVisible(false)
 		end
 		
