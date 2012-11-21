@@ -5,7 +5,7 @@ TOOL.Name			= "#tool." .. ToolClass .. ".listname"
 TOOL.Command		= nil
 TOOL.ConfigName		= ""
 
-TOOL.ClientConVar[ "type" ] = "0"
+TOOL.ClientConVar[ "type" ] = ""
 
 if ( CLIENT ) then
     language.Add( "tool." .. ToolClass .. ".name", "Crystal Spawner" )
@@ -17,8 +17,8 @@ end
 function TOOL:LeftClick(tr)
 	if !tr.Hit then return false end
 	
-	local EntType = self:GetClientNumber( "type" )
-	local Class = WTib.Stools.Crystals.GetClassOptions()[EntType]
+	local Class = self:GetClientInfo( "type" )
+	if Class == "" then return false end
 	
 	if !WTib.CanTiberiumGrow(Class, tr.HitPos) then
 		self:GetOwner():SendLua([[notification.AddLegacy( "Invalid crystal location", NOTIFY_ERROR, 5 ); surface.PlaySound( "buttons/button10.wav" )]])
@@ -51,6 +51,6 @@ function TOOL.BuildCPanel(CPanel)
 
 	CPanel:AddControl("Header", { Text = "#Tool." .. ToolClass .. ".name", Description = "Select a crystal to spawn" })
 
-	CPanel:AddControl("ComboBox", {Label = "Crystal type", MenuButton = 0, Options=WTib.Stools.Crystals.GetOptions()} )
+	CPanel:AddControl("ComboBox", {Label = "Crystal type", MenuButton = 0, Options=list.Get("WTib_Tools_Crystals")} )
 	
 end

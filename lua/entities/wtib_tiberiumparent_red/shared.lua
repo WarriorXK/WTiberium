@@ -32,4 +32,4 @@ ENT.Growth_Delay = 12.5
 ENT.DecalSize = 1
 ENT.Decal = ""
 
-WTib.Stools.Crystals.AddCrystal( WTib.GetClass(ENT), ENT.PrintName )
+list.Set("WTib_Tools_Crystals", ENT.PrintName, { wtib_tool_crystals_type = WTib.GetClass(ENT) })

@@ -46,4 +46,4 @@ WTib.Factory.AddObject({
 	end
 })
 
-WTib.Stools.Storage.AddStorage( WTib.GetClass(ENT), ENT.PrintName )
+list.Set("WTib_Tools_Storage", ENT.PrintName, { wtib_tool_storage_type = WTib.GetClass(ENT) })

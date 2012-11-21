@@ -5,7 +5,7 @@ TOOL.Name			= "#tool." .. ToolClass .. ".listname"
 TOOL.Command		= nil
 TOOL.ConfigName		= ""
 
-TOOL.ClientConVar[ "type" ] = "0"
+TOOL.ClientConVar[ "type" ] = ""
 
 if ( CLIENT ) then
     language.Add( "tool." .. ToolClass .. ".name", "Generator Spawner" )
@@ -17,8 +17,8 @@ end
 function TOOL:LeftClick(tr)
 	if !tr.Hit then return false end
 	
-	local EntType = self:GetClientNumber( "type" )
-	local Class = WTib.Stools.Generators.GetClassOptions()[EntType]
+	local Class = self:GetClientInfo( "type" )
+	if Class == "" then return false end
 
 	local ent = WTib.SpawnFunction( self:GetOwner(), tr, Class )
 	
@@ -46,6 +46,6 @@ function TOOL.BuildCPanel(CPanel)
 
 	CPanel:AddControl("Header", { Text = "#Tool." .. ToolClass .. ".name", Description = "Select a generator to spawn" })
 
-	CPanel:AddControl("ComboBox", {Label = "Generator type", MenuButton = 0, Options=WTib.Stools.Generators.GetOptions()} )
+	CPanel:AddControl("ComboBox", {Label = "Generator type", MenuButton = 0, Options=list.Get("WTib_Tools_Generators")} )
 	
 end
