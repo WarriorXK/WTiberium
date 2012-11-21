@@ -130,7 +130,7 @@ function ENT:PanelUse(ply)
 	
 end
 
-function ENT:BuildObject(id,ply)
+function ENT:BuildObject(id, ply)
 
 	if !self.dt.IsBuilding and WTib.Factory.GetObjectByID(id) then
 		local Obj = WTib.Factory.GetObjectByID(id)
@@ -158,7 +158,7 @@ function ENT:BuildObject(id,ply)
 		// Parent the fake object and give it the values it needs
 		self.dt.CurObject:SetParent(self)
 		self.dt.CurObject.dt.Factory = self
-		self.dt.CurObject.WDSO = ply or self
+		self.dt.CurObject.WDSO = ply
 		
 		WTib.TriggerOutput(self,"IsBuilding",1)
 		

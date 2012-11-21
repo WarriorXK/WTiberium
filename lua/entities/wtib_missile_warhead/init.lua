@@ -52,7 +52,7 @@ function ENT:Explode(HitPos, Ent, Speed, Normal)
 	
 	local dmginfo = DamageInfo()
 	dmginfo:SetInflictor(self)
-	dmginfo:SetAttacker(self.WDSO)
+	if IsValid(self.WDSO) then dmginfo:SetAttacker(self.WDSO) end
 	dmginfo:SetDamageType(DMG_BLAST)
 	
 	WTib.DebugPrintTable(self.Warhead)

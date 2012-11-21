@@ -92,7 +92,7 @@ function ENT:Use(ply)
 	
 end
 
-function ENT:BuildObject(id,ply)
+function ENT:BuildObject(id, ply)
 
 	if !self.dt.IsBuilding and WTib.Dispenser.GetObjectByID(id) then
 	
@@ -110,7 +110,7 @@ function ENT:BuildObject(id,ply)
 		self.dt.CurObject:SetPos(self:LocalToWorld(NewObjectPos))
 		self.dt.CurObject:SetParent(self)
 		self.dt.CurObject.dt.Dispenser = self
-		self.dt.CurObject.WDSO = ply or self
+		self.dt.CurObject.WDSO = ply
 		
 		local ed = EffectData()
 			ed:SetEntity(self.dt.CurObject)
