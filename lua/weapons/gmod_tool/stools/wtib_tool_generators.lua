@@ -18,7 +18,23 @@ function TOOL:LeftClick(tr)
 	if !tr.Hit then return false end
 	
 	local Class = self:GetClientInfo( "type" )
-	if Class == "" then return false end
+	local ValidClass = false
+	
+	for k,v in pairs(list.Get("WTib_Tools_Generators")) do
+		
+		if v.wtib_tool_generators_type == Class then
+		
+			ValidClass = true
+			break
+		
+		end
+		
+	end
+	
+	if !ValidClass then
+		self:GetOwner():SendLua([[notification.AddLegacy( "Invalid generator, please select a generator from the menu", NOTIFY_ERROR, 5 ); surface.PlaySound( "buttons/button10.wav" )]])
+		return false
+	end
 
 	local ent = WTib.SpawnFunction( self:GetOwner(), tr, Class )
 	
