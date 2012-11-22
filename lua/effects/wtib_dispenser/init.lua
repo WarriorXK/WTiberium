@@ -4,25 +4,33 @@ EFFECT.GlowMat = Material("wds/effects/blankparticle")
 local TopPos = Vector(5.33, 13.95, 38.3)
 local LowPos = Vector(5.33, 13.95, -7.4)
 
-local Vect = Vector(0,0,0)
+local Vect = Vector(0, 0, 0)
 
+EFFECT.ValidEffect = true
 EFFECT.UBound = Vector(0, 0, 0)
 EFFECT.LBound = Vector(0, 0, 0)
 
 function EFFECT:Init(d)
 
 	self.DispenserObject = d:GetEntity()
-	self.Emitter = ParticleEmitter(self.DispenserObject:GetPos())
 	
-	self.LBound, self.UBound = self.DispenserObject:GetModelRenderBounds()
-	self:SetRenderBounds( self.DispenserObject:LocalToWorld(self.UBound), self.DispenserObject:LocalToWorld(self.LBound) )
+	self.ValidEffect = IsValid(self.DispenserObject) and IsValid(self.DispenserObject.dt.Dispenser) and self.DispenserObject.dt.Dispenser.dt.PercentageComplete < 100
+	
+	if self.ValidEffect then
+		
+		self.Emitter = ParticleEmitter(self.DispenserObject:GetPos())
+		
+		self.LBound, self.UBound = self.DispenserObject:GetModelRenderBounds()
+		self:SetRenderBounds( self.DispenserObject:LocalToWorld(self.UBound), self.DispenserObject:LocalToWorld(self.LBound) )
+		
+	end
 	
 end
 
 function EFFECT:Think()
-	local ValidEffect = IsValid(self.DispenserObject) and IsValid(self.DispenserObject.dt.Dispenser) and self.DispenserObject.dt.Dispenser.dt.PercentageComplete < 100
+	self.ValidEffect = IsValid(self.DispenserObject) and IsValid(self.DispenserObject.dt.Dispenser) and self.DispenserObject.dt.Dispenser.dt.PercentageComplete < 100
 	
-	if ValidEffect then
+	if self.ValidEffect then
 	
 		for i=1,2 do
 			
@@ -63,19 +71,23 @@ function EFFECT:Think()
 		
 	end
 	
-	return ValidEffect
+	return self.ValidEffect
 end
 
 function EFFECT:Render()
 	
-	self:SetRenderBounds( self.DispenserObject:LocalToWorld(self.UBound), self.DispenserObject:LocalToWorld(self.LBound) )
+	if self.ValidEffect then
 	
-	local Col = Color(75, math.random(80,180), 255)
+		self:SetRenderBounds( self.DispenserObject:LocalToWorld(self.UBound), self.DispenserObject:LocalToWorld(self.LBound) )
+		
+		local Col = Color(75, math.random(80,180), 255)
+		
+		render.SetMaterial(self.GlowMat)
+		render.DrawSprite(self.DispenserObject.dt.Dispenser:LocalToWorld(TopPos), 2, 2, Col)
+		
+		render.SetMaterial(self.GlowMat)
+		render.DrawSprite(self.DispenserObject.dt.Dispenser:LocalToWorld(LowPos), 2, 2, Col)
 	
-	render.SetMaterial(self.GlowMat)
-	render.DrawSprite(self.DispenserObject.dt.Dispenser:LocalToWorld(TopPos), 2, 2, Col)
-	
-	render.SetMaterial(self.GlowMat)
-	render.DrawSprite(self.DispenserObject.dt.Dispenser:LocalToWorld(LowPos), 2, 2, Col)
+	end
 	
 end

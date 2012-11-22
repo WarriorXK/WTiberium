@@ -12,6 +12,20 @@ if ( CLIENT ) then
     language.Add( "tool." .. ToolClass .. ".listname", "Crystal Spawner" )
     language.Add( "tool." .. ToolClass .. ".desc", "Spawns the selected Tiberium crystal." )
     language.Add( "tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
+	
+	net.Receive("wtib_crystalstool_error", function( len )
+	
+		local txt = net.ReadString()
+		
+		notification.AddLegacy( txt, NOTIFY_ERROR, 5 )
+		surface.PlaySound( "buttons/button10.wav" )
+	
+	end)
+	
+elseif SERVER then
+
+	util.AddNetworkString("wtib_crystalstool_error")
+	
 end
 
 function TOOL:LeftClick(tr)
@@ -32,12 +46,20 @@ function TOOL:LeftClick(tr)
 	end
 	
 	if !ValidClass then
-		self:GetOwner():SendLua([[notification.AddLegacy( "Invalid crystal, please select a crystal from the menu", NOTIFY_ERROR, 5 ); surface.PlaySound( "buttons/button10.wav" )]])
+	
+		net.Start("wtib_crystalstool_error")
+			net.WriteString("Invalid crystal, please select a crystal from the menu")
+		net.Send(self:GetOwner())
+		
 		return false
 	end
 
 	if !WTib.CanTiberiumGrow(Class, tr.HitPos) then
-		self:GetOwner():SendLua([[notification.AddLegacy( "Invalid crystal location", NOTIFY_ERROR, 5 ); surface.PlaySound( "buttons/button10.wav" )]])
+	
+		net.Start("wtib_crystalstool_error")
+			net.WriteString("Invalid crystal location")
+		net.Send(self:GetOwner())
+
 		return false
 	end
 	
