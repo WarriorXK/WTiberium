@@ -10,39 +10,38 @@ ENT.Category		= "Tiberium"
 ENT.IsTiberium		= true
 ENT.IsTiberiumParent= true
 
-ENT.ShouldCollide = true
-ENT.RenderMode = RENDERMODE_TRANSALPHA
+ENT.Reproduce_TiberiumRequired	= 1000
+ENT.Reproduce_TiberiumDrained	= 400
+ENT.Reproduce_Delay				= 30
 
-ENT.Reproduce_TiberiumRequired = 1000
-ENT.Reproduce_TiberiumDrained = 400
-ENT.Reproduce_Delay = 30
+ENT.TiberiumStartAmount	= 400
+ENT.MaxTiberiumAmount	= 2000
+ENT.TiberiumColor		= Color(0,0,0,200)
+ENT.ClassToSpawn		= "wtib_tiberium_base"
 
-ENT.TiberiumStartAmount = 400
-ENT.MaxTiberiumAmount = 2000
-ENT.TiberiumColor = Color(0,0,0,200)
-ENT.ClassToSpawn = "wtib_tiberium_base"
+ENT.Growth_Addition	= 30
+ENT.Growth_Delay	= 10
 
-ENT.Growth_Addition = 30
-ENT.Growth_Delay = 10
+ENT.DecalSize	= 1
+ENT.Decal		= ""
 
-ENT.DecalSize = 1
-ENT.Decal = ""
+ENT.RenderMode	= RENDERMODE_TRANSALPHA
+
 
 function ENT:Initialize()
 
-	if SERVER then
+	if SERVER then self:SetRandomModel() end
 	
-		self:SetRandomModel()
-		self:PhysicsInit(SOLID_BBOX)
-		self:SetMoveType(MOVETYPE_NONE)
-		self:SetSolid(SOLID_BBOX)
-		
-		local phys = self:GetPhysicsObject()
-		if phys:IsValid() then
-			phys:Wake()
-		end
-		
+	self:PhysicsInit(SOLID_BBOX)
+	self:SetMoveType(MOVETYPE_NONE)
+	self:SetSolid(SOLID_BBOX)
+	
+	local phys = self:GetPhysicsObject()
+	if phys:IsValid() then
+		phys:Wake()
 	end
+	
+	self:SetCustomCollisionCheck(true)
 	
 	if type(self.InitTiberium) == "function" then self:InitTiberium() end
 	

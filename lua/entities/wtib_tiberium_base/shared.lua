@@ -9,47 +9,44 @@ ENT.AdminSpawnable	= false
 ENT.Category		= "Tiberium"
 ENT.IsTiberium		= true
 
-ENT.RenderMode = RENDERMODE_TRANSALPHA
+ENT.Damage_Explode_RequiredDamage	= 0
+ENT.Damage_ExplosionDelay			= 0
+ENT.Damage_Explode_Damage			= 0
+ENT.Damage_Explode_Size				= 0
+ENT.Damage_Explosive				= false
 
-ENT.Reproduce_TiberiumRequired = 1000
-ENT.Reproduce_TiberiumDrained = 400
-ENT.Reproduce_MaxProduces = 5
-ENT.Reproduce_Delay = 30
+ENT.Reproduce_TiberiumRequired	= 1000
+ENT.Reproduce_TiberiumDrained	= 400
+ENT.Reproduce_MaxProduces		= 5
+ENT.Reproduce_Delay				= 30
 
-ENT.TiberiumStartAmount = 400
-ENT.MaxTiberiumAmount = 2000
-ENT.TiberiumColor = Color(0,0,0,0)
-ENT.ClassToSpawn = "wtib_tiberium_base"
+ENT.TiberiumStartAmount	= 400
+ENT.MaxTiberiumAmount	= 2000
+ENT.TiberiumColor		= Color(0,0,0,0)
+ENT.ClassToSpawn		= "wtib_tiberium_base"
 
-ENT.Damage_Explode_RequiredDamage = 0
-ENT.Damage_ExplosionDelay = 0
-ENT.Damage_Explode_Damage = 0
-ENT.Damage_Explode_Size = 0
-ENT.Damage_Explosive = false
+ENT.Growth_Addition	= 30
+ENT.Growth_Delay	= 10
 
-ENT.Growth_Addition = 30
-ENT.Growth_Delay = 10
+ENT.DecalSize	= 1
+ENT.Decal		= ""
 
-ENT.DecalSize = 1
-ENT.Decal = ""
+ENT.RenderMode	= RENDERMODE_TRANSALPHA
 
 function ENT:Initialize()
 
-	if SERVER then
+	if SERVER then self:SetRandomModel() end
 	
-		self:SetRandomModel()
-		self:PhysicsInit(SOLID_BBOX)
-		self:SetMoveType(MOVETYPE_NONE)
-		self:SetSolid(SOLID_BBOX)
-		self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
-		
-		local phys = self:GetPhysicsObject()
-		if phys:IsValid() then
-			phys:Wake()
-		end
-		
+	self:PhysicsInit(SOLID_BBOX)
+	self:SetMoveType(MOVETYPE_NONE)
+	self:SetSolid(SOLID_BBOX)
+	self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+	
+	local phys = self:GetPhysicsObject()
+	if phys:IsValid() then
+		phys:Wake()
 	end
-	
+
 	if type(self.InitTiberium) == "function" then self:InitTiberium() end
 	
 end
@@ -84,10 +81,10 @@ function ENT:InitTiberium()
 end
 
 function ENT:SetupDataTables()
-	self:DTVar("Int",0,"TiberiumAmount")
-	self:DTVar("Int",1,"ColorDevider")
-	self:DTVar("Int",2,"TiberiumField")
-	self:DTVar("Float",0,"CrystalSize")
+	self:DTVar("Int", 0, "TiberiumAmount")
+	self:DTVar("Int", 1, "ColorDevider")
+	self:DTVar("Int", 2, "TiberiumField")
+	self:DTVar("Float", 0, "CrystalSize")
 end
 
 function ENT:GetTiberiumAmount()

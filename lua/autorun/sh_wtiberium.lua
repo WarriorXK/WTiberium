@@ -94,14 +94,6 @@ function WTib.PhysgunPickup(ply,ent)
 end
 hook.Add("PhysgunPickup","WTib.PhysgunPickup",WTib.PhysgunPickup)
 
-function WTib.ShouldCollide(ent1,ent2)
-	if (ent1.IsTiberium and !ent1.ShouldCollide) or (ent2.IsTiberium and !ent2.ShouldCollide) then
-		return false
-	end
-end
-hook.Add("ShouldCollide","WTib.ShouldCollide",WTib.ShouldCollide)
-
-
 /*
 	Misc things
 */

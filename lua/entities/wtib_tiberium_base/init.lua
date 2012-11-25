@@ -17,7 +17,7 @@ function ENT:SetRandomModel()
 end
 
 function ENT:SpawnFunction(p,t)
-	return WTib.CreateTiberium(self,self.ClassName,t,p)
+	return WTib.CreateTiberium(self, self.ClassName, t, p)
 end
 
 function ENT:Think()
@@ -38,7 +38,7 @@ end
 
 function ENT:CalcSize()
 
-	local LocalScale = (self:GetTiberiumAmount()/self:GetMaxTiberiumAmount())
+	local LocalScale = (self:GetTiberiumAmount() / self:GetMaxTiberiumAmount())
 	local FieldScale = 1 // Todo: Scale by distance from center
 	self.dt.CrystalSize = (LocalScale * FieldScale)
 	
