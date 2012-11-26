@@ -10,6 +10,8 @@ WTib.Config.ForceResources		= false
 WTib.Config.InfectionChance		= 2
 WTib.Config.MaximumFieldSize	= 70
 
+util.AddNetworkString("wtib_sendnotification")
+
 /*
 	Console Commands
 */
@@ -118,6 +120,17 @@ end)
 /*
 	Misc stuff
 */
+
+function WTib.SendNotification(ply, txt, typ)
+	
+	typ = typ or NOTIFY_GENERIC
+	
+	net.Start("wtib_sendnotification")
+		net.WriteInt(typ, 4)
+		net.WriteString(txt)
+	net.Send(ply)
+	
+end
 
 function WTib.GetAllTiberium(tFilter)
 	tFilter = tFilter or {}

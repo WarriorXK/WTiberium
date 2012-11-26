@@ -32,8 +32,10 @@ function TOOL:LeftClick(tr)
 	end
 	
 	if !ValidClass then
-		self:GetOwner():SendLua([[notification.AddLegacy( "Invalid storage unit, please select a storage unit from the menu", NOTIFY_ERROR, 5 ); surface.PlaySound( "buttons/button10.wav" )]])
+	
+		WTib.SendNotification(self:GetOwner(), "Invalid storage unit, please select a storage unit from the menu", NOTIFY_ERROR)
 		return false
+		
 	end
 
 	local ent = WTib.SpawnFunction( self:GetOwner(), tr, Class )

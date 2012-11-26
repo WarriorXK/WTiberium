@@ -89,6 +89,9 @@ function WTib.PopulateClientOptions(Panel)
 	Panel:CheckBox("Enable dynamic lights:", "wtib_dynamiclight")
 	Panel:CheckBox("Enable this to disable prop lighting:", "wtib_cheapdynamiclight")
 	Panel:NumSlider("Dynamic light size:", "wtib_dynamiclightsize", 1, 10, 0)
+	
+	//Panel:AddSpacer() // Non existant
+	
 	Panel:NumSlider("Anti Aliasing level :", "wtib_antialiasinglevel", 1, 4, 0)
 	
 	//Panel:AddSpacer() // Non existant
@@ -98,3 +101,24 @@ function WTib.PopulateClientOptions(Panel)
 	Panel:NumSlider("Tooltips range:", "wtib_tooltipsrange", 128, 2048, 0)
 	
 end
+
+local NotifySounds = {}
+NotifySounds[NOTIFY_GENERIC] = function() return "ambient/water/drip" .. math.random(1, 4) .. ".wav" end
+NotifySounds[NOTIFY_ERROR] = function() return "buttons/button10.wav" end
+
+function WTib.Notify(txt, typ)
+	
+	notification.AddLegacy( txt, err, 5 )
+	
+	if NotifySounds[err] then surface.PlaySound(NotifySounds[err]()) end
+	
+end
+
+net.Receive("wtib_sendnotification", function( len )
+
+	local err = net.ReadInt(4)
+	local txt = net.ReadString()
+	
+	WTib.Notify(txt, err)
+
+end)
