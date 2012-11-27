@@ -7,7 +7,7 @@ TOOL.ConfigName		= ""
 
 TOOL.ClientConVar[ "type" ] = ""
 
-if ( CLIENT ) then
+if CLIENT then
     language.Add( "tool." .. ToolClass .. ".name", "Storage tank Spawner" )
     language.Add( "tool." .. ToolClass .. ".listname", "Storage tank Spawner" )
     language.Add( "tool." .. ToolClass .. ".desc", "Spawns the selected storage device." )

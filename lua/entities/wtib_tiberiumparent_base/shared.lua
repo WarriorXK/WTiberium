@@ -41,8 +41,6 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	
-	self:SetCustomCollisionCheck(true)
-	
 	if type(self.InitTiberium) == "function" then self:InitTiberium() end
 	
 end

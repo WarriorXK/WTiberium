@@ -7,7 +7,7 @@ TOOL.ConfigName		= ""
 
 TOOL.ClientConVar[ "type" ] = ""
 
-if ( CLIENT ) then
+if CLIENT then
     language.Add( "tool." .. ToolClass .. ".name", "Generator Spawner" )
     language.Add( "tool." .. ToolClass .. ".listname", "Generator Spawner" )
     language.Add( "tool." .. ToolClass .. ".desc", "Spawns the selected generator." )

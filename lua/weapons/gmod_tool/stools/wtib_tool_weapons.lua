@@ -7,7 +7,7 @@ TOOL.ConfigName		= ""
 
 TOOL.ClientConVar[ "type" ] = ""
 
-if ( CLIENT ) then
+if CLIENT then
     language.Add( "tool." .. ToolClass .. ".name", "Weapons Spawner" )
     language.Add( "tool." .. ToolClass .. ".listname", "Weapons Spawner" )
     language.Add( "tool." .. ToolClass .. ".desc", "Spawns the selected weapon." )
