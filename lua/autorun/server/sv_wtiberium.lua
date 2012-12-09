@@ -121,9 +121,11 @@ end)
 	Misc stuff
 */
 
+local NotifyGlobals = {NOTIFY_GENERIC, NOTIFY_ERROR, NOTIFY_UNDO, NOTIFY_HINT, NOTIFY_CLEANUP}
+
 function WTib.SendNotification(ply, txt, typ)
 	
-	typ = typ or NOTIFY_GENERIC
+	if !table.HasValue(NotifyGlobals, typ) then typ = NOTIFY_GENERIC end
 	
 	net.Start("wtib_sendnotification")
 		net.WriteInt(typ, 4)
