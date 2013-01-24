@@ -8,12 +8,10 @@ TOOL.ConfigName		= ""
 TOOL.ClientConVar[ "type" ] = ""
 
 if CLIENT then
-
     language.Add( "tool." .. ToolClass .. ".name", "Crystal Spawner" )
     language.Add( "tool." .. ToolClass .. ".listname", "Crystal Spawner" )
     language.Add( "tool." .. ToolClass .. ".desc", "Spawns the selected Tiberium crystal." )
     language.Add( "tool." .. ToolClass .. ".0", "Primary: Spawn the selected entity" )
-	
 end
 
 function TOOL:LeftClick(tr)
@@ -35,17 +33,19 @@ function TOOL:LeftClick(tr)
 	
 	if !ValidClass then
 
-		WTib.SendNotification(self:GetOwner(), "Invalid crystal, please select a crystal from the menu", NOTIFY_ERROR)
+		if SERVER then WTib.SendNotification(self:GetOwner(), "Invalid crystal, please select a crystal from the menu", NOTIFY_ERROR) end
 		return false
 		
 	end
 
 	if !WTib.CanTiberiumGrow(Class, tr.HitPos) then
 	
-		WTib.SendNotification(self:GetOwner(), "Invalid crystal location", NOTIFY_ERROR)
+		if SERVER then WTib.SendNotification(self:GetOwner(), "Invalid crystal location", NOTIFY_ERROR) end
 		return false
 		
 	end
+	
+	if CLIENT then return true end
 	
 	local ent = WTib.CreateTiberium(nil , Class, tr, self:GetOwner())
 	

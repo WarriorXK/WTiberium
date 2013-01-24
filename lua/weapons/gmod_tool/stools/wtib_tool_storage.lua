@@ -33,11 +33,13 @@ function TOOL:LeftClick(tr)
 	
 	if !ValidClass then
 	
-		WTib.SendNotification(self:GetOwner(), "Invalid storage unit, please select a storage unit from the menu", NOTIFY_ERROR)
+		if SERVER then WTib.SendNotification(self:GetOwner(), "Invalid storage unit, please select a storage unit from the menu", NOTIFY_ERROR) end
 		return false
 		
 	end
 
+	if CLIENT then return true end
+	
 	local ent = WTib.SpawnFunction( self:GetOwner(), tr, Class )
 	
 	if IsValid(ent) then

@@ -7,6 +7,35 @@ end
 
 WTib = WTib or {}
 
+function WTib.CanTiberiumGrow(class, pos)
+	local Call = hook.Call("WTib_TiberiumCanGrow",GAMEMODE,class,pos)
+	if Call == false then return false end
+	return true
+end
+
+function WTib.TiberiumCanGrow(class,pos)
+	for _,v in pairs(ents.FindInSphere(pos,400)) do
+		if v.IsTiberium then
+			local EntTable = scripted_ents.GetStored(class)
+			local Dist = v:GetPos():Distance(pos)
+			
+			WTib.DebugPrint("'" .. class .. "' - '" .. v:GetClass() .. "' - '" .. tostring(EntTable.t.ClassToSpawn) .. "'")
+			
+			if class == v:GetClass() or (type(EntTable) == "table" and (EntTable.t.ClassToSpawn == v:GetClass() or EntTable.t.ClassToSpawn == class)) then
+				if Dist <= 80 then
+					WTib.DebugPrint("false (Closer than 80)")
+					return false
+				end
+			elseif Dist <= 400 then
+				WTib.DebugPrint("false (Closer than 400)")
+				return false
+			end
+			
+		end
+	end
+end
+hook.Add("WTib_TiberiumCanGrow","WTib.TiberiumCanGrow",WTib.TiberiumCanGrow)
+
 /*
 	Factory functions
 */
