@@ -14,6 +14,9 @@ function WTib.ToolTipDraw()
 
 	if !WTib.UseToolTips:GetBool() then return end
 	
+	// For some reason this is required
+	if !IsValid(LocalPlayer()) or !LocalPlayer():IsPlayer() then return end
+	
 	local tr = LocalPlayer():GetEyeTrace()
 	
 	if tr.Hit and tr.Entity and IsValid(tr.Entity) and tr.Entity.WTib_GetTooltip and EyePos():Distance(tr.Entity:GetPos()) < WTib.ToolTipsRange:GetInt() then
