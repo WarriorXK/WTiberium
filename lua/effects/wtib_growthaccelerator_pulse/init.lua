@@ -4,13 +4,14 @@ local Vect = Vector(0, 0, 0)
 function EFFECT:Init(data)
 
 	self.Ent = data:GetEntity()
-	self.Offset = data:GetOrigin()
-	self.Magnitude = data:GetMagnitude()
-	
-	self.Emitter = ParticleEmitter(self.Ent:GetPos())
-	self:SetRenderBounds(self.Ent:LocalToWorld(self.Ent:OBBMins() * (self.Magnitude / 2)), self.Ent:LocalToWorld(self.Ent:OBBMaxs() * (self.Magnitude / 2)))
 	
 	if WTib.IsValid(self.Ent) then
+	
+		self.Offset = data:GetOrigin()
+		self.Magnitude = data:GetMagnitude()
+		
+		self.Emitter = ParticleEmitter(self.Ent:GetPos())
+		self:SetRenderBounds(self.Ent:LocalToWorld(self.Ent:OBBMins() * (self.Magnitude / 2)), self.Ent:LocalToWorld(self.Ent:OBBMaxs() * (self.Magnitude / 2)))
 	
 		local part
 		local StartPos = self.Ent:LocalToWorld(self.Offset)

@@ -150,7 +150,7 @@ if SERVER then
 	end
 
 	function WTib.TriggerOutput(a,b,c)
-		if WireAddon then
+		if c and WireAddon then
 			return Wire_TriggerOutput(a,b,math.Round(c))
 		end
 	end
