@@ -6,11 +6,11 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	return self.PrintName.."\nTiberium Chemicals : "..math.Round(tostring(self.dt.ChemicalTiberium))
+	return self.PrintName.."\nTiberium Chemicals : "..math.Round(tostring(self:GetChemicalTiberiumAmount()))
 end
 
 function ENT:Think()
 	self:NextThink(CurTime()+1)
 	return true
 end
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)

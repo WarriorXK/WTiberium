@@ -10,10 +10,10 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:DTVar("Int",0,"BuildingID")
-	self:DTVar("Int",1,"PercentageComplete")
-	self:DTVar("Bool",0,"IsBuilding")
-	self:DTVar("Entity",0,"CurObject")
+	self:NetworkVar("Int",0,"BuildingID")
+	self:NetworkVar("Int",1,"PercentageComplete")
+	self:NetworkVar("Bool",0,"IsBuilding")
+	self:NetworkVar("Entity",0,"CurObject")
 end
 
 WTib.Factory.AddObject({

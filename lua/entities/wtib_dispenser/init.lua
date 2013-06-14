@@ -42,28 +42,28 @@ end
 
 function ENT:Think()
 
-	if self.dt.IsBuilding then
+	if self:GetIsBuilding() then
 	
-		if (self.LastBuild + WTib.Dispenser.GetObjectByID( self.dt.BuildingID ).PercentDelay) <= CurTime() then
-			self.dt.PercentageComplete = self.dt.PercentageComplete + 1
+		if (self.LastBuild + WTib.Dispenser.GetObjectByID( self:GetBuildingID() ).PercentDelay) <= CurTime() then
+			self:SetPercentageComplete(self:GetPercentageComplete() + 1)
 			
-			if self.dt.PercentageComplete >= 100 then
+			if self:GetPercentageComplete() >= 100 then
 			
 				local ply
-				if IsValid(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
+				if IsValid(self:GetCurObject().WDSO) and self:GetCurObject().WDSO:IsPlayer() then ply = self:GetCurObject().WDSO end
 				
-				local ent = WTib.Dispenser.GetObjectByID( self.dt.BuildingID ).CreateEnt( self, self.dt.CurObject:GetAngles(), self.dt.CurObject:GetPos(), self.dt.BuildingID, ply )
-				ent.WDSO = self.dt.CurObject.WDSO
+				local ent = WTib.Dispenser.GetObjectByID( self:GetBuildingID() ).CreateEnt( self, self:GetCurObject():GetAngles(), self:GetCurObject():GetPos(), self:GetBuildingID(), ply )
+				ent.WDSO = self:GetCurObject().WDSO
 				ent.WTib_Dispenser_Weld = constraint.Weld( self, ent, 0, 0, 0, true )
 				
-				self.dt.CurObject:Remove()
-				self.dt.CurObject = nil
-				self.dt.IsBuilding = false
+				self:GetCurObject():Remove()
+				self:SetCurObject(nil)
+				self:SetIsBuilding(false)
 				WTib.TriggerOutput( self, "IsBuilding", 0 )
 				
 			end
 			
-			WTib.TriggerOutput( self, "PercentageComplete", self.dt.PercentageComplete )
+			WTib.TriggerOutput( self, "PercentageComplete", self:GetPercentageComplete() )
 			
 			self.LastBuild = CurTime()
 		end
@@ -77,7 +77,7 @@ end
 
 function ENT:Use(ply)
 
-	if !self.dt.IsBuilding then
+	if !self:GetIsBuilding() then
 	
 		// Notify the client that the menu needs to open
 		net.Start("wtib_dispenser_openmenu")
@@ -94,26 +94,27 @@ end
 
 function ENT:BuildObject(id, ply)
 
-	if !self.dt.IsBuilding and WTib.Dispenser.GetObjectByID(id) then
+	if !self:GetIsBuilding() and WTib.Dispenser.GetObjectByID(id) then
 	
 		local Attach = self:GetAttachment(self:LookupAttachment("item"))
-		self.dt.BuildingID = id
-		self.dt.PercentageComplete = 0
-		self.dt.IsBuilding = true
+		self:SetBuildingID(id)
+		self:SetPercentageComplete(0)
+		self:SetIsBuilding(true)
 		
-		self.dt.CurObject = ents.Create("wtib_dispenser_object")
-		self.dt.CurObject:SetAngles(self:LocalToWorldAngles(WTib.Dispenser.GetObjectByID(id).Angle or Angle(0,0,0)))
-		self.dt.CurObject:SetModel(WTib.Dispenser.GetObjectByID(id).Model)
-		self.dt.CurObject:Spawn()
-		self.dt.CurObject:Activate()
-		//self.dt.CurObject:SetPos(WorldToLocal(Attach.Pos,self:GetAngles(),self.dt.CurObject:OBBCenter(),self:GetAngles()))
-		self.dt.CurObject:SetPos(self:LocalToWorld(NewObjectPos))
-		self.dt.CurObject:SetParent(self)
-		self.dt.CurObject.dt.Dispenser = self
-		self.dt.CurObject.WDSO = ply
+		local ent = ents.Create("wtib_dispenser_object")
+		ent:SetAngles(self:LocalToWorldAngles(WTib.Dispenser.GetObjectByID(id).Angle or Angle(0,0,0)))
+		ent:SetModel(WTib.Dispenser.GetObjectByID(id).Model)
+		ent:Spawn()
+		ent:Activate()
+		//ent:SetPos(WorldToLocal(Attach.Pos,self:GetAngles(),self:GetCurObject():OBBCenter(),self:GetAngles()))
+		ent:SetPos(self:LocalToWorld(NewObjectPos))
+		ent:SetParent(self)
+		ent:SetDispenser(self)
+		ent.WDSO = ply
+		self:SetCurObject(ent)
 		
 		local ed = EffectData()
-			ed:SetEntity(self.dt.CurObject)
+			ed:SetEntity(self:GetCurObject())
 		util.Effect("wtib_dispenser", ed)
 		
 		WTib.TriggerOutput(self,"IsBuilding",1)

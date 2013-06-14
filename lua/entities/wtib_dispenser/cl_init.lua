@@ -29,12 +29,12 @@ function ENT:Draw3D2D()
 		// The percentage completed
 		local Text = "Idle"
 		local CurProj = "None"
-		if self.dt.IsBuilding then
+		if self:GetIsBuilding() then
 		
-			Text = "Working, " .. self.dt.PercentageComplete .. "%"
+			Text = "Working, " .. self:GetPercentageComplete() .. "%"
 			CurProj = ""
 			
-			for k,v in pairs(string.Explode("", WTib.Dispenser.GetObjectByID(self.dt.BuildingID).Name)) do
+			for k,v in pairs(string.Explode("", WTib.Dispenser.GetObjectByID(self:GetBuildingID()).Name)) do
 			
 				CurProj = CurProj .. v
 				if (k % 18) == 0 then CurProj = CurProj .. "\n" end
@@ -53,8 +53,8 @@ end
 
 function ENT:WTib_GetTooltip()
 
-	local B = self.dt.IsBuilding and "Yes" or "No"
-	return self.PrintName.."\nBuilding : "..B.."\nPercentage Complete : " .. self.dt.PercentageComplete .. "%"
+	local B = self:GetIsBuilding() and "Yes" or "No"
+	return self.PrintName.."\nBuilding : "..B.."\nPercentage Complete : " .. self:GetPercentageComplete() .. "%"
 	
 end
 

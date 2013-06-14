@@ -24,7 +24,7 @@ end
 
 function ENT:Think()
 	self.dt.ChemicalTiberium = WTib.GetResourceAmount(self,"ChemicalTiberium")
-	WTib.TriggerOutput(self,"ChemicalTiberium",self.dt.ChemicalTiberium)
+	WTib.TriggerOutput(self,"ChemicalTiberium",self:GetChemicalTiberiumAmount())
 	WTib.TriggerOutput(self,"MaxChemicalTiberium",WTib.GetNetworkCapacity(self,"ChemicalTiberium"))
 end
 
