@@ -6,7 +6,7 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	return self.PrintName.."\nEnergy : "..math.Round(tostring(self.dt.Energy))
+	return self.PrintName.."\nEnergy : "..math.Round(tostring(self:GetEnergy()))
 end
 
 function ENT:Think()

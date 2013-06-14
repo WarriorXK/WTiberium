@@ -29,8 +29,8 @@ SWEP.Secondary.Ammo			= "none"
 SWEP.IconLetter				= "c"
 
 function SWEP:SetupDataTables()
-	self:DTVar("Bool",0,"Ironsights")
-	self:DTVar("Float",0,"LastShootTime")
+	self:NetworkVar("Bool",0,"Ironsights")
+	self:NetworkVar("Float",0,"LastShootTime")
 end
 
 function SWEP:Initialize()

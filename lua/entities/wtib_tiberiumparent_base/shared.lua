@@ -72,9 +72,9 @@ function ENT:InitTiberium()
 end
 
 function ENT:SetupDataTables()
-	self:DTVar("Int",0,"TiberiumAmount")
-	self:DTVar("Int",1,"ColorDevider")
-	self:DTVar("Int",2,"TiberiumField")
+	self:NetworkVar("Int",0,"TiberiumAmount")
+	self:NetworkVar("Int",1,"ColorDevider")
+	self:NetworkVar("Int",2,"TiberiumField")
 end
 
 function ENT:GetTiberiumAmount()

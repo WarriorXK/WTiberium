@@ -65,7 +65,7 @@ function WTib_FactoryPanelSpawn(ent)
 		
 		// Attach it to the factory
 		Panel:SetParent(ent)
-		Panel.dt.Factory = ent
+		Panel:SetFactory(ent)
 		ent.dt.Panel = Panel
 		Panel.WDSO = p
 

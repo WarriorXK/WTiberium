@@ -12,16 +12,16 @@ end
 
 function ENT:WTib_GetTooltip()
 
-	local B = self.dt.IsBuilding and "Yes" or "No"
-	return self.PrintName.."\nBuilding : "..B.."\nPercentage Complete : "..self.dt.PercentageComplete.."%"
+	local B = self:GetIsBuilding() and "Yes" or "No"
+	return self.PrintName.."\nBuilding : "..B.."\nPercentage Complete : "..self:GetPercentageComplete().."%"
 	
 end
 
 function ENT:Think()
-	if self.NextEffect <= CurTime() and WTib.IsValid(self.dt.CurObject) then
-		local Mins = self.dt.CurObject:OBBMins()
-		local Maxs = self.dt.CurObject:OBBMaxs()
-		local z = Mins.z+(((Maxs.z-Mins.z)/100)*self.dt.PercentageComplete)
+	if self.NextEffect <= CurTime() and WTib.IsValid(self:GetCurObject()) then
+		local Mins = self:GetCurObject():OBBMins()
+		local Maxs = self:GetCurObject():OBBMaxs()
+		local z = Mins.z+(((Maxs.z-Mins.z)/100)*self:GetPercentageComplete())
 
 		for i=1,4 do
 			local Attach = self:GetAttachment(self:LookupAttachment("las"..tostring(i)))

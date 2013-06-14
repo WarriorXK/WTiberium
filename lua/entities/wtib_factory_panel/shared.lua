@@ -9,7 +9,7 @@ ENT.AdminSpawnable	= false
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:DTVar("Entity",0,"Factory")
+	self:NetworkVar("Entity",0,"Factory")
 end
 
 local function Pickup(ply,ent)

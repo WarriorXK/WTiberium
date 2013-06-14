@@ -36,9 +36,9 @@ SWEP.WarningSound			= Sound("")
 SWEP.EndSound				= Sound("")
 
 function SWEP:SetupDataTables()
-	self:DTVar("Bool", 0, "Shooting")
-	self:DTVar("Float", 0, "LastShootTime")
-	self:DTVar("Float", 1, "Heat")
+	self:NetworkVar("Bool", 0, "Shooting")
+	self:NetworkVar("Float", 0, "LastShootTime")
+	self:NetworkVar("Float", 1, "Heat")
 end
 
 function SWEP:Initialize()

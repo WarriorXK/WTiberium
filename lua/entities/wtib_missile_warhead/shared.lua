@@ -10,8 +10,8 @@ ENT.AdminSpawnable	= false
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:DTVar("Int",0,"RawTiberium")
-	self:DTVar("Int",1,"RefTiberium")
-	self:DTVar("Int",2,"Chemicals")
-	self:DTVar("Int",3,"Liquids")
+	self:NetworkVar("Int",0,"RawTiberium")
+	self:NetworkVar("Int",1,"RefTiberium")
+	self:NetworkVar("Int",2,"Chemicals")
+	self:NetworkVar("Int",3,"Liquids")
 end
