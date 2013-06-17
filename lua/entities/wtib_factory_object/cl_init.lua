@@ -5,7 +5,7 @@ function ENT:Draw()
 	local normal = self:GetUp()*-1
 	local Mins = self:OBBMins().z
 	local Maxs = self:OBBMaxs().z
-	local distance = normal:Dot(self:LocalToWorld(Vector(0, 0,Mins+(((Maxs-Mins) / 100) * self.dt.Factory.dt.PercentageComplete))))
+	local distance = normal:Dot(self:LocalToWorld(Vector(0, 0,Mins+(((Maxs-Mins) / 100) * self:GetFactory():GetPercentageComplete()))))
 	
 	render.EnableClipping(true)
 	
@@ -20,6 +20,7 @@ function ENT:Draw()
 		render.PopCustomClipPlane()
 		
 	render.EnableClipping(false)
+	
 end
 
 function ENT:Think()

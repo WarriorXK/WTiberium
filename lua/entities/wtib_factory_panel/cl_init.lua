@@ -26,12 +26,12 @@ function ENT:Draw3D2D()
 		local Text = "Idle"
 		local CurProj = "None"
 		
-		if WTib.IsValid(self.dt.Factory) and self.dt.Factory.dt.IsBuilding then
+		if WTib.IsValid(self:GetFactory()) and self:GetFactory():GetIsBuilding() then
 		
-			Text = "Working, " .. self.dt.Factory.dt.PercentageComplete .. "%"
+			Text = "Working, " .. self:GetFactory():GetPercentageComplete() .. "%"
 			
 			CurProj = ""
-			for k,v in pairs(string.Explode("", WTib.Factory.GetObjectByID(self.dt.Factory.dt.BuildingID).Name)) do
+			for k,v in pairs(string.Explode("", WTib.Factory.GetObjectByID(self:GetFactory():GetBuildingID()).Name)) do
 			
 				CurProj = CurProj .. v
 				if (k % 19) == 0 then CurProj = CurProj .. "\n" end
