@@ -41,8 +41,8 @@ end
 
 function ENT:Harvest()
 
-	local Energy = WTib.GetResourceAmount(self,"energy")
 	local SPos = self:GetPos()
+	
 	for _,v in pairs(ents.FindInCone(self:GetPos(),self:GetUp(),self.Range,10)) do
 	
 		if v.IsTiberium then
@@ -51,7 +51,7 @@ function ENT:Harvest()
 			local Mul = 1.2
 			if v.IsTiberiumParent then Mul = 1.5 end
 			
-			if Energy > Drain*Mul then
+			if WTib.GetResourceAmount(self,"energy") > Drain*Mul then
 			
 				if (v.IsTiberiumParent and v.HarvestParents) or !v.IsTiberiumParent then
 
@@ -75,18 +75,15 @@ end
 
 function ENT:Think()
 
-	local Energy = WTib.GetResourceAmount(self,"energy")
-
 	if self.NextHarvest <= CurTime() and self:GetIsOnline() then
 	
-		if Energy < 10 then
+		if WTib.GetResourceAmount(self,"energy") < 10 then
 		
 			self:TurnOff()
 			
 		else
 		
 			WTib.ConsumeResource(self,"energy",10)
-			Energy = Energy - 10
 			
 			self:Harvest()
 			self.NextHarvest = CurTime()+1
@@ -94,6 +91,8 @@ function ENT:Think()
 		end
 
 	end
+	
+	local Energy = WTib.GetResourceAmount(self,"energy")
 	
 	WTib.TriggerOutput(self,"Energy",Energy)
 	WTib.TriggerOutput(self,"RawTiberium", WTib.GetResourceAmount(self,"RawTiberium"))

@@ -51,18 +51,20 @@ function ENT:Think()
 		if RawTiberium >= self.RawTiberiumRequired then
 		
 			WTib.ConsumeResource(self,"ChemicalTiberium", self.RawTiberiumRequired)
-			WTib.SupplyResource(self,"energy", self.EnergySupply)
+			local EnergyToSupply = self.EnergySupply
 			
 			RawTiberium = RawTiberium - self.RawTiberiumRequired
 			
 			if self:GetIsBoosting() and Liquids >= 10 then
 			
-				WTib.SupplyResource(self, "energy", self.EnergyBoostSupply)
 				WTib.ConsumeResource(self,"LiquidTiberium", self.LiquidBoostRequired)
+				EnergyToSupply = EnergyToSupply + self.EnergyBoostSupply
 				
 				Liquids = Liquids - self.LiquidBoostRequired
 				
 			end
+			
+			WTib.SupplyResource(self,"energy", EnergyToSupply)
 			
 		else
 		

@@ -91,6 +91,9 @@ function ENT:Think()
 		end
 	end
 	
+	WTib.TriggerOutput(self,"Online",self.dt.Online and 1 or 0)
+	WTib.TriggerOutput(self,"Energy",Energy)
+	
 	self:TriggerOutputs(Target)
 	self.dt.HasTarget = self.dt.Online and WTib.IsValid(self.Target)
 	self.dt.Energy = Energy
@@ -111,6 +114,8 @@ function ENT:TriggerOutputs(ent)
 		WTib.TriggerOutput(self,"LocalY",LPos.y)
 		WTib.TriggerOutput(self,"LocalZ",LPos.z)
 		
+		WTib.TriggerOutput(self,"Found",1)
+		
 		self.Target = ent
 		
 	else
@@ -122,6 +127,8 @@ function ENT:TriggerOutputs(ent)
 		WTib.TriggerOutput(self,"LocalX",0)
 		WTib.TriggerOutput(self,"LocalY",0)
 		WTib.TriggerOutput(self,"LocalZ",0)
+		
+		WTib.TriggerOutput(self,"Found",0)
 		
 		self.Target = nil
 		

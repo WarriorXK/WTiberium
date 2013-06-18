@@ -72,7 +72,7 @@ function ENT:PreventCrystalSpawn( pos, class )
 	
 	if self.dt.Online and Energy >= 20 then
 
-		zap = ents.Create("point_tesla")
+		local zap = ents.Create("point_tesla")
 		zap:SetKeyValue("targetname", "teslab")
 		zap:SetKeyValue("m_SoundName" ,"DoSpark")
 		zap:SetKeyValue("texture" ,"sprites/physbeam.spr")
