@@ -38,16 +38,13 @@ end
 
 function ENT:SpawnFunction(p,t)
 
-	return WTib.SpawnFunction(p,t,self)
+	local ent = WTib.SpawnFunction(p,t,self)
+	
+	WTib_FactoryPanelSpawn(ent)
+	
+	return ent
 	
 end
-
-hook.Add("OnEntityCreated","WTib_Factory_PanelSpawner",function(ent)
-
-	// Ugly hack because OnEntityCreated returns the entity before it has fully been initialized.
-    timer.Simple(0, function() WTib_FactoryPanelSpawn(ent) end)
-	
-end)
 
 function WTib_FactoryPanelSpawn(ent)
 
@@ -66,7 +63,7 @@ function WTib_FactoryPanelSpawn(ent)
 		// Attach it to the factory
 		Panel:SetParent(ent)
 		Panel:SetFactory(ent)
-		ent.dt.Panel = Panel
+		ent:SetPanel(Panel)
 		Panel.WDSO = p
 
 	end
@@ -75,33 +72,33 @@ end
 
 function ENT:Think()
 
-	if self.dt.IsBuilding then
+	if self:GetIsBuilding() then
 	
-		if self.LastBuild+WTib.Factory.GetObjectByID(self.dt.BuildingID).PercentDelay <= CurTime() then
+		if self.LastBuild+WTib.Factory.GetObjectByID(self:GetBuildingID()).PercentDelay <= CurTime() then
 		
-			self.dt.PercentageComplete = self.dt.PercentageComplete+1
+			self:SetPercentageComplete(self:GetPercentageComplete() + 1)
 			
-			if self.dt.PercentageComplete >= 100 then
+			if self:GetPercentageComplete() >= 100 then
 			
 				local ply
-				if IsValid(self.dt.CurObject.WDSO) and self.dt.CurObject.WDSO:IsPlayer() then ply = self.dt.CurObject.WDSO end
+				if IsValid(self:GetCurObject().WDSO) and self:GetCurObject().WDSO:IsPlayer() then ply = self:GetCurObject().WDSO end
 				
 				// Call the function that creates the actual entity
-				local ent = WTib.Factory.GetObjectByID(self.dt.BuildingID).CreateEnt(self, self.dt.CurObject:GetAngles(), self.dt.CurObject:GetPos(), self.dt.BuildingID, ply)
-				ent.WDSO = self.dt.CurObject.WDSO
+				local ent = WTib.Factory.GetObjectByID(self:GetBuildingID()).CreateEnt(self, self:GetCurObject():GetAngles(), self:GetCurObject():GetPos(), self:GetBuildingID(), ply)
+				ent.WDSO = self:GetCurObject().WDSO
 				
 				// Remove the fake object
-				self.dt.CurObject:Remove()
-				self.dt.CurObject = nil
+				self:GetCurObject():Remove()
+				self:SetCurObject(nil)
 				
 				// Reset some factory values
-				self.dt.IsBuilding = false
-				self.dt.TimeBuildStarted = 0
+				self:SetIsBuilding(false)
+				self:SetTimeBuildStarted(0)
 				WTib.TriggerOutput(self,"IsBuilding",0)
 				
 			end
 			
-			WTib.TriggerOutput(self,"PercentageComplete", self.dt.PercentageComplete)
+			WTib.TriggerOutput(self,"PercentageComplete", self:GetPercentageComplete())
 			
 			self.LastBuild = CurTime()
 			
@@ -115,7 +112,7 @@ end
 
 function ENT:PanelUse(ply)
 
-	if !self.dt.IsBuilding then
+	if !self:GetIsBuilding() then
 
 		// Notify the client that the menu needs to open
 		net.Start("wtib_factory_openmenu")
@@ -132,33 +129,35 @@ end
 
 function ENT:BuildObject(id, ply)
 
-	if !self.dt.IsBuilding and WTib.Factory.GetObjectByID(id) then
+	if !self:GetIsBuilding() and WTib.Factory.GetObjectByID(id) then
 		local Obj = WTib.Factory.GetObjectByID(id)
 		
 		// (Re)set all values on the factory
-		self.dt.BuildingID = id
-		self.dt.PercentageComplete = 0
-		self.dt.IsBuilding = true
-		self.dt.TimeBuildStarted = CurTime()
+		self:SetBuildingID(id)
+		self:SetPercentageComplete(0)
+		self:SetIsBuilding(true)
+		self:SetTimeBuildStarted(CurTime())
 		
 		// Create the fake object
-		self.dt.CurObject = ents.Create("wtib_factory_object")
-		self.dt.CurObject:SetAngles(self:LocalToWorldAngles(Obj.Angle or Angle(0,0,0)))
-		self.dt.CurObject:SetModel(Obj.Model)
-		self.dt.CurObject:Spawn()
-		self.dt.CurObject:Activate()
+		local ent = ents.Create("wtib_factory_object")
+		ent:SetAngles(self:LocalToWorldAngles(Obj.Angle or Angle(0,0,0)))
+		ent:SetModel(Obj.Model)
+		ent:Spawn()
+		ent:Activate()
 		
 		// Position the fake object
-		local ModelOffset = Vector(0,0,self.dt.CurObject:OBBMins().z):Distance(Vector(0,0,self.dt.CurObject:GetPos().z))
+		local ModelOffset = Vector(0,0,ent:OBBMins().z):Distance(Vector(0,0,ent:GetPos().z))
 		local SpawnPos = self:WorldToLocal(self:GetAttachment(self:LookupAttachment("spawn")).Pos)
 		SpawnPos.z = SpawnPos.z + ModelOffset
-		self.dt.CurObject:SetPos(self:LocalToWorld(SpawnPos))
-		self.dt.CurObject:DropToFloor()
+		ent:SetPos(self:LocalToWorld(SpawnPos))
+		ent:DropToFloor()
 		
 		// Parent the fake object and give it the values it needs
-		self.dt.CurObject:SetParent(self)
-		self.dt.CurObject.dt.Factory = self
-		self.dt.CurObject.WDSO = ply
+		ent:SetParent(self)
+		ent:SetFactory(self)
+		ent.WDSO = ply
+		
+		self:SetCurObject(ent)
 		
 		WTib.TriggerOutput(self,"IsBuilding",1)
 		
@@ -180,7 +179,7 @@ function ENT:OnRestore()
 end
 
 function ENT:OnRemove()
-	if IsValid(self.dt.Panel) then self.dt.Panel:Remove() end
+	if IsValid(self:GetPanel()) then self:GetPanel():Remove() end
 end
 
 function ENT:TriggerInput(name,val)

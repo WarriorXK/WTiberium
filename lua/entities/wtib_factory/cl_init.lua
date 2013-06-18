@@ -36,4 +36,4 @@ function ENT:Think()
 		self.NextEffect = CurTime() + EffectDelay
 	end
 end
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)

@@ -17,7 +17,7 @@ function EFFECT:Think()
 
 	if !self.Loaded then return true end
 	
-	local Valid = IsValid(self.Swep) and self.Swep.dt.Heat > 0 
+	local Valid = IsValid(self.Swep) and self.Swep:GetHeat() > 0 
 	if Valid then
 	
 		if self.LastParticle <= CurTime() then

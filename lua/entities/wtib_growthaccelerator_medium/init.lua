@@ -37,6 +37,7 @@ function ENT:Initialize()
 	WTib.AddResource(self,"energy",0)
 	
 	self:SetRange(self.MaxRange)
+	WTib.TriggerOutput(self,"Range", self.MaxRange)
 	
 end
 
@@ -48,7 +49,7 @@ function ENT:Think()
 
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	
-	if self.NextCheck <= CurTime() and self.dt.Online then
+	if self.NextCheck <= CurTime() and self:GetOnline() then
 	
 		local TotalAdded = 0
 		local Ents = {}
@@ -100,7 +101,7 @@ function ENT:Think()
 
 	WTib.TriggerOutput(self,"Energy", Energy)
 	
-	self.dt.Energy = Energy
+	self:SetEnergy(Energy)
 	
 	self:NextThink(CurTime()+0.2)
 	return true
@@ -113,7 +114,7 @@ end
 
 function ENT:Use(ply)
 
-	if self.dt.Online then
+	if self:GetOnline() then
 		self:TurnOff()
 	else
 		self:TurnOn()
@@ -125,11 +126,11 @@ function ENT:TurnOn()
 
 	if WTib.GetResourceAmount(self,"energy") <= 1 then return end
 	
-	if !self.dt.Online then
+	if !self:GetOnline() then
 		self:EmitSound("apc_engine_start")
 	end
 	
-	self.dt.Online = true
+	self:SetOnline(true)
 	WTib.TriggerOutput(self,"Online",1)
 	
 end
@@ -142,11 +143,11 @@ function ENT:TurnOff()
 
 	self:StopSound("apc_engine_start")
 	
-	if self.dt.Online then
+	if self:GetOnline() then
 		self:EmitSound("apc_engine_stop")
 	end
 	
-	self.dt.Online = false
+	self:SetOnline(false)
 	WTib.TriggerOutput(self,"Online",0)
 	
 end
@@ -162,14 +163,10 @@ function ENT:TriggerInput(name,val)
 		end
 		
 	elseif name == "SetRange" then
-		self:SetRange(val)
-	end
 	
-end
-
-function ENT:SetRange(int)
-
-	self.dt.Range = math.Clamp(int,self.MinRange,self.MaxRange)
-	WTib.TriggerOutput(self,"Range", int)
+		self:SetRange(val)
+		WTib.TriggerOutput(self,"Range", self:GetRange())
+		
+	end
 	
 end

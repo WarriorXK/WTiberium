@@ -15,14 +15,10 @@ function ENT:SetupDataTables()
 	self:NetworkVar("Bool",0,"Online")
 end
 
-function ENT:GetRange()
-	return self.dt.Range
-end
-
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/medium_growth_accelerator.mdl",
+	Model = "models/Tiberium/acc_m.mdl",
 	PercentDelay = 0.10,
 	Information =	{
 						ENT.PrintName,

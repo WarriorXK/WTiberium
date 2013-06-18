@@ -99,7 +99,7 @@ end
 
 function EFFECT:Think()
 
-	local Valid = IsValid(self.Factory) and self.Factory.dt.IsBuilding
+	local Valid = IsValid(self.Factory) and self.Factory:GetIsBuilding()
 	
 	if Valid then
 	
@@ -145,7 +145,7 @@ function EFFECT:Render()
 
 	self:SetRenderBounds( self.Factory:LocalToWorld(self.UBound), self.Factory:LocalToWorld(self.LBound) )
 
-	local Progress = math.ceil(self.Factory.dt.PercentageComplete / ( 100 / table.Count( self.ProgressLights) ))
+	local Progress = math.ceil(self.Factory:GetPercentageComplete() / ( 100 / table.Count( self.ProgressLights) ))
 	local GlowSize = 15
 	local Col = self.ProgressColors[Progress]
 	

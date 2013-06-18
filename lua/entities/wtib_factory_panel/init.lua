@@ -15,9 +15,9 @@ function ENT:Initialize()
 end
 
 function ENT:Use(...)
-	self.dt.Factory:PanelUse(...)
+	self:GetFactory():PanelUse(...)
 end
 
 function ENT:OnRemove()
-	if IsValid(self.dt.Factory) then self.dt.Factory:Remove() end
+	if IsValid(self:GetFactory()) then self:GetFactory():Remove() end
 end

@@ -14,7 +14,7 @@ function EFFECT:Init(d)
 
 	self.DispenserObject = d:GetEntity()
 	
-	self.ValidEffect = IsValid(self.DispenserObject) and IsValid(self.DispenserObject.dt.Dispenser) and self.DispenserObject.dt.Dispenser.dt.PercentageComplete < 100
+	self.ValidEffect = IsValid(self.DispenserObject) and IsValid(self.DispenserObject:GetDispenser()) and self.DispenserObject:GetDispenser():GetPercentageComplete() < 100
 	
 	if self.ValidEffect then
 		
@@ -28,14 +28,14 @@ function EFFECT:Init(d)
 end
 
 function EFFECT:Think()
-	self.ValidEffect = IsValid(self.DispenserObject) and IsValid(self.DispenserObject.dt.Dispenser) and self.DispenserObject.dt.Dispenser.dt.PercentageComplete < 100
+	self.ValidEffect = IsValid(self.DispenserObject) and IsValid(self.DispenserObject:GetDispenser()) and self.DispenserObject:GetDispenser():GetPercentageComplete() < 100
 	
 	if self.ValidEffect then
 	
 		for i=1,2 do
 			
 			local Pos = i==1 and TopPos or LowPos
-			Pos = self.DispenserObject.dt.Dispenser:LocalToWorld(Pos)
+			Pos = self.DispenserObject:GetDispenser():LocalToWorld(Pos)
 			
 			if self.Emitter then
 			
@@ -83,10 +83,10 @@ function EFFECT:Render()
 		local Col = Color(75, math.random(80,180), 255)
 		
 		render.SetMaterial(self.GlowMat)
-		render.DrawSprite(self.DispenserObject.dt.Dispenser:LocalToWorld(TopPos), 2, 2, Col)
+		render.DrawSprite(self.DispenserObject:GetDispenser():LocalToWorld(TopPos), 2, 2, Col)
 		
 		render.SetMaterial(self.GlowMat)
-		render.DrawSprite(self.DispenserObject.dt.Dispenser:LocalToWorld(LowPos), 2, 2, Col)
+		render.DrawSprite(self.DispenserObject:GetDispenser():LocalToWorld(LowPos), 2, 2, Col)
 	
 	end
 	

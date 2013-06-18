@@ -23,7 +23,7 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
-	self:SetChemicalTiberium(WTib.GetResourceAmount(self,"ChemicalTiberium"))
+	self:SetChemicalTiberiumAmount(WTib.GetResourceAmount(self,"ChemicalTiberium"))
 	WTib.TriggerOutput(self,"ChemicalTiberium",self:GetChemicalTiberiumAmount())
 	WTib.TriggerOutput(self,"MaxChemicalTiberium",WTib.GetNetworkCapacity(self,"ChemicalTiberium"))
 end

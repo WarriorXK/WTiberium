@@ -23,7 +23,7 @@ function EFFECT:Think()
 end
 
 function EFFECT:ValidEnts()
-	return IsValid(self.Factory) and IsValid(self.Factory.dt.CurObject)
+	return IsValid(self.Factory) and IsValid(self.Factory:GetCurObject())
 end
 
 function EFFECT:Render()
@@ -33,7 +33,7 @@ function EFFECT:Render()
 		self:SetRenderBounds( self.Factory:LocalToWorld(self.UBound), self.Factory:LocalToWorld(self.LBound) )
 	
 		local Start = self.Factory:LocalToWorld(self.StartPos)
-		local End = self.Factory.dt.CurObject:LocalToWorld(self.EndPos)
+		local End = self.Factory:GetCurObject():LocalToWorld(self.EndPos)
 		local Col = Color(200,50,50,255)
 		
 		render.SetMaterial(self.GlowMat)

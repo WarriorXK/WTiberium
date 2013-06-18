@@ -1,3 +1,3 @@
 include('shared.lua')
 
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)
