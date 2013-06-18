@@ -30,19 +30,19 @@ end
 
 function ENT:SetWarheadValues(en, raw, ref, chem, liq)
 
-	self.dt.RawTiberium = raw
-	self.dt.RefTiberium = ref
-	self.dt.Chemicals = chem
-	self.dt.Liquids = liq
+	self:SetRawTiberiumAmount(raw)
+	self:SetRefTiberiumAmount(ref)
+	self:SetChemicalsAmount(chem)
+	self:SetLiquidsAmount(liq)
 	
 end
 
 function ENT:ApplyWarhead(missle)
 
 	missle.Warhead = {}
-	missle.Warhead.Range = math.max(50, (2.5 * self.dt.RawTiberium))
-	missle.Warhead.Damage = 120 + (4 * self.dt.RefTiberium)
-	missle.Warhead.DOT_DPS = math.max(2, self.dt.Chemicals / 2)
+	missle.Warhead.Range = math.max(50, (2.5 * self:GetRawTiberiumAmount()))
+	missle.Warhead.Damage = 120 + (4 * self:GetRefTiberiumAmount())
+	missle.Warhead.DOT_DPS = math.max(2, self:GetChemicalsAmount() / 2)
 	
 	missle.Explode = self.Explode
 	

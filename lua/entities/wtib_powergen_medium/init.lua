@@ -13,21 +13,26 @@ ENT.EnergySupply = 300
 ENT.NextSupply = 0
 
 function ENT:Initialize()
+
 	self:SetModel("models/Tiberium/medium_tiberium_reactor.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	
 	self.Inputs = WTib.CreateInputs(self,{"On","Boost"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Chemicals","Boosting"})
+	
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"ChemicalTiberium",0)
 	WTib.AddResource(self,"LiquidTiberium",0)
 	WTib.AddResource(self,"energy",0)
+	
 end
 
 function ENT:SpawnFunction(p,t)
@@ -38,7 +43,7 @@ function ENT:Think()
 
 	local Chemicals = WTib.GetResourceAmount(self,"ChemicalTiberium")
 	
-	if self.dt.Online and self.NextSupply <= CurTime() then
+	if self:GetIsOnline() and self.NextSupply <= CurTime() then
 	
 		if Chemicals >= self.ChemRequired then
 		
@@ -47,7 +52,7 @@ function ENT:Think()
 			
 			Chemicals = Chemicals - self.ChemRequired
 			
-			if self.dt.Boosting and WTib.GetResourceAmount(self,"LiquidTiberium") >= 10 then
+			if self:GetIsBoosting() and WTib.GetResourceAmount(self,"LiquidTiberium") >= 10 then
 			
 				WTib.SupplyResource(self, "energy", self.EnergySupply * 1.4)
 				WTib.ConsumeResource(self,"LiquidTiberium", 10)
@@ -65,9 +70,9 @@ function ENT:Think()
 	end
 	
 	WTib.TriggerOutput(self,"Chemicals", Chemicals)
-	WTib.TriggerOutput(self,"Boosting", self.dt.Boosting and 1 or 0)
+	WTib.TriggerOutput(self,"Boosting", self:GetIsBoosting() and 1 or 0)
 	
-	self.dt.Chemicals = Chemicals
+	self:SetChemicalsAmount(Chemicals)
 	
 end
 
@@ -77,7 +82,7 @@ end
 
 function ENT:Use(ply)
 
-	if self.dt.Online then
+	if self:GetIsOnline() then
 		self:TurnOff()
 	else
 		self:TurnOn()
@@ -87,11 +92,11 @@ end
 
 function ENT:TurnOn()
 
-	if !self.dt.Online then
+	if !self:GetIsOnline() then
 		self:EmitSound("apc_engine_start")
 	end
 	
-	self.dt.Online = true
+	self:SetIsOnline(true)
 	WTib.TriggerOutput(self,"Online",1)
 	
 end
@@ -104,11 +109,11 @@ function ENT:TurnOff()
 
 	self:StopSound("apc_engine_start")
 	
-	if self.dt.Online then
+	if self:GetIsOnline() then
 		self:EmitSound("apc_engine_stop")
 	end
 	
-	self.dt.Online = false
+	self:SetIsOnline(false)
 	WTib.TriggerOutput(self,"Online",0)
 	
 end
@@ -125,7 +130,7 @@ function ENT:TriggerInput(name,val)
 		
 	elseif name == "Boost" then
 	
-		self.dt.Boosting = tobool(val)
+		self:SetIsBoostingtobool(val))
 		
 	end
 	

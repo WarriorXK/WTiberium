@@ -77,7 +77,7 @@ function ENT:Think()
 
 	local Energy = WTib.GetResourceAmount(self,"energy")
 
-	if self.NextHarvest <= CurTime() and self.dt.Online then
+	if self.NextHarvest <= CurTime() and self:GetOnline() then
 	
 		if Energy < 10 then
 		
@@ -98,7 +98,7 @@ function ENT:Think()
 	WTib.TriggerOutput(self,"Energy",Energy)
 	WTib.TriggerOutput(self,"RawTiberium", WTib.GetResourceAmount(self,"RawTiberium"))
 	
-	self.dt.Energy = Energy
+	self:SetEnergy(Energy)
 	
 end
 
@@ -108,7 +108,7 @@ end
 
 function ENT:Use(ply)
 
-	if self.dt.Online then
+	if self:GetOnline() then
 		self:TurnOff()
 	else
 		self:TurnOn()
@@ -120,11 +120,11 @@ function ENT:TurnOn()
 
 	if WTib.GetResourceAmount(self,"energy") <= 10 then return end
 	
-	if !self.dt.Online then
+	if !self:GetOnline() then
 		self:EmitSound("apc_engine_start")
 	end
 	
-	self.dt.Online = true
+	self:SetOnline(true)
 	WTib.TriggerOutput(self,"Online",1)
 	
 end
@@ -137,11 +137,11 @@ function ENT:TurnOff()
 
 	self:StopSound("apc_engine_start")
 	
-	if self.dt.Online then
+	if self:GetOnline() then
 		self:EmitSound("apc_engine_stop")
 	end
 	
-	self.dt.Online = false
+	self:SetOnline(false)
 	WTib.TriggerOutput(self,"Online",0)
 	
 end

@@ -10,7 +10,7 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:NetworkVar("Bool",0,"Loaded")
+	self:NetworkVar("Bool",0,"IsLoaded")
 end
 
 WTib.Factory.AddObject({

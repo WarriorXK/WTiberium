@@ -6,6 +6,6 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	return self.PrintName.." ("..tostring(self.dt.Online)..")\nBoosting : "..tostring(self.dt.Boosting).."\nTiberium Chemicals : "..self.dt.Chemicals
+	return self.PrintName.." ("..tostring(self:GetIsOnline())..")\nBoosting : "..tostring(self:GetIsBoosting()).."\nTiberium Chemicals : "..self:GetChemicalsAmount()
 end
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)

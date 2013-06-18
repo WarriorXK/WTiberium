@@ -11,20 +11,25 @@ ENT.MaxDrain = 100
 ENT.Range = 100
 
 function ENT:Initialize()
+
 	self:SetModel("models/Tiberium/small_harvester.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	
 	self.Inputs = WTib.CreateInputs(self,{"On"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","RawTiberium"})
+	
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"RawTiberium",0)
 	WTib.AddResource(self,"energy",0)
+	
 end
 
 function ENT:SpawnFunction(p,t)

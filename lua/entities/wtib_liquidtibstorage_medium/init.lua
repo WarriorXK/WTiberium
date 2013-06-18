@@ -28,8 +28,8 @@ end
 
 function ENT:Think()
 
-	self.dt.LiquidTiberium = WTib.GetResourceAmount(self,"LiquidTiberium")
-	WTib.TriggerOutput(self,"LiquidTiberium",self.dt.LiquidTiberium)
+	self:SetLiquidTiberium(WTib.GetResourceAmount(self,"LiquidTiberium"))
+	WTib.TriggerOutput(self,"LiquidTiberium",self:GetLiquidTiberiumAmount())
 	WTib.TriggerOutput(self,"MaxLiquidTiberium",WTib.GetNetworkCapacity(self,"LiquidTiberium"))
 	
 end

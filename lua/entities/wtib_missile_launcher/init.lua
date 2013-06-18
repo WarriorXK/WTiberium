@@ -34,9 +34,9 @@ end
 
 function ENT:Think()
 
-	self.dt.Loaded = WTib.IsValid(self.Missile)
+	self:SetIsLoaded(WTib.IsValid(self.Missile))
 
-	WTib.TriggerOutput(self, "Can Fire", self.dt.Loaded and 1 or 0)
+	WTib.TriggerOutput(self, "Can Fire", self:GetIsLoaded() and 1 or 0)
 	
 end
 
@@ -90,7 +90,7 @@ end
 
 function ENT:Touch(ent)
 
-	if ent.WTib_IsMissile and !self.dt.Loaded and ent:CanBeMounted() then
+	if ent.WTib_IsMissile and !self:GetIsLoaded() and ent:CanBeMounted() then
 	
 		ent:LoadToLauncher(self)
 		self.Missile = ent
