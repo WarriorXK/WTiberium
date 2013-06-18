@@ -130,7 +130,7 @@ function ENT:TriggerInput(name,val)
 		
 	elseif name == "Boost" then
 	
-		self:SetIsBoostingtobool(val))
+		self:SetIsBoosting(tobool(val))
 		
 	end
 	
