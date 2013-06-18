@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Missile Launcher"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "To fire Missiles at your foes"
 ENT.Instructions	= "Load a Missile into this launcher, aim it towards your target and activate to fire"

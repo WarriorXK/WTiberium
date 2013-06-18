@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Refined Tiberium Storage"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "This module stores 3000 units of Refined Tiberium until it can be used"
 ENT.Instructions	= "Link this storage unit to a network that requires additional Refined Tiberium storage"

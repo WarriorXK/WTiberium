@@ -1,9 +1,9 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Chemical Plant"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
-ENT.Purpose			= "Uses Energy to convert Raw Tiberium into a poisonous gas"
+ENT.Purpose			= "Uses 50 energy to convert 150 Raw Tiberium into 100 units of poisonous chemical gasses"
 ENT.Instructions	= "Link the Chemical Plant to the required resources and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true

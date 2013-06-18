@@ -1,9 +1,9 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Factory"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
-ENT.Purpose			= "To create entities in the WTiberium addon pack"
+ENT.Purpose			= "This factory creates all entities used in the Tiberium pack"
 ENT.Instructions	= "Place the Factory and use the panel to select an entity to create"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true

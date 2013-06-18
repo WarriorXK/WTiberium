@@ -1,9 +1,9 @@
 ENT.Type			= "anim"
 ENT.Base			= "wtib_growthaccelerator_medium"
 ENT.PrintName		= "Large Growth Accelerator"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
-ENT.Purpose			= "Accelerates the growth of Tiberium Crystals in the area that the accelerator is active"
+ENT.Purpose			= "Accelerates the growth of Tiberium Crystals in the area that the accelerator is active, this accelerator has a range up to 1024 units"
 ENT.Instructions	= "Place the accelerator in the area that requires acceleration, supply it with energy and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true

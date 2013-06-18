@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "wtib_energycell_medium"
 ENT.PrintName		= "Large Energy Cell"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "This module stores 9000 units of Energy until it can be used"
 ENT.Instructions	= "Link this storage unit to a network that requires additional Energy storage"

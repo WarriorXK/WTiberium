@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "wtib_tiberiumparent_base"
 ENT.PrintName		= "Tiberium Parent Green"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= ""
 ENT.Instructions	= ""

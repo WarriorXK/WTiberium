@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Dispenser Object"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= ""
 ENT.Instructions	= ""

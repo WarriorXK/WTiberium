@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "wtib_harvester_medium"
 ENT.PrintName		= "Large Harvester"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Harvests Tiberium Crystals using energy"
 ENT.Instructions	= "Link the harvester to an energy source, point it towards a Tiberium Crystals and activate it"

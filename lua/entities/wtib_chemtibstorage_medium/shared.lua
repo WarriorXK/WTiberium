@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Chemical Storage "
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "This module stores 3000 units of Tiberium Chemical gasses"
 ENT.Instructions	= "Link this storage unit to a network that requires additional Tiberium Chemicals storage"

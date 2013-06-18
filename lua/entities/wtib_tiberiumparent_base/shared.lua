@@ -1,6 +1,6 @@
 ENT.Type			= "anim"
 ENT.PrintName		= "Tiberium Parent Base"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= ""
 ENT.Instructions	= ""

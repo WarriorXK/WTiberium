@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Powerplant"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "To generate energy from Raw Tiberium, the Energy output can be boosted using Liquid Tiberium"
 ENT.Instructions	= "Link the Power Generator to the required resources and turn it on"

@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "wtib_liquidtibstorage_medium"
 ENT.PrintName		= "Large Liquid Tiberium Tank"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "This module stores 9000 units of Liquid Tiberium"
 ENT.Instructions	= "Link this storage unit to a network that requires additional Liquid Tiberium storage"

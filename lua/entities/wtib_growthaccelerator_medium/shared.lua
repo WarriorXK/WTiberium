@@ -1,9 +1,9 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Growth Accelerator"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
-ENT.Purpose			= "Accelerates the growth of Tiberium Crystals in the area that the accelerator is active"
+ENT.Purpose			= "Accelerates the growth of Tiberium Crystals in the area that the accelerator is active, this accelerator has a range up to 512 units"
 ENT.Instructions	= "Place the accelerator in the area that requires acceleration, supply it with energy and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true

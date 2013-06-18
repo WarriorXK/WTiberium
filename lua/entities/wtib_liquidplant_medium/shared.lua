@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Tiberium Liquefier"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Uses energy to convert Raw Tiberium into Liquid Tiberium"
 ENT.Instructions	= "Link the liquefier to the required resources and turn it on"

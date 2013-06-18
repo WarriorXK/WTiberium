@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "wtib_chemtibstorage_medium"
 ENT.PrintName		= "Small Chemical Storage "
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "This module stores 1000 units of Tiberium Chemicals until it can be used"
 ENT.Instructions	= "Link this storage unit to a network that requires additional Tiberium Chemicals storage"

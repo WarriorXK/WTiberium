@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Sonic field generator"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Uses a lot of energy to generate a sonic field that prevents Tiberium crystals from growing"
 ENT.Instructions	= "Link the SFG to an energy source and turn it on, use wiremod to change the range of the SFG"

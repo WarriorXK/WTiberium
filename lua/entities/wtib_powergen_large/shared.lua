@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "wtib_powergen_medium"
 ENT.PrintName		= "Large Powerplant"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "To generate energy from Tiberium Chemicals, the Energy output can be boosted using Liquid Tiberium"
 ENT.Instructions	= "Link the Power Generator to the required resources and turn it on"

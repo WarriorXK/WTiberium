@@ -1,6 +1,6 @@
 ENT.Type			= "anim"
 ENT.PrintName		= "Tiberium infection cure"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Cures infected players from a Tiberium infection and restores health"
 ENT.Instructions	= "Activate or touch the entity to use it"

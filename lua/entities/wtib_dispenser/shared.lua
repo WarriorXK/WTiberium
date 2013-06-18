@@ -1,9 +1,9 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Dispenser"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
-ENT.Purpose			= "To create SWeps and other small entities from the WTiberium addon pack"
+ENT.Purpose			= "Use this dispenser to create infantry weapons, ammunition and other miscellaneous goods"
 ENT.Instructions	= "Place the Dispenser and activate it, from the UI select the entity that needs to be created"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true

@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Tiberium Refinery"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Uses Energy to convert Raw Tiberium into Refined Tiberium"
 ENT.Instructions	= "Link the refinery to the required resources and turn it on"

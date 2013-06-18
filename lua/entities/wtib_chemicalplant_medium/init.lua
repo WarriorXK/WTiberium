@@ -41,16 +41,17 @@ function ENT:Think()
 	if self.NextChemical <= CurTime() and self:GetIsOnline() then
 	
 		local Supply = math.Clamp(RawTiberium,0,100)
+		local RDrain = Supply * 1.5
 		local EDrain = math.ceil(Supply/2)
 		
-		if Supply > 0 and RawTiberium >= Supply*1.5 and Energy >= EDrain then
+		if Supply > 0 and RawTiberium >= RDrain and Energy >= EDrain then
 		
 			WTib.ConsumeResource(self,"energy",EDrain)
-			WTib.ConsumeResource(self,"RawTiberium", Supply * 1.5)
+			WTib.ConsumeResource(self,"RawTiberium", RDrain)
 			WTib.SupplyResource(self,"ChemicalTiberium",Supply)
 			
 			Energy = Energy - EDrain
-			RawTiberium = RawTiberium - (Supply * 1.5)
+			RawTiberium = RawTiberium - RDrain
 			
 		else
 		

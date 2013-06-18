@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Warhead Factory"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "The warhead factory produces warheads to use with the missiles"
 ENT.Instructions	= "Place the warhead factory and link it up to all requires resources, then use the factory and create the warhead using the UI"

@@ -35,7 +35,7 @@ function ENT:Think()
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	local Target
 	
-	if self.dt.Online then
+	if self:GetIsOnline() then
 	
 		local Amount = math.ceil(self.Range/50)
 		
@@ -57,7 +57,9 @@ function ENT:Think()
 							if v.IsTiberiumParent then
 							
 								if self:GetPos():Distance(v:GetPos()) < Range then
+								
 									Target = v
+									
 								end
 								
 							end
@@ -86,17 +88,17 @@ function ENT:Think()
 			
 		else
 		
-			self.dt.Online = false
+			self:SetIsOnline(false)
 			
 		end
 	end
 	
-	WTib.TriggerOutput(self,"Online",self.dt.Online and 1 or 0)
+	WTib.TriggerOutput(self,"Online",self:GetIsOnline() and 1 or 0)
 	WTib.TriggerOutput(self,"Energy",Energy)
 	
 	self:TriggerOutputs(Target)
-	self.dt.HasTarget = self.dt.Online and WTib.IsValid(self.Target)
-	self.dt.Energy = Energy
+	self:SetHasTarget(self:GetIsOnline() and WTib.IsValid(self.Target))
+	self:SetEnergyAmount(Energy)
 	
 end
 
@@ -138,7 +140,7 @@ end
 function ENT:TriggerInput(name,val)
 
 	if name == "On" then
-		self.dt.Online = tobool(val)
+		self:SetIsOnline(tobool(val))
 	elseif name == "Range" then
 		self.Range = tostring(val)
 	elseif name == "ParentsOnly" then

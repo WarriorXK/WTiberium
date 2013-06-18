@@ -1,6 +1,6 @@
 ENT.Type			= "point"
 ENT.PrintName		= "Tiberium infection"
-ENT.Author			= "kevkev/Warrior xXx"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= ""
 ENT.Instructions	= ""
