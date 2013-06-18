@@ -3,16 +3,17 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium Powerplant"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= "To generate energy from Tiberium Chemicals, the Energy output can be boosted using Liquid Tiberium"
+ENT.Purpose			= "To generate energy from Raw Tiberium, the Energy output can be boosted using Liquid Tiberium"
 ENT.Instructions	= "Link the Power Generator to the required resources and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:NetworkVar("Int",0,"IsBoosting")
-	self:NetworkVar("Int",1,"ChemicalsAmount")
+	self:NetworkVar("Int",0,"RawTiberiumAmount")
+	self:NetworkVar("Int",1,"LiquidsAmount")
 	self:NetworkVar("Bool",0,"IsOnline")
+	self:NetworkVar("Bool",1,"IsBoosting")
 end
 
 WTib.Factory.AddObject({

@@ -49,7 +49,7 @@ function ENT:Think()
 
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	
-	if self.NextCheck <= CurTime() and self:GetOnline() then
+	if self.NextCheck <= CurTime() and self:GetIsOnline() then
 	
 		local TotalAdded = 0
 		local Ents = {}
@@ -101,7 +101,7 @@ function ENT:Think()
 
 	WTib.TriggerOutput(self,"Energy", Energy)
 	
-	self:SetEnergy(Energy)
+	self:SetEnergyAmount(Energy)
 	
 	self:NextThink(CurTime()+0.2)
 	return true
@@ -114,7 +114,7 @@ end
 
 function ENT:Use(ply)
 
-	if self:GetOnline() then
+	if self:GetIsOnline() then
 		self:TurnOff()
 	else
 		self:TurnOn()
@@ -126,11 +126,11 @@ function ENT:TurnOn()
 
 	if WTib.GetResourceAmount(self,"energy") <= 1 then return end
 	
-	if !self:GetOnline() then
+	if !self:GetIsOnline() then
 		self:EmitSound("apc_engine_start")
 	end
 	
-	self:SetOnline(true)
+	self:SetIsOnline(true)
 	WTib.TriggerOutput(self,"Online",1)
 	
 end
@@ -143,11 +143,11 @@ function ENT:TurnOff()
 
 	self:StopSound("apc_engine_start")
 	
-	if self:GetOnline() then
+	if self:GetIsOnline() then
 		self:EmitSound("apc_engine_stop")
 	end
 	
-	self:SetOnline(false)
+	self:SetIsOnline(false)
 	WTib.TriggerOutput(self,"Online",0)
 	
 end

@@ -3,7 +3,7 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Chemical Plant"
 ENT.Author			= "kevkev/Warrior xXx"
 ENT.Contact			= ""
-ENT.Purpose			= "Uses Energy to convert Refined Tiberium into Tiberium Chemicals"
+ENT.Purpose			= "Uses Energy to convert Raw Tiberium into a poisonous gas"
 ENT.Instructions	= "Link the Chemical Plant to the required resources and turn it on"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
@@ -11,7 +11,7 @@ ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"EnergyAmount")
-	self:NetworkVar("Int",1,"RefinedTiberiumAmount")
+	self:NetworkVar("Int",1,"RawTiberiumAmount")
 	self:NetworkVar("Bool",0,"IsOnline")
 end
 

@@ -20,11 +20,11 @@ function ENT:Initialize()
 	end
 	
 	self.Inputs = WTib.CreateInputs(self,{"On"})
-	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","ChemicalTiberium","RefinedTiberium"})
+	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","ChemicalTiberium","RawTiberium"})
 	
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"ChemicalTiberium",0)
-	WTib.AddResource(self,"RefinedTiberium",0)
+	WTib.AddResource(self,"RawTiberium",0)
 	WTib.AddResource(self,"energy",0)
 	
 end
@@ -36,21 +36,21 @@ end
 function ENT:Think()
 
 	local Energy = WTib.GetResourceAmount(self,"energy")
-	local RefinedTiberium = WTib.GetResourceAmount(self,"RefinedTiberium")
+	local RawTiberium = WTib.GetResourceAmount(self,"RawTiberium")
 	
 	if self.NextChemical <= CurTime() and self:GetIsOnline() then
 	
-		local Supply = math.Clamp(RefinedTiberium,0,100)
+		local Supply = math.Clamp(RawTiberium,0,100)
 		local EDrain = math.ceil(Supply/2)
 		
-		if Supply > 0 and RefinedTiberium >= Supply*1.5 and Energy >= EDrain then
+		if Supply > 0 and RawTiberium >= Supply*1.5 and Energy >= EDrain then
 		
 			WTib.ConsumeResource(self,"energy",EDrain)
-			WTib.ConsumeResource(self,"RefinedTiberium", Supply * 1.5)
+			WTib.ConsumeResource(self,"RawTiberium", Supply * 1.5)
 			WTib.SupplyResource(self,"ChemicalTiberium",Supply)
 			
 			Energy = Energy - EDrain
-			RefinedTiberium = RefinedTiberium - (Supply * 1.5)
+			RawTiberium = RawTiberium - (Supply * 1.5)
 			
 		else
 		
@@ -64,10 +64,10 @@ function ENT:Think()
 	
 	WTib.TriggerOutput(self,"Energy",Energy)
 	WTib.TriggerOutput(self,"ChemicalTiberium",WTib.GetResourceAmount(self,"ChemicalTiberium"))
-	WTib.TriggerOutput(self,"RefinedTiberium",RefinedTiberium)
+	WTib.TriggerOutput(self,"RawTiberium",RawTiberium)
 	
 	self:SetEnergyAmount(Energy)
-	self:SetRefinedTiberiumAmount(RefinedTiberium)
+	self:SetRawTiberiumAmount(RawTiberium)
 	
 	self:NextThink(CurTime()+0.5)
 	return true

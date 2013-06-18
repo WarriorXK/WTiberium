@@ -1,0 +1,24 @@
+The Resources :
+	Raw Tiberium :
+		Posions living entities on touch and in a small radius due to radiation, this element is just as explosive as a Tiberium crystal
+		This element is harvested from crystals
+		This element is used to create all resources
+	
+	Refined Tiberium :
+		An easy to use building material that when treated right becomes extremely resistant to any damage
+		This element is made from Raw Tiberium
+		This element is used to create everything
+	
+	Tiberium Chemicals :
+		A gassious element that posions any living creature, even Tiberium based lifeforms, when this gass settles to the ground it will attempt to reform as a Tiberium crystal
+		This gass is obtained from Raw Tiberium
+		This gass can be used inside a gass turbine to generate energy or inside a warhead to seed areas on the map or to potion an area
+	
+	Liquid Tiberium :
+		An extremely volatile element which can be used in high efficiency reactors for extreme energy outputs or be used for explosive weaponary
+		This element is made from Raw Tiberium
+		This element can be used in liquid reactors to generate energy or inside a warhead to generate an high explosive warhead
+	
+	Tiberium Plasma :
+		Through carefull heating of the Tiberium Chemicals a plasma is made of extreme heat, this plasma can be used in multiple ways
+		This element is obtained from Tiberium Chemicals

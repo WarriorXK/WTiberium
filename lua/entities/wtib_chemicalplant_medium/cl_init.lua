@@ -10,6 +10,6 @@ function ENT:WTib_GetTooltip()
 	if self:GetIsOnline() then
 		on = "On"
 	end
-	return self.PrintName.." ("..on..")\nEnergy : "..math.Round(tostring(self:GetEnergyAmount())).."\nRefined Tiberium : "..math.Round(tostring(self:GetRefinedTiberiumAmount()))
+	return self.PrintName.." ("..on..")\nEnergy : "..math.Round(tostring(self:GetEnergyAmount())).."\nRaw Tiberium : "..math.Round(tostring(self:GetRawTiberiumAmount()))
 end
 language.Add(WTib.GetClass(ENT), ENT.PrintName)

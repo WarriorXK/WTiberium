@@ -7,7 +7,9 @@ WTib.ApplyDupeFunctions(ENT)
 util.PrecacheSound("apc_engine_start")
 util.PrecacheSound("apc_engine_stop")
 
-ENT.ChemRequired = 50
+ENT.RawTiberiumRequired = 50
+ENT.LiquidBoostRequired = 10
+ENT.EnergyBoostSupply = 400
 ENT.EnergySupply = 300
 
 ENT.NextSupply = 0
@@ -26,10 +28,10 @@ function ENT:Initialize()
 	end
 	
 	self.Inputs = WTib.CreateInputs(self,{"On","Boost"})
-	self.Outputs = WTib.CreateOutputs(self,{"Online","Chemicals","Boosting"})
+	self.Outputs = WTib.CreateOutputs(self,{"Online","Raw Tiberium","Liquid Tiberium","Boosting"})
 	
 	WTib.RegisterEnt(self,"Generator")
-	WTib.AddResource(self,"ChemicalTiberium",0)
+	WTib.AddResource(self,"RawTiberium",0)
 	WTib.AddResource(self,"LiquidTiberium",0)
 	WTib.AddResource(self,"energy",0)
 	
@@ -41,21 +43,24 @@ end
 
 function ENT:Think()
 
-	local Chemicals = WTib.GetResourceAmount(self,"ChemicalTiberium")
+	local RawTiberium = WTib.GetResourceAmount(self,"RawTiberium")
+	local Liquids = WTib.GetResourceAmount(self,"LiquidTiberium")
 	
 	if self:GetIsOnline() and self.NextSupply <= CurTime() then
 	
-		if Chemicals >= self.ChemRequired then
+		if RawTiberium >= self.RawTiberiumRequired then
 		
-			WTib.ConsumeResource(self,"ChemicalTiberium", self.ChemRequired)
+			WTib.ConsumeResource(self,"ChemicalTiberium", self.RawTiberiumRequired)
 			WTib.SupplyResource(self,"energy", self.EnergySupply)
 			
-			Chemicals = Chemicals - self.ChemRequired
+			RawTiberium = RawTiberium - self.RawTiberiumRequired
 			
-			if self:GetIsBoosting() and WTib.GetResourceAmount(self,"LiquidTiberium") >= 10 then
+			if self:GetIsBoosting() and Liquids >= 10 then
 			
-				WTib.SupplyResource(self, "energy", self.EnergySupply * 1.4)
-				WTib.ConsumeResource(self,"LiquidTiberium", 10)
+				WTib.SupplyResource(self, "energy", self.EnergyBoostSupply)
+				WTib.ConsumeResource(self,"LiquidTiberium", self.LiquidBoostRequired)
+				
+				Liquids = Liquids - self.LiquidBoostRequired
 				
 			end
 			
@@ -69,10 +74,12 @@ function ENT:Think()
 		
 	end
 	
-	WTib.TriggerOutput(self,"Chemicals", Chemicals)
+	WTib.TriggerOutput(self,"Raw Tiberium", RawTiberium)
+	WTib.TriggerOutput(self,"Liquid Tiberium", Liquids)
 	WTib.TriggerOutput(self,"Boosting", self:GetIsBoosting() and 1 or 0)
 	
 	self:SetChemicalsAmount(Chemicals)
+	self:SetLiquidsAmount(Liquids)
 	
 end
 
