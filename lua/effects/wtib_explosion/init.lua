@@ -15,7 +15,7 @@ function EFFECT:Init(d)
 	
 		local part
 		if self.Emitter then
-			part = self.Emitter:Add("particle/SmokeStack.vtf", Pos + Vector(math.Rand(-15,15), math.Rand(-15, 15), math.Rand(-15, 15)))
+			part = self.Emitter:Add("particle/smokestack.vtf", Pos + Vector(math.Rand(-15,15), math.Rand(-15, 15), math.Rand(-15, 15)))
 		end
 		
 		if part then

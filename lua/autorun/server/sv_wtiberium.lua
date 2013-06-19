@@ -5,7 +5,7 @@ WTib.Config						= {}
 WTib.ConfigMessages				= {}
 WTib.ConCommandsIgnoredPlayers	= {}
 
-WTib.Config.ResourceFile		= "WTib/resources.txt"
+WTib.Config.ResourceFile		= "wtib/resources.txt"
 WTib.Config.ForceResources		= false
 WTib.Config.InfectionChance		= 2
 WTib.Config.MaximumFieldSize	= 70

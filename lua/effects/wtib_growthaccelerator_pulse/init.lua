@@ -20,7 +20,7 @@ function EFFECT:Init(data)
 		
 			if self.Emitter then
 			
-				part = self.Emitter:Add("particle/Particle_Glow_03.vtf", StartPos)
+				part = self.Emitter:Add("particle/particle_glow_03.vtf", StartPos)
 				
 			end
 			
