@@ -29,6 +29,12 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	
+	self:CommonInit()
+	
+end
+
+function ENT:CommonInit()
+
 	self.Inputs = WTib.CreateInputs(self,{"On","SetRange"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Range","MaxRange","Energy"})
 	WTib.TriggerOutput(self,"MaxRange",self.MaxRange)
@@ -38,7 +44,7 @@ function ENT:Initialize()
 	
 	self:SetRange(self.MaxRange)
 	WTib.TriggerOutput(self,"Range", self.MaxRange)
-	
+
 end
 
 function ENT:SpawnFunction(p,t)

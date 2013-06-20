@@ -11,7 +11,7 @@ ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"RawTiberiumAmount")
-	self:NetworkVar("Int",1,"LiquidsAmount")
+	self:NetworkVar("Int",1,"LiquidTiberiumAmount")
 	self:NetworkVar("Bool",0,"IsOnline")
 	self:NetworkVar("Bool",1,"IsBoosting")
 end

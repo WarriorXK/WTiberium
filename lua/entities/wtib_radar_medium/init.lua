@@ -18,12 +18,18 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	
+	self:CommonInit()
+	
+end
+
+function ENT:CommonInit()
+
 	self.Inputs = WTib.CreateInputs(self,{"On","Range","ParentOnly"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","Found","GlobalX","GlobalY","GlobalZ","LocalX","LocalY","LocalZ"})
 	
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"energy",0)
-	
+
 end
 
 function ENT:SpawnFunction(p,t)

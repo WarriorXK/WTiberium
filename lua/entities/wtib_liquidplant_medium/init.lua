@@ -38,7 +38,7 @@ function ENT:Think()
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	local RawTiberium = WTib.GetResourceAmount(self,"RawTiberium")
 	
-	if self.NextLiquid <= CurTime() and self:GetOnline() then
+	if self.NextLiquid <= CurTime() and self:GetIsOnline() then
 	
 		local Drain = math.Clamp(RawTiberium,0,150)
 		local EDrain = math.ceil(Drain*3)
@@ -66,8 +66,8 @@ function ENT:Think()
 	WTib.TriggerOutput(self,"LiquidTiberium", WTib.GetResourceAmount(self,"LiquidTiberium"))
 	WTib.TriggerOutput(self,"RawTiberium", RawTiberium)
 	
-	self:SetEnergy(Energy)
-	self:SetRawTiberium(RawTiberium)
+	self:SetEnergyAmount(Energy)
+	self:SetRawTiberiumAmount(RawTiberium)
 	
 end
 
@@ -76,22 +76,28 @@ function ENT:OnRestore()
 end
 
 function ENT:Use(ply)
-	if self:GetOnline() then
+
+	if self:GetIsOnline() then
+	
 		self:TurnOff()
+		
 	else
+	
 		self:TurnOn()
+		
 	end
+	
 end
 
 function ENT:TurnOn()
 
 	if WTib.GetResourceAmount(self,"energy") <= 1 then return end
 	
-	if !self:GetOnline() then
+	if !self:GetIsOnline() then
 		self:EmitSound("apc_engine_start")
 	end
 	
-	self:SetOnline(true)
+	self:SetIsOnline(true)
 	WTib.TriggerOutput(self,"Online",1)
 	
 end
@@ -104,11 +110,11 @@ function ENT:TurnOff()
 
 	self:StopSound("apc_engine_start")
 	
-	if self:GetOnline() then
+	if self:GetIsOnline() then
 		self:EmitSound("apc_engine_stop")
 	end
 	
-	self:SetOnline(false)
+	self:SetIsOnline(false)
 	WTib.TriggerOutput(self,"Online",0)
 	
 end

@@ -148,7 +148,7 @@ function ENT:TurnOff()
 		self:EmitSound( "apc_engine_stop" )
 	end
 	
-	self:SetOnline(false)
+	self:SetIsOnline(false)
 	WTib.TriggerOutput( self, "Online", 0 )
 	
 end

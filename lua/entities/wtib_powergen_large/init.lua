@@ -20,13 +20,7 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	
-	self.Inputs = WTib.CreateInputs(self,{"On","Boost"})
-	self.Outputs = WTib.CreateOutputs(self,{"Online","Chemicals","Boosting"})
-	
-	WTib.RegisterEnt(self,"Generator")
-	WTib.AddResource(self,"ChemicalTiberium",0)
-	WTib.AddResource(self,"LiquidTiberium",0)
-	WTib.AddResource(self,"energy",0)
+	self:CommonInit()
 	
 end
 

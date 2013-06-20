@@ -15,21 +15,20 @@ ENT.EffectOrigin = Vector(0,0,65)
 ENT.Scale = 3
 
 function ENT:Initialize()
+
 	self:SetModel("models/tiberium/acc_l.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
-	self.Inputs = WTib.CreateInputs(self,{"On","SetRange"})
-	self.Outputs = WTib.CreateOutputs(self,{"Online","Range","MaxRange","Energy"})
-	WTib.RegisterEnt(self,"Generator")
-	WTib.AddResource(self,"energy",0)
-	self:SetRange(self.MaxRange)
-	WTib.TriggerOutput(self,"MaxRange",self.MaxRange)
+	
+	self:CommonInit()
+	
 end
 
 function ENT:SpawnFunction(p,t)

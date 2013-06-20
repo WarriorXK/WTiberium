@@ -26,13 +26,20 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	
+	self:CommonInit()
+	
+end
+
+function ENT:CommonInit()
+
 	self.Inputs = WTib.CreateInputs(self,{"On", "HarvestParents"})
-	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","RawTiberium"})
+	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","RawTiberium","LiquidTiberium"})
 	
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"RawTiberium",0)
+	WTib.AddResource(self,"LiquidTiberium",0)
 	WTib.AddResource(self,"energy",0)
-	
+
 end
 
 function ENT:SpawnFunction(p,t)
@@ -96,6 +103,7 @@ function ENT:Think()
 	
 	WTib.TriggerOutput(self,"Energy",Energy)
 	WTib.TriggerOutput(self,"RawTiberium", WTib.GetResourceAmount(self,"RawTiberium"))
+	WTib.TriggerOutput(self,"LiquidTiberium", WTib.GetResourceAmount(self,"LiquidTiberium"))
 	
 	self:SetEnergyAmount(Energy)
 	

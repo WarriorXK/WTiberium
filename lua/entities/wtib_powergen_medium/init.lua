@@ -27,6 +27,12 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 	
+	self:CommonInit()
+	
+end
+
+function ENT:CommonInit()
+
 	self.Inputs = WTib.CreateInputs(self,{"On","Boost"})
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Raw Tiberium","Liquid Tiberium","Boosting"})
 	
@@ -34,7 +40,7 @@ function ENT:Initialize()
 	WTib.AddResource(self,"RawTiberium",0)
 	WTib.AddResource(self,"LiquidTiberium",0)
 	WTib.AddResource(self,"energy",0)
-	
+
 end
 
 function ENT:SpawnFunction(p,t)
@@ -81,7 +87,7 @@ function ENT:Think()
 	WTib.TriggerOutput(self,"Boosting", self:GetIsBoosting() and 1 or 0)
 	
 	self:SetRawTiberiumAmount(RawTiberium)
-	self:SetLiquidsAmount(Liquids)
+	self:SetLiquidTiberiumAmount(Liquids)
 	
 end
 

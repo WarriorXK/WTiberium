@@ -7,18 +7,19 @@ WTib.ApplyDupeFunctions(ENT)
 ENT.Range = 5000
 
 function ENT:Initialize()
+
 	self:SetModel("models/tiberium/small_tiberium_radar.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
-	self.Inputs = WTib.CreateInputs(self,{"On","Range","ParentOnly"})
-	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy","Found","GlobalX","GlobalY","GlobalZ","LocalX","LocalY","LocalZ"})
-	WTib.RegisterEnt(self,"Generator")
-	WTib.AddResource(self,"energy",0)
+	
+	self:CommonInit()
+	
 end
 
 function ENT:SpawnFunction(p,t)
