@@ -24,7 +24,7 @@ end
 
 function ENT:Think()
 	self:SetRefinedTiberiumAmount(WTib.GetResourceAmount(self,"RefinedTiberium"))
-	WTib.TriggerOutput(self,"RefinedTiberium",self:GetRefinedTiberium())
+	WTib.TriggerOutput(self,"RefinedTiberium",self:GetRefinedTiberiumAmount())
 	WTib.TriggerOutput(self,"MaxRawTiberium",WTib.GetNetworkCapacity(self,"RefinedTiberium"))
 end
 

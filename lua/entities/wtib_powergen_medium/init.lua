@@ -80,7 +80,7 @@ function ENT:Think()
 	WTib.TriggerOutput(self,"Liquid Tiberium", Liquids)
 	WTib.TriggerOutput(self,"Boosting", self:GetIsBoosting() and 1 or 0)
 	
-	self:SetChemicalsAmount(Chemicals)
+	self:SetRawTiberiumAmount(RawTiberium)
 	self:SetLiquidsAmount(Liquids)
 	
 end
