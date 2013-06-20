@@ -23,7 +23,7 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
-	self:SetEnergy(WTib.GetResourceAmount(self,"energy"))
+	self:SetEnergyAmount(WTib.GetResourceAmount(self,"energy"))
 	WTib.TriggerOutput(self,"Energy",self:GetEnergyAmount())
 	WTib.TriggerOutput(self,"MaxEnergy",WTib.GetNetworkCapacity(self,"Energy"))
 end
