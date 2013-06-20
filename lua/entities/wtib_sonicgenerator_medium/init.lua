@@ -9,7 +9,7 @@ ENT.MaxRange = 1000
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/sonic_field_emitter.mdl")
+	self:SetModel("models/tiberium/sonic_field_emitter.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

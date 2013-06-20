@@ -11,7 +11,7 @@ ENT.Category		= "Tiberium"
 WTib.Dispenser.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/tib_antidote.mdl",
+	Model = "models/tiberium/tib_antidote.mdl",
 	Angle = Angle(0,0,0),
 	PercentDelay = 0.02,
 	Information =	{

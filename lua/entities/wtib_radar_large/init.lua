@@ -7,7 +7,7 @@ WTib.ApplyDupeFunctions(ENT)
 ENT.Range = 20000
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/large_tiberium_radar.mdl")
+	self:SetModel("models/tiberium/large_tiberium_radar.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

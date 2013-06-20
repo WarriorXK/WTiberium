@@ -13,7 +13,7 @@ ENT.WTib_IsMissile	= true
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/tiberium_missile.mdl",
+	Model = "models/tiberium/tiberium_missile.mdl",
 	PercentDelay = 0.02,
 	Information =	{
 						ENT.PrintName,

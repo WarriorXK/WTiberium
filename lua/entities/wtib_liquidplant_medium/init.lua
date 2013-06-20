@@ -8,7 +8,7 @@ ENT.NextLiquid = 0
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/chemical_plant.mdl")
+	self:SetModel("models/tiberium/chemical_plant.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

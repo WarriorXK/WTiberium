@@ -26,8 +26,8 @@ ENT.MaxTiberiumAmount	= 2000
 ENT.TiberiumColor		= Color(0,255,0,0)
 ENT.ClassToSpawn		= "wtib_tiberium_green"
 ENT.Models =	{
-					"models/Tiberium/tiberium_crystal1.mdl",
-					"models/Tiberium/tiberium_crystal3.mdl"
+					"models/tiberium/tiberium_crystal1.mdl",
+					"models/tiberium/tiberium_crystal3.mdl"
 				}
 
 ENT.Growth_Addition	= 30

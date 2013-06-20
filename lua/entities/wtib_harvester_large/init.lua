@@ -12,7 +12,7 @@ ENT.Range = 400
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/large_harvester.mdl")
+	self:SetModel("models/tiberium/large_harvester.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

@@ -10,7 +10,7 @@ function ENT:SetRandomModel()
 
 	local Modl = ""
 	if type(self.Models) == "table" then Modl = table.Random(self.Models) end
-	if type(Modl) != "string" or !util.IsValidModel(Modl) then Modl = "models/Tiberium/tiberium_parent.mdl" end // To make sure the selected model path from the table is valid
+	if type(Modl) != "string" or !util.IsValidModel(Modl) then Modl = "models/tiberium/tiberium_parent.mdl" end // To make sure the selected model path from the table is valid
 	
 	self:SetModel(Modl)
 	

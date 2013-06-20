@@ -16,7 +16,7 @@ ENT.Scale = 2
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/acc_s.mdl")
+	self:SetModel("models/tiberium/acc_s.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

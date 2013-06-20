@@ -10,13 +10,13 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:NetworkVar("Int",0,"RawTiberium")
+	self:NetworkVar("Int",0,"RawTiberiumAmount")
 end
 
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/small_tiberium_storage.mdl",
+	Model = "models/tiberium/small_tiberium_storage.mdl",
 	PercentDelay = 0.02,
 	Information =	{
 						ENT.PrintName,

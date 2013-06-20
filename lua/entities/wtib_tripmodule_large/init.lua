@@ -9,7 +9,7 @@ ENT.MaxMul = 13
 ENT.MinMul = 7
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/large_trip.mdl")
+	self:SetModel("models/tiberium/large_trip.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

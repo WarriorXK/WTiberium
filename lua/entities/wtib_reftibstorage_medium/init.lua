@@ -5,7 +5,7 @@ include('shared.lua')
 WTib.ApplyDupeFunctions(ENT)
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/medium_tiberium_storage.mdl")
+	self:SetModel("models/tiberium/medium_tiberium_storage.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
@@ -23,8 +23,8 @@ function ENT:SpawnFunction(p,t)
 end
 
 function ENT:Think()
-	self.dt.RefinedTiberium = WTib.GetResourceAmount(self,"RefinedTiberium")
-	WTib.TriggerOutput(self,"RefinedTiberium",self.dt.RefinedTiberium)
+	self:SetRefinedTiberiumAmount(WTib.GetResourceAmount(self,"RefinedTiberium"))
+	WTib.TriggerOutput(self,"RefinedTiberium",self:GetRefinedTiberium())
 	WTib.TriggerOutput(self,"MaxRawTiberium",WTib.GetNetworkCapacity(self,"RefinedTiberium"))
 end
 

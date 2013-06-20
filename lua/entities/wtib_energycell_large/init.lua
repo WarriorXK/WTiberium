@@ -5,7 +5,7 @@ include('shared.lua')
 WTib.ApplyDupeFunctions(ENT)
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/large_energy_cell.mdl")
+	self:SetModel("models/tiberium/large_energy_cell.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

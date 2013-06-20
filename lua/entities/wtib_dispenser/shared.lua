@@ -19,7 +19,7 @@ end
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/dispenser.mdl",
+	Model = "models/tiberium/dispenser.mdl",
 	PercentDelay = 0.08,
 	Information =	{
 						ENT.PrintName,

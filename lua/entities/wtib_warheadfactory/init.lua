@@ -36,7 +36,7 @@ local ErrorSoundDelay = SoundDuration(ErrorSound)
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/tiberium_warhead_factory.mdl")
+	self:SetModel("models/tiberium/tiberium_warhead_factory.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

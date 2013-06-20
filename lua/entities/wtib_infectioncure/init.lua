@@ -6,7 +6,7 @@ WTib.ApplyDupeFunctions(ENT)
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/tib_antidote.mdl")
+	self:SetModel("models/tiberium/tib_antidote.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

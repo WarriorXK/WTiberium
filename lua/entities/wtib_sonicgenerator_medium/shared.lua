@@ -17,7 +17,7 @@ end
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
-	Model = "models/Tiberium/sonic_field_emitter.mdl",
+	Model = "models/tiberium/sonic_field_emitter.mdl",
 	PercentDelay = 0.15,
 	Information =	{
 						ENT.PrintName,

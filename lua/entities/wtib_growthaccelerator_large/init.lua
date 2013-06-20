@@ -15,7 +15,7 @@ ENT.EffectOrigin = Vector(0,0,65)
 ENT.Scale = 3
 
 function ENT:Initialize()
-	self:SetModel("models/Tiberium/acc_l.mdl")
+	self:SetModel("models/tiberium/acc_l.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

@@ -10,7 +10,7 @@ ENT.MinMul = 5
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/medium_trip.mdl")
+	self:SetModel("models/tiberium/medium_trip.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

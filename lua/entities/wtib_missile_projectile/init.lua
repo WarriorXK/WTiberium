@@ -16,7 +16,7 @@ ENT.Warhead.DOT_DPS = 12.5
 
 function ENT:Initialize()
 
-	self:SetModel("models/Tiberium/tiberium_missile.mdl")
+	self:SetModel("models/tiberium/tiberium_missile.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)

@@ -6,11 +6,6 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	return self.PrintName.."\nRefined Tiberium : "..math.Round(tostring(self.dt.RefinedTiberium))
+	return self.PrintName.."\nRefined Tiberium : "..math.Round(tostring(self:GetRefinedTiberiumAmount()))
 end
-
-function ENT:Think()
-	self:NextThink(CurTime()+1)
-	return true
-end
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)
