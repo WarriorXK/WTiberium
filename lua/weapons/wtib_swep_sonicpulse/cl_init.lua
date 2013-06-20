@@ -10,7 +10,7 @@ SWEP.CSMuzzleFlashes	= true
 function SWEP:CustomAmmoDisplay()
 	self.AmmoDisplay = self.AmmoDisplay or {}
 	self.AmmoDisplay.Draw			= true
-	self.AmmoDisplay.PrimaryClip	= self.dt.Heat
+	self.AmmoDisplay.PrimaryClip	= self:GetHeat()
 	self.AmmoDisplay.PrimaryAmmo	= -1
 	self.AmmoDisplay.SecondaryClip	= -1
 	self.AmmoDisplay.SecondaryAmmo	= -1

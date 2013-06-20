@@ -42,9 +42,9 @@ function SWEP:SetupDataTables()
 end
 
 function SWEP:Initialize()
-	self.dt.LastShootTime = 0
-	self.dt.Shooting = false
-	self.dt.Heat = 0
+	self:SetLastShootTime(0)
+	self:SetShooting(false)
+	self:SetHeat(0)
 end
 
 function SWEP:Reload() end
@@ -57,7 +57,7 @@ function SWEP:Think()
 	
 	if self.Owner:KeyPressed(IN_ATTACK) then
 	
-		self.dt.Shooting = true
+		self:SetShooting(true)
 		local ed = EffectData()
 			ed:SetEntity(self)
 		util.Effect("wtib_sonicswep_pulse",ed)
@@ -73,13 +73,13 @@ function SWEP:Think()
 		
 	elseif self.Owner:KeyReleased(IN_ATTACK) then
 	
-		self.dt.Shooting = false
+		self:SetShooting(false)
 		if CLIENT then
 		
 			self:StopSound(self.ShootingSound)
 			self:EmitSound(self.EndSound)
 
-			if self.dt.Heat > 0 then
+			if self:GetHeat() > 0 then
 			
 				local ed = EffectData()
 					ed:SetEntity(self)
@@ -91,23 +91,23 @@ function SWEP:Think()
 		
 	else
 	
-		if self.dt.Heat > 0 then
-			self.dt.Heat = math.max(self.dt.Heat - 0.06, 0)
+		if self:GetHeat() > 0 then
+			self:SetHeat(math.max(self:GetHeat() - 0.06, 0))
 		end
 		
 	end
-	if self.dt.Heat >= 50 and self.LastWarning <= CurTime() then
+	if self:GetHeat() >= 50 and self.LastWarning <= CurTime() then
 		self:EmitSound(self.WarningSound)
 		self.LastWarning = CurTime() + 4
 	end
 	
-	if SERVER and self.dt.Heat >= 75 and self.NextDamage <= CurTime() then
+	if SERVER and self:GetHeat() >= 75 and self.NextDamage <= CurTime() then
 	
 		local DmgInfo = DamageInfo()
 			DmgInfo:SetDamageType( DMG_BURN )
 			DmgInfo:SetInflictor( self )
 			DmgInfo:SetAttacker( self.Owner )
-			DmgInfo:SetDamage( ( self.dt.Heat - 50 ) / 4 )
+			DmgInfo:SetDamage( ( self:GetHeat() - 50 ) / 4 )
 		self.Owner:TakeDamageInfo( DmgInfo )
 		
 		self.NextDamage = CurTime() + 0.5
@@ -127,7 +127,7 @@ function SWEP:Shoot()
 		end
 		self.NextFire = CurTime()+0.2
 	end
-	self.dt.Heat = self.dt.Heat+0.1
+	self:SetHeat(self:GetHeat()+0.1)
 end
 
 WTib.Dispenser.AddObject({

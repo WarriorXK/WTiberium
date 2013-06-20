@@ -61,7 +61,7 @@ function SWEP:PrimaryAttack()
 		if self.Owner:IsNPC() then return end
 		self.Owner:ViewPunch(Angle(math.Rand(-0.2,-0.1)*self.Primary.Recoil,math.Rand(-0.1,0.1)*self.Primary.Recoil,0))
 		if (game.SinglePlayer() and SERVER) or CLIENT then
-			self.dt.LastShootTime = CurTime()
+			self:SetLastShootTime(CurTime())
 		end
 	end
 end
@@ -135,11 +135,11 @@ function SWEP:GetViewModelPosition(pos,ang)
 end
 
 function SWEP:SetIronsights(b)
-	self.dt.Ironsights = b
+	self:SetIronsights(b)
 end
 
 function SWEP:GetIronsights()
-	return self.dt.Ironsights or false
+	return self:GetIronsights() or false
 end
 
 SWEP.NextSecondaryAttack = 0
@@ -156,7 +156,7 @@ function SWEP:DrawHUD()
 	local x = ScrW()/2.0
 	local y = ScrH()/2.0
 	local scale = 10*self.Primary.Cone
-	scale = scale*(2-math.Clamp((CurTime()-self.dt.LastShootTime)*5,0.0,1.0))
+	scale = scale*(2-math.Clamp((CurTime()-self:GetLastShootTime())*5,0.0,1.0))
 	surface.SetDrawColor(0,255,0,255)
 	local gap = 40*scale
 	local length = gap+20*scale
