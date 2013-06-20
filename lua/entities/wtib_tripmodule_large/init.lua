@@ -9,18 +9,22 @@ ENT.MaxMul = 13
 ENT.MinMul = 7
 
 function ENT:Initialize()
+
 	self:SetModel("models/tiberium/large_trip.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
+	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+	
 	self.Outputs = WTib.CreateOutputs(self,{"Online","Energy"})
 	WTib.RegisterEnt(self,"Generator")
 	WTib.AddResource(self,"energy",0)
+	
 end
 
 function ENT:SpawnFunction(p,t)

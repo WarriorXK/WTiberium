@@ -55,11 +55,13 @@ function ENT:Think()
 	
 	if EnergyToAdd > 0 then WTib.SupplyResource(self,"energy",EnergyToAdd*math.Rand(self.MinMul,self.MaxMul)) end
 	
-	self.dt.Online = Count >= 1
-	self.dt.Energy = WTib.GetResourceAmount(self,"energy")
+	local Energy = WTib.GetResourceAmount(self,"energy")
 	
-	WTib.TriggerOutput(self,"Online", self.dt.Online and 1 or 0)
-	WTib.TriggerOutput(self,"Energy", self.dt.Energy)
+	self:SetIsOnline(Count >= 1)
+	self:SetEnergyAmount(Energy)
+	
+	WTib.TriggerOutput(self,"Online", self:GetIsOnline() and 1 or 0)
+	WTib.TriggerOutput(self,"Energy", Energy)
 	
 	self:NextThink(CurTime()+1)
 	return true

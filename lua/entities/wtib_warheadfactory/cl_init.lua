@@ -7,7 +7,7 @@ function ENT:Draw()
 end
 
 function ENT:WTib_GetTooltip()
-	return self.PrintName.."\nEnergy : "..self.dt.Energy.."\nRaw : "..self.dt.Raw.."\nRefined : "..self.dt.Refined.."\nChemicals : "..self.dt.Chemicals.."\nLiquid : "..self.dt.Liquid
+	return self.PrintName.."\nEnergy : "..self:GetEnergyAmount().."\nRaw : "..self:GetRawTiberiumAmount().."\nRefined : "..self:GetRefinedTiberiumAmount().."\nChemicals : "..self:GetChemicalsAmount().."\nLiquid : "..self:GetLiquidAmount()
 end
 
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)

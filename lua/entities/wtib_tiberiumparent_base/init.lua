@@ -121,12 +121,12 @@ function ENT:TakeSonicDamage(am) // Do something fancy?
 end
 
 function ENT:SetField(num)
-	self.dt.TiberiumField = num
+	self:SetTiberiumFieldID(num)
 end
 
 function ENT:SetTiberiumAmount(am)
 
-	self.dt.TiberiumAmount = math.Clamp(am, 1, self:GetMaxTiberiumAmount())
+	self:SetTiberiumAmount(math.Clamp(am, 1, self:GetMaxTiberiumAmount()))
 	
 	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
 	

@@ -15,7 +15,7 @@ function ENT:Draw()
 	self:DrawModel()
 	WTib.Render(self)
 	
-	if self.dt.Online then
+	if self:GetIsOnline() then
 	
 		local Normal = (LocalPlayer():GetPos()-self:GetPos()):GetNormalized()
 		render.SetMaterial(EffectMat)
@@ -27,10 +27,10 @@ end
 
 function ENT:WTib_GetTooltip()
 	local on = "Off"
-	if self.dt.Online then
+	if self:GetIsOnline() then
 		on = "On"
 	end
-	return self.PrintName.." ("..on..")\nRange : "..math.Round(tostring(self.dt.Range))
+	return self.PrintName.." ("..on..")\nRange : "..math.Round(tostring(self:GetRange()))
 end
 
 function ENT:Think()
@@ -49,4 +49,4 @@ function ENT:Think()
 	return true
 	
 end
-language.Add(WTib.GetClass(ENT),ENT.PrintName)
+language.Add(WTib.GetClass(ENT), ENT.PrintName)

@@ -26,7 +26,7 @@ function ENT:Initialize()
 	WTib.RegisterEnt( self, "Generator" )
 	WTib.AddResource( self, "energy", 0)
 	
-	self.dt.Range = self.MaxRange / 2
+	self:SetRange(self.MaxRange / 2)
 	
 end
 
@@ -38,9 +38,9 @@ function ENT:Think()
 
 	local Energy = WTib.GetResourceAmount(self,"energy")
 	
-	if self.NextDrain <= CurTime() and self.dt.Online then
+	if self.NextDrain <= CurTime() and self:GetIsOnline() then
 	
-		local EDrain = math.ceil( self.dt.Range * math.Rand(0.9, 1.1) )
+		local EDrain = math.ceil( self:GetRange() * math.Rand(0.9, 1.1) )
 		
 		if Energy >= EDrain then
 		
@@ -59,7 +59,7 @@ function ENT:Think()
 	end
 	
 	WTib.TriggerOutput( self, "Energy", Energy )
-	WTib.TriggerOutput( self, "Current Range", self.dt.Range )
+	WTib.TriggerOutput( self, "Current Range", self:GetRange() )
 	
 	self:NextThink(CurTime()+0.5)
 	return true
@@ -70,7 +70,7 @@ function ENT:PreventCrystalSpawn( pos, class )
 
 	local Energy = WTib.GetResourceAmount( self, "energy" )
 	
-	if self.dt.Online and Energy >= 20 then
+	if self:GetIsOnline() and Energy >= 20 then
 
 		local zap = ents.Create("point_tesla")
 		zap:SetKeyValue("targetname", "teslab")
@@ -111,7 +111,7 @@ end
 
 function ENT:Use(ply)
 
-	if self.dt.Online then
+	if self:GetIsOnline() then
 	
 		self:TurnOff()
 		
@@ -125,13 +125,13 @@ end
 
 function ENT:TurnOn()
 
-	if WTib.GetResourceAmount( self, "energy" ) <= math.ceil( self.dt.Range * 0.9 ) then return end
+	if WTib.GetResourceAmount( self, "energy" ) <= math.ceil( self:GetRange() * 0.9 ) then return end
 	
-	if !self.dt.Online then
+	if !self:GetIsOnline() then
 		self:EmitSound( "apc_engine_start" )
 	end
 	
-	self.dt.Online = true
+	self:SetIsOnline(true)
 	WTib.TriggerOutput( self, "Online", 1 )
 	
 end
@@ -144,11 +144,11 @@ function ENT:TurnOff()
 
 	self:StopSound( "apc_engine_start" )
 	
-	if self.dt.Online then
+	if self:GetIsOnline() then
 		self:EmitSound( "apc_engine_stop" )
 	end
 	
-	self.dt.Online = false
+	self:SetOnline(false)
 	WTib.TriggerOutput( self, "Online", 0 )
 	
 end
@@ -169,7 +169,7 @@ function ENT:TriggerInput(name,val)
 
 	elseif name == "Range" then
 	
-		self.dt.Range = math.Clamp(val, 100, self.MaxRange)
+		self:SetRange(math.Clamp(val, 100, self.MaxRange))
 		
 	end
 	
@@ -179,7 +179,7 @@ function WTib_SonicGenerator_TiberiumCanGrow(class, pos)
 	
 	for _,v in pairs(ents.FindByClass("wtib_sonicgenerator_*")) do
 	
-		if pos:Distance(v:GetPos()) <= v.dt.Range then
+		if pos:Distance(v:GetPos()) <= v.dt:GetRange() then
 			
 			if v:PreventCrystalSpawn(pos, class) then
 			

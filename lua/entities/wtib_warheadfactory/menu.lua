@@ -109,7 +109,7 @@ end)
 
 function WTib_WarheadFactory_AdjustLabel()
 
-	local Total = MainBox.RawSlider:GetValue() + MainBox.RefinedSlider:GetValue() + MainBox.ChemicalSlider:GetValue() + MainBox.LiquidSlider:GetValue()
+	local Total = math.Round(MainBox.RawSlider:GetValue()) + math.Round(MainBox.RefinedSlider:GetValue()) + math.Round(MainBox.ChemicalSlider:GetValue()) + math.Round(MainBox.LiquidSlider:GetValue())
 
 	if Total == 100 then
 	

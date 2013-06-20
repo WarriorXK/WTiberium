@@ -66,7 +66,7 @@ function ENT:InitTiberium()
 		
 		for i=2,100 do // Efficiency at its best
 			if (self:GetMaxTiberiumAmount()/i) == 250 then
-				self.dt.ColorDevider = i
+				self:SetColorDevider(i)
 			end
 		end
 
@@ -83,26 +83,14 @@ end
 function ENT:SetupDataTables()
 	self:NetworkVar("Int", 0, "TiberiumAmount")
 	self:NetworkVar("Int", 1, "ColorDevider")
-	self:NetworkVar("Int", 2, "TiberiumField")
+	self:NetworkVar("Int", 2, "TiberiumFieldID")
 	self:NetworkVar("Float", 0, "CrystalSize")
-end
-
-function ENT:GetTiberiumAmount()
-	return self.dt.TiberiumAmount
 end
 
 function ENT:GetMaxTiberiumAmount()
 	return self.MaxTiberiumAmount
 end
 
-function ENT:GetColorDevider()
-	return self.dt.ColorDevider
-end
-
-function ENT:GetCrystalSize()
-	return self.dt.CrystalSize
-end
-
 function ENT:GetField()
-	return self.dt.TiberiumField
+	return self:GetTiberiumFieldID()
 end

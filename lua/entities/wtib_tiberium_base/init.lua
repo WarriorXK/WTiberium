@@ -40,7 +40,7 @@ function ENT:CalcSize()
 
 	local LocalScale = (self:GetTiberiumAmount() / self:GetMaxTiberiumAmount())
 	local FieldScale = 1 // Todo: Scale by distance from center
-	self.dt.CrystalSize = (LocalScale * FieldScale)
+	self:SetCrystalSize(LocalScale * FieldScale)
 	
 end
 
@@ -223,14 +223,14 @@ function ENT:Die() // Todo : Add an effect?
 end
 
 function ENT:SetField(num)
-	self.dt.TiberiumField = num
+	self:SetTiberiumFieldID(num)
 end
 
 function ENT:SetTiberiumAmount(am)
 
 	if am <= 0 then self:Die() return end
 	
-	self.dt.TiberiumAmount = math.Clamp(am,1,self:GetMaxTiberiumAmount())
+	self:SetTiberiumAmount(math.Clamp(am,1,self:GetMaxTiberiumAmount()))
 	
 	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
 	

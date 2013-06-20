@@ -68,11 +68,11 @@ end
 
 function ENT:Think()
 
-	self.dt.Energy = WTib.GetResourceAmount(self, "energy")
-	self.dt.Raw = WTib.GetResourceAmount(self, "RawTiberium")
-	self.dt.Refined = WTib.GetResourceAmount(self, "RefinedTiberium")
-	self.dt.Chemicals = WTib.GetResourceAmount(self, "ChemicalTiberium")
-	self.dt.Liquid = WTib.GetResourceAmount(self, "LiquidTiberium")
+	self:SetEnergyAmount(WTib.GetResourceAmount(self, "energy"))
+	self:SetRawTiberiumAmount(WTib.GetResourceAmount(self, "RawTiberium"))
+	self:SetRefinedTiberiumAmount(WTib.GetResourceAmount(self, "RefinedTiberium"))
+	self:SetChemicalsAmount(WTib.GetResourceAmount(self, "ChemicalTiberium"))
+	self:SetLiquidAmount(WTib.GetResourceAmount(self, "LiquidTiberium"))
 	
 	local CBuild = 0
 	if self:CanBuild() then CBuild = 1 end
@@ -176,10 +176,10 @@ net.Receive( "wtib_warheadfactory_buildwarhead", function( len, ply )
 	
 	local ent = net.ReadEntity()
 	
-	local Raw = net.ReadFloat()
-	local Refined = net.ReadFloat()
-	local Chemicals = net.ReadFloat()
-	local Liquid = net.ReadFloat()
+	local Raw = math.Round(net.ReadFloat())
+	local Refined = math.Round(net.ReadFloat())
+	local Chemicals = math.Round(net.ReadFloat())
+	local Liquid = math.Round(net.ReadFloat())
 
 	if WTib.IsValid(ent) then
 		
