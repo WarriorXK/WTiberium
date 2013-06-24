@@ -194,11 +194,18 @@ end
 
 if SERVER then
 
-	function WTib.WDSDamagePrevention(ent,dmg)
+	function WTib.WDS2DamagePrevention(ent,dmg)
 		if ent.IsTiberium then
 			return false
 		end
 	end
-	hook.Add("WDS_EntityTakeDamage","WTib.WDSDamagePrevention",WTib.WDSDamagePrevention)
+	hook.Add("WDS_EntityTakeDamage","WTib.WDS2DamagePrevention",WTib.WDS2DamagePrevention)
 
+	function WTib.WDS2Init()
+	
+		table.insert(WDS2.ProtectedClasses,"wtib_tiberiuminfection")
+	
+	end
+	timer.Simple(1, WTib.WDS2Init)
+	
 end
