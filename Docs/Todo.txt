@@ -7,10 +7,11 @@ Medium :
 	Balance factory spawn time
 	Warhead system :
 		Make a warhead factory, works like this :
-			Raw Tiberium gives the warhead explosive damage // Explosive damage and range (Extends range on seeding effect)
-			Refined Tiberium gives the warhead more direct impact damage // Direct hit damage
-			Tiberium chemicals gives the warhead toxic chemicals that do DOT // Damage over time on hit
-			Tiberium liquids give the warhead a seeding effect // Tiberium seed, if rocket destroys a prop turn into tiberium
+			Raw Tiberium gives the warhead a bigger explosion radius and adds a small Tib radiation field
+			Refined Tiberium (Has to be at least 5%) makes the hull, more means more damage resistant
+			Tiberium Chemicals creates a chemical potionous cloud that does DOT
+			Liquid Tiberium adds a lot of explosion damage to the warhead and when above 30% it adds a shockwave
+			Tiberium Plasma (Either 0% or 50%) creates a melting point in front of the missile that destroys the first entity it comes in contact with and pierces it
 
 Minor
 	Check out this pack http://www.garrysmod.org/downloads/?a=view&id=12748
