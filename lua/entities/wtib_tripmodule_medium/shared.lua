@@ -1,7 +1,7 @@
 ENT.Type			= "anim"
 ENT.Base			= "base_entity"
 ENT.PrintName		= "Medium TRIP"
-ENT.Author			= "kevkev/WarriorXK"
+ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "The Tiberium Radiation Induction Panel (TRIP) converts the radiation that is emitted by Tiberium crystals into energy"
 ENT.Instructions	= "Point the TRIP towards Tiberium crystals and link it up to an energy storage module"

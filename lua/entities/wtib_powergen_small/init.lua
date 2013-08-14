@@ -4,7 +4,9 @@ include('shared.lua')
 
 WTib.ApplyDupeFunctions(ENT)
 
-ENT.ChemRequired = 25
+ENT.RawTiberiumRequired = 25
+ENT.LiquidBoostRequired = 5
+ENT.EnergyBoostSupply = 200
 ENT.EnergySupply = 150
 
 function ENT:Initialize()
