@@ -134,14 +134,6 @@ function SWEP:GetViewModelPosition(pos,ang)
 	return pos, ang
 end
 
-function SWEP:SetIronsights(b)
-	self:SetIronsights(b)
-end
-
-function SWEP:GetIronsights()
-	return self:GetIronsights() or false
-end
-
 SWEP.NextSecondaryAttack = 0
 
 function SWEP:SecondaryAttack()

@@ -203,7 +203,11 @@ if SERVER then
 
 	function WTib.WDS2Init()
 	
-		table.insert(WDS2.ProtectedClasses,"wtib_tiberiuminfection")
+		if type(WDS2) == "table" then
+	
+			table.insert(WDS2.ProtectedClasses,"wtib_tiberiuminfection")
+			
+		end
 	
 	end
 	timer.Simple(1, WTib.WDS2Init)
