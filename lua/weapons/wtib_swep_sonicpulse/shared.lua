@@ -50,6 +50,7 @@ end
 function SWEP:Reload() end
 function SWEP:PrimaryAttack() end
 function SWEP:SecondaryAttack() end
+function SWEP:GetIronsights() return false end
 
 function SWEP:Think()
 

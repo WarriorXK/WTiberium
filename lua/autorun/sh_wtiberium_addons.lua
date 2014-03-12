@@ -6,7 +6,8 @@ WTib = WTib or {}
 */
 
 function WTib.HasResourceAPI()
-	return type(RESOURCES) == "table"
+	//return type(RESOURCES) == "table" // Due to the uncertainty of the RAPI we disable the support
+	return false
 end
 
 function WTib.HasRD2()
