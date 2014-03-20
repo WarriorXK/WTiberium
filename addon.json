@@ -1,0 +1,13 @@
+{
+	"title"		:	"WTiberium",
+	"type"		:	"weapon",
+	"tags"		:	[ "fun", "roleplay" ],
+	"ignore"	:
+	[
+		"WorkshopData",
+		"WIP Models",
+		"fgd",
+		"Docs",
+		"*.svn*"
+	]
+}
