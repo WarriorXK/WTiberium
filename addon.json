@@ -4,10 +4,10 @@
 	"tags"		:	[ "fun", "roleplay" ],
 	"ignore"	:
 	[
-		"WorkshopData",
-		"WIP Models",
+		"/WorkshopData/*",
+		"/WIP Models/*",
 		"fgd",
-		"Docs",
+		"/Docs/*",
 		"*.svn*"
 	]
 }
