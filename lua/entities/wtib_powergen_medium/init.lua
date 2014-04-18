@@ -87,7 +87,8 @@ function ENT:Think()
 	WTib.TriggerOutput(self,"Boosting", self:GetIsBoosting() and 1 or 0)
 	
 	self:SetRawTiberiumAmount(RawTiberium)
-	self:SetLiquidTiberiumAmount(Liquids)
+	// Why?
+	if type(self.SetLiquidTiberiumAmount) == "function" then self:SetLiquidTiberiumAmount(Liquids) else ErrorNoHalt("Invalid SetLiquidAmount on PowerGen : '" .. type(self.SetLiquidTiberiumAmount) .. "'") end
 	
 end
 
