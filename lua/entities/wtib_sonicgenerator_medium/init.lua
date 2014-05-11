@@ -179,7 +179,7 @@ function WTib_SonicGenerator_TiberiumCanGrow(class, pos)
 	
 	for _,v in pairs(ents.FindByClass("wtib_sonicgenerator_*")) do
 	
-		if pos:Distance(v:GetPos()) <= v.dt:GetRange() then
+		if pos:Distance(v:GetPos()) <= v:GetRange() then
 			
 			if v:PreventCrystalSpawn(pos, class) then
 			
