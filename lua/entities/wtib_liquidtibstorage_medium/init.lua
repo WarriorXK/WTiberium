@@ -20,6 +20,7 @@ function ENT:Initialize()
 	
 	WTib.RegisterEnt(self,"Storage")
 	WTib.AddResource(self,"LiquidTiberium",3000)
+	
 end
 
 function ENT:SpawnFunction(p,t)

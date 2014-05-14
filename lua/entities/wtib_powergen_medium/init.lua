@@ -33,44 +33,44 @@ end
 
 function ENT:CommonInit()
 
-	self.Inputs = WTib.CreateInputs(self,{"On","Boost"})
-	self.Outputs = WTib.CreateOutputs(self,{"Online","Raw Tiberium","Liquid Tiberium","Boosting"})
+	self.Inputs = WTib.CreateInputs(self, {"On", "Boost"})
+	self.Outputs = WTib.CreateOutputs(self, {"Online", "Raw Tiberium", "Liquid Tiberium", "Boosting"})
 	
-	WTib.RegisterEnt(self,"Generator")
-	WTib.AddResource(self,"RawTiberium",0)
-	WTib.AddResource(self,"LiquidTiberium",0)
-	WTib.AddResource(self,"energy",0)
+	WTib.RegisterEnt(self, "Generator")
+	WTib.AddResource(self, "RawTiberium", 0)
+	WTib.AddResource(self, "LiquidTiberium", 0)
+	WTib.AddResource(self, "energy", 0)
 
 end
 
 function ENT:SpawnFunction(p,t)
-	return WTib.SpawnFunction(p,t,self)
+	return WTib.SpawnFunction(p, t, self)
 end
 
 function ENT:Think()
 
-	local RawTiberium = WTib.GetResourceAmount(self,"RawTiberium")
-	local Liquids = WTib.GetResourceAmount(self,"LiquidTiberium")
+	local RawTiberium = WTib.GetResourceAmount(self, "RawTiberium")
+	local Liquids = WTib.GetResourceAmount(self, "LiquidTiberium")
 	
 	if self:GetIsOnline() and self.NextSupply <= CurTime() then
 	
 		if RawTiberium >= self.RawTiberiumRequired then
 		
-			WTib.ConsumeResource(self,"ChemicalTiberium", self.RawTiberiumRequired)
+			WTib.ConsumeResource(self, "ChemicalTiberium", self.RawTiberiumRequired)
 			local EnergyToSupply = self.EnergySupply
 			
 			RawTiberium = RawTiberium - self.RawTiberiumRequired
 			
 			if self:GetIsBoosting() and Liquids >= 10 then
 			
-				WTib.ConsumeResource(self,"LiquidTiberium", self.LiquidBoostRequired)
+				WTib.ConsumeResource(self, "LiquidTiberium", self.LiquidBoostRequired)
 				EnergyToSupply = EnergyToSupply + self.EnergyBoostSupply
 				
 				Liquids = Liquids - self.LiquidBoostRequired
 				
 			end
 			
-			WTib.SupplyResource(self,"energy", EnergyToSupply)
+			WTib.SupplyResource(self, "energy", EnergyToSupply)
 			
 		else
 		
@@ -79,16 +79,14 @@ function ENT:Think()
 		end
 		
 		self.NextSupply = CurTime()+1
-		
 	end
 	
-	WTib.TriggerOutput(self,"Raw Tiberium", RawTiberium)
-	WTib.TriggerOutput(self,"Liquid Tiberium", Liquids)
-	WTib.TriggerOutput(self,"Boosting", self:GetIsBoosting() and 1 or 0)
+	WTib.TriggerOutput(self, "Raw Tiberium", RawTiberium)
+	WTib.TriggerOutput(self, "Liquid Tiberium", Liquids)
+	WTib.TriggerOutput(self, "Boosting", self:GetIsBoosting() and 1 or 0)
 	
 	self:SetRawTiberiumAmount(RawTiberium)
-	// Why?
-	if type(self.SetLiquidTiberiumAmount) == "function" then self:SetLiquidTiberiumAmount(Liquids) else ErrorNoHalt("Invalid SetLiquidAmount on PowerGen : '" .. type(self.SetLiquidTiberiumAmount) .. "'") end
+	self:SetLiquidTiberiumAmount(Liquids)
 	
 end
 
@@ -113,7 +111,7 @@ function ENT:TurnOn()
 	end
 	
 	self:SetIsOnline(true)
-	WTib.TriggerOutput(self,"Online",1)
+	WTib.TriggerOutput(self, "Online", 1)
 	
 end
 
@@ -130,7 +128,7 @@ function ENT:TurnOff()
 	end
 	
 	self:SetIsOnline(false)
-	WTib.TriggerOutput(self,"Online",0)
+	WTib.TriggerOutput(self, "Online", 0)
 	
 end
 
