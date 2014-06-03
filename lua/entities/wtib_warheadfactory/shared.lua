@@ -10,11 +10,11 @@ ENT.AdminSpawnable	= true
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:NetworkVar("Int",0,"EnergyAmount")
-	self:NetworkVar("Int",1,"RawTiberiumAmount")
-	self:NetworkVar("Int",2,"RefinedTiberiumAmount")
-	self:NetworkVar("Int",3,"ChemicalsAmount")
-	self:NetworkVar("Float",0,"LiquidAmount")
+	self:NetworkVar("Int", 0, "EnergyAmount")
+	self:NetworkVar("Int", 1, "RawTiberiumAmount")
+	self:NetworkVar("Int", 2, "RefinedTiberiumAmount")
+	self:NetworkVar("Int", 3, "ChemicalsAmount")
+	self:NetworkVar("Int", 4, "LiquidAmount")
 end
 
 WTib.Factory.AddObject({
@@ -42,7 +42,7 @@ WTib.Factory.AddObject({
 			undo.Create(Obj.Class)
 				undo.AddEntity(ent)
 				undo.SetPlayer(ply)
-				undo.SetCustomUndoText("Undone "..Obj.Name)
+				undo.SetCustomUndoText("Undone " .. Obj.Name)
 			undo.Finish()
 		end
 		
