@@ -73,23 +73,28 @@ end
 function ENT:Think()
 
 	if self:GetIsBuilding() then
-	
+
 		if self.LastBuild+WTib.Factory.GetObjectByID(self:GetBuildingID()).PercentDelay <= CurTime() then
 		
 			self:SetPercentageComplete(self:GetPercentageComplete() + 1)
 			
 			if self:GetPercentageComplete() >= 100 then
 			
-				local ply
-				if IsValid(self:GetCurObject().WDSO) and self:GetCurObject().WDSO:IsPlayer() then ply = self:GetCurObject().WDSO end
-				
-				// Call the function that creates the actual entity
-				local ent = WTib.Factory.GetObjectByID(self:GetBuildingID()).CreateEnt(self, self:GetCurObject():GetAngles(), self:GetCurObject():GetPos(), self:GetBuildingID(), ply)
-				ent.WDSO = self:GetCurObject().WDSO
-				
-				// Remove the fake object
-				self:GetCurObject():Remove()
-				self:SetCurObject(nil)
+				// Make sure that the player or something else didn't delete the builder object
+				if (IsValid(self:GetCurObject())) then
+
+					local ply
+					if IsValid(self:GetCurObject().WDSO) and self:GetCurObject().WDSO:IsPlayer() then ply = self:GetCurObject().WDSO end
+					
+					// Call the function that creates the actual entity
+					local ent = WTib.Factory.GetObjectByID(self:GetBuildingID()).CreateEnt(self, self:GetCurObject():GetAngles(), self:GetCurObject():GetPos(), self:GetBuildingID(), ply)
+					ent.WDSO = self:GetCurObject().WDSO
+					
+					// Remove the fake object
+					self:GetCurObject():Remove()
+					self:SetCurObject(nil)
+
+				end
 				
 				// Reset some factory values
 				self:SetIsBuilding(false)

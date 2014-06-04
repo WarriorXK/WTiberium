@@ -19,7 +19,7 @@ function WTib.ToolTipDraw()
 	
 	local tr = LocalPlayer():GetEyeTrace()
 	
-	if tr.Hit and tr.Entity and IsValid(tr.Entity) and tr.Entity.WTib_GetTooltip and EyePos():Distance(tr.Entity:GetPos()) < WTib.ToolTipsRange:GetInt() then
+	if tr and tr.Hit and tr.Entity and IsValid(tr.Entity) and tr.Entity.WTib_GetTooltip and EyePos():Distance(tr.Entity:GetPos()) < WTib.ToolTipsRange:GetInt() then
 		
 		local p = tr.HitPos
 		if WTib.UseOldToolTips:GetBool() then
@@ -30,7 +30,7 @@ function WTib.ToolTipDraw()
 		local status, err = pcall(function() tip = tr.Entity:WTib_GetTooltip() end)
 		if !status then tip = err end
 		
-		AddWorldTip(tr.Entity:EntIndex(),tip,0.5,p,self)
+		AddWorldTip(tr.Entity:EntIndex(), tip, 0.5, p, self)
 		
 	end
 	
@@ -48,10 +48,10 @@ end
 
 function WTib.AddClientMenu()
 
-	spawnmenu.AddToolCategory("Options","WTiberium Options","WTiberium Options")
+	spawnmenu.AddToolCategory("Options", "WTiberium Options", "WTiberium Options")
 	
-	spawnmenu.AddToolMenuOption("Options","WTiberium Options","WTibAdminOptions","Administrative Options","","",WTib.PopulateAdminOptions)
-	spawnmenu.AddToolMenuOption("Options","WTiberium Options","WTibClientOptions","Client Options","","",WTib.PopulateClientOptions)
+	spawnmenu.AddToolMenuOption("Options", "WTiberium Options", "WTibAdminOptions", "Administrative Options", "", "", WTib.PopulateAdminOptions)
+	spawnmenu.AddToolMenuOption("Options", "WTiberium Options", "WTibClientOptions", "Client Options", "", "", WTib.PopulateClientOptions)
 	
 end
 hook.Add("AddToolMenuTabs", "WTib.AddClientMenu", WTib.AddClientMenu)
@@ -79,7 +79,7 @@ function WTib.PopulateAdminOptions(Panel)
 		end)
 	else
 	
-		Panel:AddControl("Label", {Text="This panel is only available for admins"} )
+		Panel:AddControl("Label", {Text = "This panel is only available for admins"} )
 		
 	end
 	

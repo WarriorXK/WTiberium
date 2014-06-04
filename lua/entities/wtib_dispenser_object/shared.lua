@@ -10,11 +10,11 @@ ENT.AdminSpawnable	= false
 ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
-	self:NetworkVar("Entity",0,"Dispenser")
+	self:NetworkVar("Entity", 0, "Dispenser")
 end
 
-hook.Add("PhysgunPickup","WTib_Dispenser_CanPickupEnt_object",function(ply,ent)
-	if ent:GetClass() == "wtib_dispenser_object" then
+hook.Add("PhysgunPickup","WTib_Dispenser_CanPickupEnt_object",function(ply, ent)
+	if IsValid(ent) and ent:GetClass() == "wtib_dispenser_object" then
 		return false
 	end
 end)
