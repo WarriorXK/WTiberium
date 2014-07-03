@@ -43,7 +43,7 @@ function ENT:CommonInit()
 
 end
 
-function ENT:SpawnFunction(p,t)
+function ENT:SpawnFunction(p, t)
 	return WTib.SpawnFunction(p, t, self)
 end
 
@@ -132,7 +132,7 @@ function ENT:TurnOff()
 	
 end
 
-function ENT:TriggerInput(name,val)
+function ENT:TriggerInput(name, val)
 
 	if name == "On" then
 	
@@ -148,4 +148,8 @@ function ENT:TriggerInput(name,val)
 		
 	end
 	
+end
+
+function ENT:SetLiquidTiberiumAmount(val) 
+	return self:SetDTInt(1, val);
 end

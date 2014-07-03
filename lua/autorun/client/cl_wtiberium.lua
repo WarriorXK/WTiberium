@@ -111,9 +111,9 @@ NotifySounds[NOTIFY_ERROR] = function() return "buttons/button10.wav" end
 
 function WTib.Notify(txt, typ)
 	
-	notification.AddLegacy( txt, err, 5 )
+	notification.AddLegacy( txt, typ, 5 )
 	
-	if NotifySounds[err] then surface.PlaySound(NotifySounds[err]()) end
+	if NotifySounds[typ] then surface.PlaySound(NotifySounds[typ]()) end
 	
 end
 

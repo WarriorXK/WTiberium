@@ -16,6 +16,10 @@ function ENT:SetupDataTables()
 	self:NetworkVar("Bool", 1, "IsBoosting")
 end
 
+function ENT:GetLiquidTiberiumAmount() 
+	return self:GetDTInt(1);
+end
+
 WTib.Factory.AddObject({
 	Name = ENT.PrintName,
 	Class = WTib.GetClass(ENT),
