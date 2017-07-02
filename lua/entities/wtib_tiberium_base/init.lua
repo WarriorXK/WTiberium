@@ -26,7 +26,6 @@ function ENT:Think()
 	
 		self:AddTiberiumAmount(self.Growth_Addition)
 		self.NextGrow = CurTime()+self.Growth_Delay
-		
 	end
 
 	self:DamageTouchingEntities()
@@ -37,24 +36,9 @@ function ENT:Think()
 end
 
 function ENT:CalcSize()
-
 	local LocalScale = (self:GetTiberiumAmount() / self:GetMaxTiberiumAmount())
 	local FieldScale = 1 // Todo: Scale by distance from center
 	self:SetCrystalSize(LocalScale * FieldScale)
-	
-end
-
-function ENT:CheckColor()
-
-	local Col = self:GetColor()
-	
-	self:SetRenderMode(self.RenderMode)
-	self:SetColor(Color(
-		math.Approach(Col.r, self.TiberiumColor.r, 5),
-		math.Approach(Col.g, self.TiberiumColor.g, 5),
-		math.Approach(Col.b, self.TiberiumColor.b, 5),
-		math.Approach(Col.a, ((self:GetTiberiumAmount()/self:GetColorDevider())/2) + 75, 2))
-	)
 	
 end
 
@@ -197,7 +181,7 @@ function ENT:AttemptReproduce()
 end
 
 function ENT:CanReproduce()
-
+	
 	if WTib.IsFieldFull(self:GetField()) then return false end
 	
 	local Amount = 0
@@ -226,23 +210,23 @@ function ENT:SetField(num)
 	self:SetTiberiumFieldID(num)
 end
 
-function ENT:SetTiberiumAmount(am)
-
-	if am <= 0 then self:Die() return end
-	
-	self:SetTiberiumAmount(math.Clamp(am,1,self:GetMaxTiberiumAmount()))
-	
-	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
-	
-	self:CalcSize()
-	self:CheckColor()
-	
-end
-
 function ENT:AddTiberiumAmount(am)
-	self:SetTiberiumAmount(self:GetTiberiumAmount() + am)
+	self:SetTiberiumAmount(math.Clamp(self:GetTiberiumAmount() + am,0,self:GetMaxTiberiumAmount()))
+	if self.NextReproduce <= CurTime() and self:GetTiberiumAmount() >= self.Reproduce_TiberiumRequired then self:AttemptReproduce() end // Check if we should reproduce
+	self:CalcSize()
 end
+
+local TibSize = 1
+local LastTibSize = TibSize
 
 function ENT:DrainTiberiumAmount(am)
-	self:SetTiberiumAmount(self:GetTiberiumAmount() - am)
+	TibSize = math.Approach(LastTibSize, self:GetTiberiumAmount(), .05)
+	LastTibSize = TibSize
+	print(TibSize)
+
+	self:SetTiberiumAmount(math.Clamp(self:GetTiberiumAmount() - am,0,self:GetMaxTiberiumAmount()))
+
+	if TibSize <= 0 then self:Die() return end
+
+	self:CalcSize()
 end

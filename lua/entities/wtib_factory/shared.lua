@@ -7,7 +7,7 @@ ENT.Purpose			= "This factory creates all entities used in the Tiberium pack"
 ENT.Instructions	= "Place the Factory and use the panel to select an entity to create"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
+ENT.Category	= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"BuildingID")

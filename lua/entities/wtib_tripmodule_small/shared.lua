@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "The Tiberium Radiation Induction Panel (TRIP) converts the radiation that is emitted by Tiberium crystals into energy"
 ENT.Instructions	= "Point the TRIP towards Tiberium crystals and link it up to an energy storage module"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"EnergyAmount")

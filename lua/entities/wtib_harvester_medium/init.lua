@@ -10,7 +10,7 @@ util.PrecacheSound("apc_engine_stop")
 ENT.HarvestParents = false
 ENT.MaxDrain = 200
 ENT.Range = 200
-
+ENT.Focus = 40
 ENT.NextHarvest = 0
 
 function ENT:Initialize()
@@ -48,10 +48,9 @@ end
 
 function ENT:Harvest()
 
-	local SPos = self:GetPos()
-	
-	for _,v in pairs(ents.FindInCone(self:GetPos(),self:GetUp(),self.Range,10)) do
-	
+	--local Stuffz = ents.FindInCone(self:GetPos(),self:GetUp(),self.Range,10)
+
+	for _,v in pairs(ents.FindInSphere(self:GetPos()+(self:GetUp()*(self.Range)),self.Range)) do
 		if v.IsTiberium then
 		
 			local Drain = math.min(v:GetTiberiumAmount(),self.MaxDrain)
@@ -64,12 +63,19 @@ function ENT:Harvest()
 
 					WTib.ConsumeResource(self,"energy",Drain*1.2)
 					WTib.SupplyResource(self,"RawTiberium",Drain)
-					v:SetTiberiumAmount(v:GetTiberiumAmount()-Drain)
+					v:DrainTiberiumAmount(Drain)
+					
+					local ed = EffectData()
+						ed:SetEntity(self)
+						ed:SetStart(self:GetPos()+(self:GetUp()*self.Focus))
+						ed:SetOrigin(v:GetPos())
+						ed:SetScale(2)
+						ed:SetMagnitude(1)
+					util.Effect("wtib_debugtrace", ed)
 					
 				end
 				
 			else
-			
 				self:TurnOff()
 				break
 				

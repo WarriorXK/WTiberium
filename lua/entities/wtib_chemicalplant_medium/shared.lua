@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Uses 50 energy to convert 150 Raw Tiberium into 100 units of poisonous chemical gasses"
 ENT.Instructions	= "Link the Chemical Plant to the required resources and turn it on"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"EnergyAmount")

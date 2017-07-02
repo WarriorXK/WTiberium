@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "To locate Tiberium Crystals and Tiberium Parent Crystals up to 10000 units away"
 ENT.Instructions	= "Supply the radar with Energy and turn it on, using wiremod you can read out the values"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Bool",0,"IsOnline")

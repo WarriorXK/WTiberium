@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "This module stores 3000 units of Liquid Tiberium"
 ENT.Instructions	= "Link this storage unit to a network that requires additional Liquid Tiberium storage"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"LiquidTiberiumAmount")

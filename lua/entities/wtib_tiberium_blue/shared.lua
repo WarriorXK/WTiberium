@@ -36,6 +36,4 @@ ENT.Growth_Delay	= 10
 ENT.DecalSize	= 1
 ENT.Decal		= ""
 
-ENT.RenderMode  = RENDERMODE_TRANSALPHA
-
 list.Set("WTib_Tools_Crystals", ENT.PrintName, { wtib_tool_crystals_type = WTib.GetClass(ENT) })

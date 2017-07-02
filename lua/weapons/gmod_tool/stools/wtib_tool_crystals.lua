@@ -4,6 +4,7 @@ TOOL.Category		= "WTiberium"
 TOOL.Name			= "#tool." .. ToolClass .. ".listname"
 TOOL.Command		= nil
 TOOL.ConfigName		= ""
+if (CLIENT and GetConVarNumber("CAF_UseTab") == 1) then TOOL.Tab = "Custom Addon Framework" end
 
 TOOL.ClientConVar[ "type" ] = ""
 

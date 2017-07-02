@@ -1,5 +1,4 @@
 ENT.Type			= "anim"
-
 ENT.PrintName		= "Tiberium Base"
 ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
@@ -25,7 +24,6 @@ ENT.TiberiumStartAmount	= 400
 ENT.MaxTiberiumAmount	= 2000
 ENT.TiberiumColor		= Color(0,0,0,0)
 ENT.ClassToSpawn		= "wtib_tiberium_base"
-ENT.Models				= ""
 
 ENT.Growth_Addition	= 30
 ENT.Growth_Delay	= 10
