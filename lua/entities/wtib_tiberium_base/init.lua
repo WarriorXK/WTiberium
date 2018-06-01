@@ -216,17 +216,16 @@ function ENT:AddTiberiumAmount(am)
 	self:CalcSize()
 end
 
-local TibSize = 1
-local LastTibSize = TibSize
+ENT.TibSize = 1
+ENT.LastTibSize = TibSize
 
 function ENT:DrainTiberiumAmount(am)
-	TibSize = math.Approach(LastTibSize, self:GetTiberiumAmount(), .05)
-	LastTibSize = TibSize
-	print(TibSize)
+	ENT.TibSize = math.Approach(ENT.LastTibSize, self:GetTiberiumAmount(), .05)
+	ENT.LastTibSize = ENT.TibSize
 
 	self:SetTiberiumAmount(math.Clamp(self:GetTiberiumAmount() - am,0,self:GetMaxTiberiumAmount()))
 
-	if TibSize <= 0 then self:Die() return end
+	if ENT.TibSize <= 0 then self:Die() return end
 
 	self:CalcSize()
 end

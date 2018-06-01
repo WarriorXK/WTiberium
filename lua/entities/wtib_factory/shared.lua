@@ -7,7 +7,7 @@ ENT.Purpose			= "This factory creates all entities used in the Tiberium pack"
 ENT.Instructions	= "Place the Factory and use the panel to select an entity to create"
 ENT.Spawnable		= true
 ENT.AdminSpawnable	= true
-ENT.Category	= "Tiberium"
+ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"BuildingID")
@@ -33,4 +33,5 @@ hook.Add("PhysgunPickup", "WTib_Factory_PhysgunPickup", function(ply, ent)
 	end
 end)
 
-list.Set("WTib_Tools_Generators", ENT.PrintName, { wtib_tool_generators_type = WTib.GetClass(ENT) })
+-- Is isivisible and doesnt work if spawned from the tool.
+--list.Set("WTib_Tools_Generators", ENT.PrintName, { wtib_tool_generators_type = WTib.GetClass(ENT) })
