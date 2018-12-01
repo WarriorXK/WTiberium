@@ -220,12 +220,12 @@ ENT.TibSize = 1
 ENT.LastTibSize = TibSize
 
 function ENT:DrainTiberiumAmount(am)
-	ENT.TibSize = math.Approach(ENT.LastTibSize, self:GetTiberiumAmount(), .05)
-	ENT.LastTibSize = ENT.TibSize
+	self.TibSize = math.Approach(self.LastTibSize, self:GetTiberiumAmount(), .05)
+	self.LastTibSize = self.TibSize
 
 	self:SetTiberiumAmount(math.Clamp(self:GetTiberiumAmount() - am,0,self:GetMaxTiberiumAmount()))
 
-	if ENT.TibSize <= 0 then self:Die() return end
+	if self.TibSize <= 0 then self:Die() return end
 
 	self:CalcSize()
 end
