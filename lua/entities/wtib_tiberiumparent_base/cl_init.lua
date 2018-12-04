@@ -4,7 +4,7 @@ ENT.RenderGroup = RENDERGROUP_BOTH
 
 ENT.NextLight = 0
 
-function ENT:Draw()
+function ENT:DrawTranslucent()
 	self:DrawModel()
 end
 

@@ -3,12 +3,8 @@ ENT.Base			= "base_entity"
 ENT.PrintName		= "Tiberium Liquefier"
 ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
-ENT.Purpose			= "Uses energy to convert Raw Tiberium into Liquid Tiberium"
 ENT.Purpose			= "Uses 450 energy to convert 150 Raw Tiberium into 15 units of Liquid Tiberium"
 ENT.Instructions	= "Link the liquefier to the required resources and turn it on"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"EnergyAmount")

@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Use this dispenser to create infantry weapons, ammunition and other miscellaneous goods"
 ENT.Instructions	= "Place the Dispenser and activate it, from the UI select the entity that needs to be created"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"BuildingID")

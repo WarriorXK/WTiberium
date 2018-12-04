@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture"	"vgui/entities/wtib_factory"
+	"$vertexcolor"	1
+	"$vertexalpha"	0
+	"$nolod"	1
+}

@@ -33,4 +33,5 @@ hook.Add("PhysgunPickup", "WTib_Factory_PhysgunPickup", function(ply, ent)
 	end
 end)
 
-list.Set("WTib_Tools_Generators", ENT.PrintName, { wtib_tool_generators_type = WTib.GetClass(ENT) })
+-- Is isivisible and doesnt work if spawned from the tool.
+--list.Set("WTib_Tools_Generators", ENT.PrintName, { wtib_tool_generators_type = WTib.GetClass(ENT) })

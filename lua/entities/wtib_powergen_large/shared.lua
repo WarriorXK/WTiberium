@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Generates 600 Energy in exchange for 100 Raw Tiberium, can be boosted with 20 Liquid Tiberium for an extra 800 Energy units"
 ENT.Instructions	= "Link the Power Generator to the required resources and turn it on"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"RawTiberiumAmount")

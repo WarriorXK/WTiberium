@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Uses a lot of energy to generate a sonic field of up to 1000 units large that prevents Tiberium crystals from growing"
 ENT.Instructions	= "Link the SFG to an energy source and turn it on, use wiremod to change the range of the SFG"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"Range")

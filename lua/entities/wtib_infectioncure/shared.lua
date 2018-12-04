@@ -4,9 +4,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Cures infected players from a Tiberium infection and restores up to 20 health points"
 ENT.Instructions	= "Activate or touch the entity to use it"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 WTib.Dispenser.AddObject({
 	Name = ENT.PrintName,

@@ -3,11 +3,6 @@ ENT.Base			= "wtib_tiberiumparent_base"
 ENT.PrintName		= "Tiberium Parent Blue"
 ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
-ENT.Purpose			= ""
-ENT.Instructions	= ""
-ENT.Spawnable		= false
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 ENT.IsTiberium		= true
 ENT.IsTiberiumParent= true
 

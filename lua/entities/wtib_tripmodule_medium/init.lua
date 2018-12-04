@@ -42,10 +42,10 @@ function ENT:Think()
 
 	local Count = 0
 	local EnergyToAdd = 0
-	for _,v in pairs(ents.FindInCone(self:GetPos(),self:GetForward(),625,25)) do
-	
+
+	for _,v in pairs(ents.FindInSphere(self:GetPos()+(self:GetForward()*(626)),625)) do
+
 		if v.IsTiberium then
-		
 			if v.IsTiberiumParent then
 				EnergyToAdd = EnergyToAdd + 3
 			else
@@ -69,9 +69,8 @@ function ENT:Think()
 	WTib.TriggerOutput(self,"Online", self:GetIsOnline() and 1 or 0)
 	WTib.TriggerOutput(self,"Energy", Energy)
 	
-	self:NextThink(CurTime()+1)
+	self:NextThink(CurTime()+1)	
 	return true
-	
 end
 
 function ENT:OnRestore()

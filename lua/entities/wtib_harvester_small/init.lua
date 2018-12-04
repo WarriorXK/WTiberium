@@ -9,6 +9,7 @@ util.PrecacheSound("apc_engine_stop")
 
 ENT.MaxDrain = 100
 ENT.Range = 100
+ENT.Focus = 20
 
 function ENT:Initialize()
 

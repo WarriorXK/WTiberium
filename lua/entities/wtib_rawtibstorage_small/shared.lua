@@ -5,9 +5,7 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "This module stores 1000 units of Raw Tiberium"
 ENT.Instructions	= "Link this storage unit to a network that requires additional Raw Tiberium storage"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
+
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"RawTiberiumAmount")

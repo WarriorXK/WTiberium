@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Harvests Tiberium Crystals using energy"
 ENT.Instructions	= "Link the harvester to an energy source, point it towards a Tiberium Crystals and activate it"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int",0,"EnergyAmount")

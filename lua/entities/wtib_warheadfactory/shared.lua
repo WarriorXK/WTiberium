@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "The warhead factory produces custom made warheads to use with the missiles"
 ENT.Instructions	= "Place the warhead factory and link it up to all requires resources, then use the factory and create the warhead using the UI"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Int", 0, "EnergyAmount")

@@ -63,9 +63,9 @@ function ENT:Think()
 		for _,v in pairs(ents.FindInSphere(self:GetPos(),self:GetRange())) do
 		
 			if WTib.IsValid(v) then
-			
+
 				if v.IsTiberium then
-				
+
 					local Add = math.random(self.MinAccelerationAmount, self.MaxAccelerationAmount)
 					TotalAdded = TotalAdded + Add
 					Ents[v] = Add

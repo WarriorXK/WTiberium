@@ -5,9 +5,6 @@ ENT.Author			= "kialtia/WarriorXK"
 ENT.Contact			= ""
 ENT.Purpose			= "Fire this missile using the Missile Launcher"
 ENT.Instructions	= "Load this missile by touching it to a launcher"
-ENT.Spawnable		= true
-ENT.AdminSpawnable	= true
-ENT.Category		= "Tiberium"
 ENT.WTib_IsMissile	= true
 
 WTib.Factory.AddObject({
